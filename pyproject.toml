@@ -4,4 +4,87 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
+    "fastapi[standard]>=0.135.2",
+    "psycopg2>=2.9.11",
+    "pydantic-settings>=2.13.1",
+    "pydantic[email]>=2.12.5",
+    "sqlalchemy>=2.0.48",
+    "uvicorn>=0.42.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.8",
+]
+
+
+[tool.ruff]
+line-length = 79
+indent-width = 4
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "E501", "I"]
+ignore = []
+fixable = ["ALL"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+
+exclude = [
+    "tests/",
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+
+[tool.mypy]
+disallow_subclassing_any = false
+ignore_missing_imports = true
+disable_error_code = "import-untyped,misc,no-any-return"
+strict = true
+exclude = [
+    "\\.git",
+    "\\.venv",
+    "\\.idea",
+    "tests/",
+    "\\.cache",
+    "build",
+    "dist",
+    "scripts",
+]
