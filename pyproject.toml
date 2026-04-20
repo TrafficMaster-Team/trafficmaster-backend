@@ -20,71 +20,59 @@ dev = [
     "mypy>=1.19.1",
     "pytest>=9.0.2",
     "ruff>=0.15.8",
+    "pre-commit",
 ]
 
-
-[tool.ruff]
-line-length = 79
-indent-width = 4
-target-version = "py312"
-[tool.ruff.lint]
-select = ["E4", "E7", "E9", "F", "E501", "I"]
-ignore = []
-fixable = ["ALL"]
-
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
-docstring-code-format = true
-docstring-code-line-length = "dynamic"
-
-
-exclude = [
-    "tests/",
-    ".bzr",
-    ".direnv",
-    ".eggs",
-    ".git",
-    ".git-rewrite",
-    ".hg",
-    ".ipynb_checkpoints",
-    ".mypy_cache",
-    ".nox",
-    ".pants.d",
-    ".pyenv",
-    ".pytest_cache",
-    ".pytype",
-    ".ruff_cache",
-    ".svn",
-    ".tox",
-    ".venv",
-    ".vscode",
-    "__pypackages__",
-    "_build",
-    "buck-out",
-    "build",
-    "dist",
-    "node_modules",
-    "site-packages",
-    "venv",
-]
 
 
 [tool.mypy]
-disallow_subclassing_any = false
-ignore_missing_imports = true
-disable_error_code = "import-untyped,misc,no-any-return"
+mypy_path = "src"
+plugins = "pydantic.mypy"
+files = ["src"]
+exclude = ["src/trafficmaster/setup/config/"]
+python_version = "3.12"
+
 strict = true
-exclude = [
-    "\\.git",
-    "\\.venv",
-    "\\.idea",
-    "tests/",
-    "\\.cache",
-    "build",
-    "dist",
-    "scripts",
-]
+pretty = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+allow_redefinition = true
+allow_untyped_calls = true
+disallow_any_explicit = false
+disallow_any_generics = false
+disallow_subclassing_any = false
+disallow_untyped_decorators = false
+show_error_codes = true
+show_error_context = true
+show_column_numbers = true
+check_untyped_defs = true
+namespace_packages = true
+ignore_missing_imports = true
+
+
+[tool.ruff]
+src = ["src"]
+include = ["src/**.py", "tests/**.py"]
+exclude = ["src/trafficmaster/setup/config/**.py"]
+target-version = "py312"
+line-length = 120
+fix = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D", "CPY001", "A005", "TRY003", "COM812", "FBT001", "FBT003", "PLR0913", "RUF001"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/trafficmaster/infrastructure/persistence/migrations/**" = ["ERA001", "INP001", "E501", "PLC0415"]
+"src/trafficmaster/presentation/http/v1/routes/documents/create_documents/handlers.py" = ["S311"]
+"tests/**" = ["S101", "PLR2004", "S106"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "tests"]
+no-lines-before = ["local-folder"]
+

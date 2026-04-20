@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 
 
 
