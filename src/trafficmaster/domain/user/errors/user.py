@@ -1,0 +1,19 @@
+from trafficmaster.domain.common.errors import DomainFieldError
+
+
+class EmailNotValidError(DomainFieldError): ...
+
+
+class TooBigUsernameError(DomainFieldError): ...
+
+
+class TooSmallUsernameError(DomainFieldError): ...
+
+
+class UsernameCantBeEmptyError(DomainFieldError): ...
+
+
+class BadUsernameError(DomainFieldError): ...
+
+
+class WrongUserEmailFormatError(DomainFieldError): ...

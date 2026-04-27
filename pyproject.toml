@@ -19,7 +19,7 @@ dependencies = [
 dev = [
     "mypy>=1.19.1",
     "pytest>=9.0.2",
-    "ruff>=0.15.8",
+    "ruff>=0.15.11",
     "pre-commit",
 ]
 
@@ -31,6 +31,7 @@ plugins = "pydantic.mypy"
 files = ["src"]
 exclude = ["src/trafficmaster/setup/config/"]
 python_version = "3.12"
+explicit_package_bases = true
 
 strict = true
 pretty = true
@@ -75,4 +76,3 @@ docstring-code-format = true
 [tool.ruff.lint.isort]
 known-first-party = ["src", "tests"]
 no-lines-before = ["local-folder"]
-

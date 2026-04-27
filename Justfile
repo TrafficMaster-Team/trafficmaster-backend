@@ -9,7 +9,7 @@ default:
 @bootstrap:
 	cp .env.dist .env
 	python3 -m pip install uv
-	uv pip install -e "[dev]"
+	uv sync --group dev
 	pre-commit install
 
 #Lint files
@@ -21,14 +21,18 @@ default:
 @up:
 	docker compose -f {{ DOCKER_COMPOSE_DEV }} up --build -d
 
+#Stop docker container
 @stop:
 	docker compose -f {{ DOCKER_COMPOSE_DEV }} stop
 
+#Down docker container
 @down:
 	docker compose -f {{ DOCKER_COMPOSE_DEV }} down
 
+#Static mypy check
 @static:
 	mypy --config-file pyproject.toml
 
+#Run tests
 @test:
 	pytest tests/
