@@ -2,6 +2,7 @@ from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Final
 
 from trafficmaster.domain.user.entities.user import User
+from trafficmaster.domain.user.errors.user import RoleAssignmentNotPermittedError
 from trafficmaster.domain.user.ports.id_generator import UserIDGenerator
 from trafficmaster.domain.user.ports.password_hasher import PasswordHasher
 from trafficmaster.domain.user.values.raw_password import RawPassword
@@ -27,6 +28,11 @@ class UserService:
         role: UserRole = UserRole.USER,
     ) -> User:
         """Fabric method for creating a new user."""
+
+        if not role.is_assignable:
+            msg = "You cannot assign this role to user."
+            raise RoleAssignmentNotPermittedError(msg)
+
         hashed_password: HashedPassword = self._password_hasher.hash_password(password=raw_password)
         user_id: UserID = self._id_generator()
         return User(
@@ -52,12 +58,6 @@ class UserService:
         """Method for changing user's email."""
 
         user.email = email
-        user.updated_at = datetime.now(UTC)
-
-    def change_role(self, user: User, role: UserRole) -> None:
-        """Method for changing user's role."""
-
-        user.role = role
         user.updated_at = datetime.now(UTC)
 
     def change_name(self, user: User, name: Username) -> None:
