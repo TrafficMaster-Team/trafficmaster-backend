@@ -20,7 +20,7 @@ class Deck(BaseEntity[DeckID]):
     """
 
     owner_id: UserID
-    deck_config: DeckConfigID
+    deck_config_id: DeckConfigID
     title: DeckTitle
     description: str | None
     is_public: bool

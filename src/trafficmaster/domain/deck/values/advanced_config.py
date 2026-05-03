@@ -26,7 +26,7 @@ class AdvancedConfig(BaseValueObject):
     @override
     def _validate(self) -> None:
         if self.max_interval < MIN_MAX_INTERVAL:
-            msg = "Interval cannot be greater than minimum interval length (1)"
+            msg = "Interval cannot be less than minimum interval length (1)"
             raise TooLowMaxIntervalError(msg)
 
         if self.ease_factor < MIN_EASE_FACTOR:

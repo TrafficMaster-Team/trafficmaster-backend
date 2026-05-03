@@ -35,4 +35,4 @@ class AccessService:
     def can_manage_user(self, subject: User, target: User) -> bool:
         if subject == target:
             return True
-        return target in SUBORDINATE_ROLES.get(subject.role, set())
+        return target.role in SUBORDINATE_ROLES.get(subject.role, set())

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Final, override
 
-from trafficmaster.domain.card.errors.card import CardAnswerEmptyError, TooLongAnswerError, TooShortAnswerError
+from trafficmaster.domain.card.errors.card import CardAnswerEmptyError, TooLongAnswerError
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 
 MINIMUM_CARD_ANSWER: Final[int] = 1
@@ -22,10 +22,6 @@ class CardAnswer(BaseValueObject):
         if len(self.value) > MAXIMUM_CARD_ANSWER:
             msg = f"Answer cannot be more than {MAXIMUM_CARD_ANSWER}"
             raise TooLongAnswerError(msg)
-
-        if len(self.value) < MINIMUM_CARD_ANSWER:
-            msg = f"Answer cannot be less than {MINIMUM_CARD_ANSWER}"
-            raise TooShortAnswerError(msg)
 
     @override
     def __str__(self) -> str:

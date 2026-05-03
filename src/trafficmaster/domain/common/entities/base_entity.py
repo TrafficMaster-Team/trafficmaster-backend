@@ -1,10 +1,8 @@
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from typing import Any, TypeVar
+from typing import Any
 
 from trafficmaster.domain.common.errors import DomainError, InconsistentTimeError
-
-OIDType = TypeVar("OIDType")
 
 
 @dataclass(eq=False, kw_only=True)

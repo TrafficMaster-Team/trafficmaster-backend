@@ -31,6 +31,7 @@ class Card(BaseEntity[CardID]):
 
     def change_image_path(self, image_path: str) -> None:
         self.image_path = image_path
+        self.updated_at = datetime.now(UTC)
 
     def add_tag(self, tag: CardTag) -> None:
         self.tags.append(tag)

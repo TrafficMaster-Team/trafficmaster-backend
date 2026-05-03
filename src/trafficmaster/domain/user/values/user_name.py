@@ -49,7 +49,7 @@ class Username(BaseValueObject):
             msg = f"User name cannot be empty: {self.name}"
             raise UsernameCantBeEmptyError(msg)
 
-        if re.fullmatch(PATTERN_START, self.name):
+        if not re.match(PATTERN_START, self.name):
             msg = "Name must start with a letter or number."
             raise BadUsernameError(msg)
 
@@ -61,7 +61,7 @@ class Username(BaseValueObject):
             )
             raise BadUsernameError(msg)
 
-        if re.fullmatch(PATTERN_NO_CONCUSSIVE_CHARS, self.name):
+        if re.search(PATTERN_NO_CONCUSSIVE_CHARS, self.name):
             msg = "Name mustn't contain double concussive (dot, hyphen, underscore) characters."
             raise BadUsernameError(msg)
 

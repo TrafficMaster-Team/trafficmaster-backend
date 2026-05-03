@@ -17,4 +17,4 @@ class HashedPassword(BaseValueObject):
 
     @override
     def __str__(self) -> str:
-        return str(self.password)
+        return self.password.decode("utf-8")

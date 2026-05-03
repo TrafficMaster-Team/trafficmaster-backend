@@ -26,11 +26,11 @@ class DailyLimits(BaseValueObject):
 
         if self.new_cards_per_day < MIN_CARDS_REPETITION or self.max_reviews_per_day < MIN_CARDS_REPETITION:
             msg = "Minimum number of cards per day cannot be less than 1"
-            raise TooBigCardLimitError(msg)
+            raise TooSmallCardLimitError(msg)
 
         if self.new_cards_per_day > MAX_CARDS_REPETITION or self.max_reviews_per_day > MAX_CARDS_REPETITION:
             msg = "Maximum number of cards per day cannot be greater than 999."
-            raise TooSmallCardLimitError(msg)
+            raise TooBigCardLimitError(msg)
 
     @override
     def __str__(self) -> str:

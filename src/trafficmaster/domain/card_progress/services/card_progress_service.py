@@ -25,10 +25,10 @@ _EASE_EASY_BONUS = 0.15
 class CardProgressService:
     def __init__(
         self,
-        card_id_generator: CardProgressIdGenerator,
+        card_progress_id_generator: CardProgressIdGenerator,
         review_id_generator: ReviewIdGenerator,
     ) -> None:
-        self.card_id_generator: Final[CardProgressIdGenerator] = card_id_generator
+        self.card_progress_id_generator: Final[CardProgressIdGenerator] = card_progress_id_generator
         self.review_id_generator: Final[ReviewIdGenerator] = review_id_generator
 
     def create_card_progress(
@@ -38,7 +38,7 @@ class CardProgressService:
         default_ease_factor: EaseFactor,
     ) -> CardProgress:
         return CardProgress(
-            id=self.card_id_generator(),
+            id=self.card_progress_id_generator(),
             user_id=user_id,
             card_id=card_id,
             ease_factor=default_ease_factor,

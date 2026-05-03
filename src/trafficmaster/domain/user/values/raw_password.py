@@ -40,4 +40,4 @@ class RawPassword(BaseValueObject):
 
     @override
     def __str__(self) -> str:
-        return self.password
+        return "*" * len(self.password)
