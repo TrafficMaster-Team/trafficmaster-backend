@@ -26,7 +26,7 @@ class DeckService:
             title=title,
             description=description,
             owner_id=user_id,
-            deck_config=deck_config_id,
+            deck_config_id=deck_config_id,
             is_public=is_public,
         )
 
@@ -37,6 +37,6 @@ class DeckService:
             owner_id=new_user_id,
             title=deck.title,
             description=deck.description,
-            deck_config=deck.deck_config,
+            deck_config_id=deck.deck_config_id,
             is_public=deck.is_public,
         )

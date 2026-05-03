@@ -10,13 +10,13 @@ from trafficmaster.domain.user.values.user_id import UserID
 @dataclass
 class Deck(BaseEntity[DeckID]):
     """
-    Deck entity
+    Deck entity.
     params:
-        owner_id: id of a user,
-        title: title of a deck,
-        deck_config: id of a deck configuration,
-        description: description of a deck,
-        is_public: is this a public deck.
+        owner_id: id of the deck owner,
+        deck_config_id: id of the SRS configuration applied to this deck,
+        title: display title of the deck,
+        description: optional description,
+        is_public: whether the deck is visible to other users.
     """
 
     owner_id: UserID

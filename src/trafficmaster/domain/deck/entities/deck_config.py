@@ -13,6 +13,17 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 @dataclass
 class DeckConfig(BaseEntity[DeckConfigID]):
+    """
+    SRS configuration for a deck.
+    params:
+        owner_id: id of the user who owns this config,
+        name: display name of the configuration,
+        daily_limits: limits on new cards and reviews per day,
+        new_cards: learning steps and graduation intervals for new cards,
+        lapses: relearning steps and leech settings for forgotten cards,
+        advanced: ease factor, interval modifiers and other SRS tuning.
+    """
+
     owner_id: UserID
     name: DeckConfigName
     daily_limits: DailyLimits

@@ -10,6 +10,15 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 @dataclass
 class ReviewLog(BaseEntity[ReviewLogID]):
+    """
+    Immutable record of a single card review event.
+    params:
+        user_id: id of the user who reviewed,
+        card_id: id of the reviewed card,
+        rating: AGAIN, HARD, GOOD, or EASY,
+        reviewed_at: exact datetime of the review.
+    """
+
     user_id: UserID
     card_id: CardID
     rating: ReviewRating

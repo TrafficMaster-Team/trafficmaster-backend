@@ -10,6 +10,16 @@ from trafficmaster.domain.user.values.user_role import UserRole
 
 @dataclass
 class User(BaseEntity[UserID]):
+    """
+    User entity.
+    params:
+        name: unique username,
+        email: unique email address,
+        hashed_password: bcrypt-hashed password,
+        role: USER, ADMIN, or SUPERADMIN,
+        is_active: whether the account is enabled.
+    """
+
     name: Username
     email: UserEmail
     hashed_password: HashedPassword

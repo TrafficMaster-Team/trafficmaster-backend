@@ -11,6 +11,16 @@ from trafficmaster.domain.deck.values.deck_id import DeckID
 
 @dataclass
 class Card(BaseEntity[CardID]):
+    """
+    Card entity.
+    params:
+        deck_id: id of the deck this card belongs to,
+        question: front side of the card,
+        answer: back side of the card,
+        image_path: optional path to an attached image,
+        tags: list of tags for filtering and organization.
+    """
+
     deck_id: DeckID
     question: CardQuestion
     answer: CardAnswer
