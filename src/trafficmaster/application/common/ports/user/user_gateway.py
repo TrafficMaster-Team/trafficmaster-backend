@@ -1,0 +1,27 @@
+from abc import abstractmethod
+from typing import Protocol
+
+from trafficmaster.application.common.query_params.user_filters import UserParams
+from trafficmaster.domain.user.entities.user import User
+from trafficmaster.domain.user.values.user_email import UserEmail
+from trafficmaster.domain.user.values.user_id import UserID
+
+
+class UserGateway(Protocol):
+    @abstractmethod
+    async def add(self, user: User) -> None: ...
+
+    @abstractmethod
+    async def delete_by_id(self, user: UserID) -> None: ...
+
+    @abstractmethod
+    async def read_by_id(self, user: UserID) -> User | None: ...
+
+    @abstractmethod
+    async def read_by_email(self, user: UserEmail) -> User | None: ...
+
+    @abstractmethod
+    async def read_all_users(self, user_params: UserParams) -> list[User] | None: ...
+
+    @abstractmethod
+    async def update(self, user: User) -> User: ...
