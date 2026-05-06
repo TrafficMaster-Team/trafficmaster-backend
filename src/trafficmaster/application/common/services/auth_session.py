@@ -1,4 +1,3 @@
-from multiprocessing.context import AuthenticationError
 from typing import TYPE_CHECKING, Final
 
 from trafficmaster.application.auth.auth_model import AuthSession
@@ -7,6 +6,7 @@ from trafficmaster.application.common.ports.auth.id_generator import AuthIDGener
 from trafficmaster.application.common.ports.auth.session_timer import SessionTimer
 from trafficmaster.application.common.ports.auth.transport import AuthSessionTransport
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
+from trafficmaster.application.errors.auth import AuthenticationError
 from trafficmaster.application.errors.gateway import GatewayError
 from trafficmaster.domain.user.values.user_id import UserID
 
@@ -50,22 +50,25 @@ class AuthSessionService:
 
     async def get_authenticated_user_id(self) -> UserID:
 
-        session: AuthSession = await self.load_current_session()
+        session: AuthSession | None = await self.load_current_session()
+        if session is None:
+            msg = "No auth session available"
+            raise AuthenticationError(msg)
         validated_session = await self.validate_and_extend_session(session)
 
         return validated_session.user_id
 
     async def invalidate_current_session(self) -> None:
 
-        auth_session: AuthSession = self._auth_transport.extract_id()
+        auth_session_id: str | None = self._auth_transport.extract_id()
 
-        if auth_session is None:
+        if auth_session_id is None:
             return
 
         self._auth_transport.remove_current()
 
         try:
-            auth_session = await self._auth_gateway.read_by_id(auth_session.id)
+            auth_session = await self._auth_gateway.read_by_id(auth_session_id)
         except GatewayError as error:
             msg = "Authentification is currently unavailable"
             raise AuthenticationError(msg) from error
@@ -89,7 +92,7 @@ class AuthSessionService:
             msg = "Authentification is currently unavailable"
             raise AuthenticationError(msg) from error
 
-    async def load_current_session(self) -> AuthSession:
+    async def load_current_session(self) -> AuthSession | None:
         if self._cached_session:
             return self._cached_session
 
@@ -99,7 +102,7 @@ class AuthSessionService:
             raise AuthenticationError(msg)
 
         try:
-            auth_session = self._auth_gateway.read_by_id(auth_session_id)
+            auth_session = await self._auth_gateway.read_by_id(auth_session_id)
         except GatewayError as error:
             msg = "Authentication failed."
             raise AuthenticationError(msg) from error
