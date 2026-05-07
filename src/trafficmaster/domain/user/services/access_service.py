@@ -1,4 +1,5 @@
 from collections.abc import Mapping
+from datetime import UTC, datetime
 from typing import Final
 
 from trafficmaster.domain.user.entities.user import User
@@ -23,6 +24,7 @@ class AccessService:
             raise RoleChangeNotPermittedError(msg)
 
         user.role = UserRole.ADMIN if is_admin else UserRole.USER
+        user.updated_at = datetime.now(UTC)
 
     def toggle_user_activation(self, user: User, is_active: bool) -> None:
 
@@ -31,6 +33,7 @@ class AccessService:
             raise AccessChangeNotPermittedError(msg)
 
         user.is_active = is_active
+        user.updated_at = datetime.now(UTC)
 
     def can_manage_user(self, subject: User, target: User) -> bool:
         if subject == target:

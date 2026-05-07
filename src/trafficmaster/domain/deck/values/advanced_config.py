@@ -7,10 +7,12 @@ from trafficmaster.domain.deck.errors.deck_config import (
     InvalidIntervalModifierError,
     InvalidNewIntervalError,
     TooLowEaseFactorError,
+    TooLowEasyFactorError,
     TooLowMaxIntervalError,
 )
 
 MIN_EASE_FACTOR = 1.3
+MIN_EASY_FACTOR = 1.0
 MIN_MAX_INTERVAL = 1
 
 
@@ -30,8 +32,12 @@ class AdvancedConfig(BaseValueObject):
             raise TooLowMaxIntervalError(msg)
 
         if self.ease_factor < MIN_EASE_FACTOR:
-            msg = "Ease factor cannot be less than minimum value (1.3)"
+            msg = f"Ease factor cannot be less than minimum value ({MIN_EASE_FACTOR})"
             raise TooLowEaseFactorError(msg)
+
+        if self.easy_factor < MIN_EASY_FACTOR:
+            msg = f"Easy factor cannot be less than minimum value ({MIN_EASY_FACTOR})"
+            raise TooLowEasyFactorError(msg)
 
         if self.interval_modifier <= 0:
             msg = "Interval modifier must be greater than 0"
@@ -50,6 +56,7 @@ class AdvancedConfig(BaseValueObject):
         return (
             f"max_interval: {self.max_interval}, "
             f"ease_factor: {self.ease_factor}, "
+            f"easy_factor: {self.easy_factor}, "
             f"interval_modifier: {self.interval_modifier}, "
             f"hard_interval: {self.hard_interval}, "
             f"new_interval: {self.new_interval}"

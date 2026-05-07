@@ -17,6 +17,7 @@ from trafficmaster.domain.deck.values.new_cards_config import NewCardsConfig
 from trafficmaster.domain.user.values.user_id import UserID
 
 _MIN_EASE_FACTOR = 1.3
+_MAX_EASE_FACTOR = 5.0
 _EASE_AGAIN_PENALTY = 0.2
 _EASE_HARD_PENALTY = 0.15
 _EASE_EASY_BONUS = 0.15
@@ -64,7 +65,8 @@ class CardProgressService:
                 progress.next_review_at = now + timedelta(minutes=steps[0])
 
             case ReviewRating.HARD:
-                progress.next_review_at = now + timedelta(minutes=steps[progress.repetitions])
+                step_index = min(progress.repetitions, len(steps) - 1)
+                progress.next_review_at = now + timedelta(minutes=steps[step_index])
 
             case ReviewRating.GOOD:
                 next_step = progress.repetitions + 1
@@ -135,7 +137,7 @@ class CardProgressService:
                 progress.next_review_at = now + timedelta(days=new_interval)
 
             case ReviewRating.EASY:
-                new_ease = current_ease + _EASE_EASY_BONUS
+                new_ease = min(_MAX_EASE_FACTOR, current_ease + _EASE_EASY_BONUS)
                 new_interval = max(
                     current_interval + 1,
                     round(current_interval * new_ease * config.interval_modifier * config.easy_factor),
@@ -171,7 +173,8 @@ class CardProgressService:
                 progress.next_review_at = now + timedelta(minutes=steps[0])
 
             case ReviewRating.HARD:
-                progress.next_review_at = now + timedelta(minutes=steps[progress.repetitions])
+                step_index = min(progress.repetitions, len(steps) - 1)
+                progress.next_review_at = now + timedelta(minutes=steps[step_index])
 
             case ReviewRating.GOOD:
                 next_step = progress.repetitions + 1

@@ -4,6 +4,7 @@ from typing import override
 
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
+    NotEnoughLearningStepsError,
     TooLowStepIntervalError,
     TooSmallLeechThresholdError,
     TooSmallMinRepeatIntervalError,
@@ -27,6 +28,10 @@ class LapsesConfig(BaseValueObject):
 
     @override
     def _validate(self) -> None:
+        if len(self.relearning_steps) < 1:
+            msg = "You must specify at least one relearning step"
+            raise NotEnoughLearningStepsError(msg)
+
         if self.leech_threshold < 1:
             msg = "Lapses config: leech_threshold must be greater than 0."
             raise TooSmallLeechThresholdError(msg)

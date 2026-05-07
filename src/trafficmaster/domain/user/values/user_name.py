@@ -24,7 +24,7 @@ PATTERN_END: Final[re.Pattern[str]] = re.compile(
 )
 
 PATTERN_ALLOWED_CHARS: Final[re.Pattern[str]] = re.compile(
-    r"[a-zA-Z0-9._-]*",
+    r"[a-zA-Z0-9._-]+",
 )
 
 PATTERN_NO_CONSECUTIVE_CHARS: Final[re.Pattern[str]] = re.compile("[-_.]{2,}")
@@ -37,17 +37,17 @@ class Username(BaseValueObject):
     @override
     def _validate(self) -> None:
 
-        if len(self.name) > MAX_LENGTH_USERNAME:
-            msg = f"User name must be at most {MAX_LENGTH_USERNAME} characters"
-            raise TooBigUsernameError(msg)
+        if self.name == "" or self.name.isspace():
+            msg = "User name cannot be empty"
+            raise UsernameCantBeEmptyError(msg)
 
         if len(self.name) < MIN_LENGTH_USERNAME:
             msg = f"User name must be at least {MIN_LENGTH_USERNAME} characters"
             raise TooSmallUsernameError(msg)
 
-        if self.name.isspace() or self.name == "":
-            msg = f"User name cannot be empty: {self.name}"
-            raise UsernameCantBeEmptyError(msg)
+        if len(self.name) > MAX_LENGTH_USERNAME:
+            msg = f"User name must be at most {MAX_LENGTH_USERNAME} characters"
+            raise TooBigUsernameError(msg)
 
         if not re.match(PATTERN_START, self.name):
             msg = "Name must start with a letter or number."

@@ -1,7 +1,11 @@
 from dataclasses import dataclass
 from typing import Final, override
 
-from trafficmaster.domain.card.errors.card import CardQuestionEmptyError, TooLongQuestionError
+from trafficmaster.domain.card.errors.card import (
+    CardQuestionEmptyError,
+    TooLongQuestionError,
+    TooShortQuestionError,
+)
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 
 MINIMUM_CARD_QUESTION: Final[int] = 1
@@ -19,8 +23,12 @@ class CardQuestion(BaseValueObject):
             msg = "Question value must not be empty"
             raise CardQuestionEmptyError(msg)
 
+        if len(self.value) < MINIMUM_CARD_QUESTION:
+            msg = f"Question value must be at least {MINIMUM_CARD_QUESTION} character(s)"
+            raise TooShortQuestionError(msg)
+
         if len(self.value) > MAXIMUM_CARD_QUESTION:
-            msg = "Question value must not be more than 500"
+            msg = f"Question value must not be more than {MAXIMUM_CARD_QUESTION} characters"
             raise TooLongQuestionError(msg)
 
     @override
