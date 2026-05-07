@@ -24,3 +24,6 @@ class CardTag(BaseValueObject):
         if len(self.value) < MINIMUM_CARD_TAG:
             msg = f"Card tag value must be more than {MINIMUM_CARD_TAG}"
             raise TooShortCardTagError(msg)
+
+    def __str__(self) -> str:
+        return self.value
