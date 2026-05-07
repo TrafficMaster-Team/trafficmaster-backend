@@ -39,11 +39,11 @@ class NewCardsConfig(BaseValueObject):
             raise LearningIntervalGreaterGraduatingError(msg)
 
         if self.graduating_interval < MIN_INTERVAL_LENGTH or self.easy_interval < MIN_INTERVAL_LENGTH:
-            msg = "Interval cannot be less than minimum interval length (1m) "
+            msg = "Interval cannot be less than minimum interval length (1m)"
             raise TooLowIntervalError(msg)
 
         if any(step < MIN_INTERVAL_LENGTH for step in self.learning_steps):
-            msg = "One of the learning steps cannot be less than minimum interval length (1m) "
+            msg = "One of the learning steps cannot be less than minimum interval length (1m)"
             raise TooLowStepIntervalError(msg)
 
     @override

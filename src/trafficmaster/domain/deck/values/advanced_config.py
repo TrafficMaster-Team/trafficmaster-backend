@@ -4,7 +4,7 @@ from typing import override
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
     HardIntervalNotLessThanEaseFactorError,
-    InvalidIntervalModificatorError,
+    InvalidIntervalModifierError,
     InvalidNewIntervalError,
     TooLowEaseFactorError,
     TooLowMaxIntervalError,
@@ -19,7 +19,7 @@ class AdvancedConfig(BaseValueObject):
     max_interval: int
     ease_factor: float
     easy_factor: float
-    interval_modificator: float
+    interval_modifier: float
     hard_interval: float
     new_interval: float
 
@@ -30,27 +30,27 @@ class AdvancedConfig(BaseValueObject):
             raise TooLowMaxIntervalError(msg)
 
         if self.ease_factor < MIN_EASE_FACTOR:
-            msg = "Easy interval cannot be less than minimum interval length (1.3)"
+            msg = "Ease factor cannot be less than minimum value (1.3)"
             raise TooLowEaseFactorError(msg)
 
-        if self.interval_modificator <= 0:
-            msg = "Interval modificator cannot be less than 0"
-            raise InvalidIntervalModificatorError(msg)
+        if self.interval_modifier <= 0:
+            msg = "Interval modifier must be greater than 0"
+            raise InvalidIntervalModifierError(msg)
 
         if self.hard_interval >= self.ease_factor:
             msg = f"Hard interval cannot be greater than ease factor ({self.hard_interval})"
             raise HardIntervalNotLessThanEaseFactorError(msg)
 
         if not (0.0 <= self.new_interval <= 1.0):
-            msg = f"New interval cannot be greater than interval length ({self.new_interval})"
+            msg = f"New interval must be between 0 and 1 ({self.new_interval})"
             raise InvalidNewIntervalError(msg)
 
     @override
     def __str__(self) -> str:
         return (
-            f"Max_interval: {self.max_interval},"
-            f"ease_factor: {self.ease_factor},"
-            f"interval_modificator: {self.interval_modificator},"
-            f"hard_interval: {self.hard_interval},"
+            f"max_interval: {self.max_interval}, "
+            f"ease_factor: {self.ease_factor}, "
+            f"interval_modifier: {self.interval_modifier}, "
+            f"hard_interval: {self.hard_interval}, "
             f"new_interval: {self.new_interval}"
         )

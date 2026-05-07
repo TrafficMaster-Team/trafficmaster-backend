@@ -27,7 +27,7 @@ PATTERN_ALLOWED_CHARS: Final[re.Pattern[str]] = re.compile(
     r"[a-zA-Z0-9._-]*",
 )
 
-PATTERN_NO_CONCUSSIVE_CHARS: Final[re.Pattern[str]] = re.compile("[-_.]{2,}")
+PATTERN_NO_CONSECUTIVE_CHARS: Final[re.Pattern[str]] = re.compile("[-_.]{2,}")
 
 
 @dataclass(frozen=True, eq=True, unsafe_hash=True)
@@ -55,14 +55,14 @@ class Username(BaseValueObject):
 
         if not re.fullmatch(PATTERN_ALLOWED_CHARS, self.name):
             msg = (
-                f"Invalid characters in name: {self.name}"
-                f"Name must contain only letters, digits,"
+                f"Invalid characters in name: {self.name}. "
+                f"Name must contain only letters, digits, "
                 f"dots, hyphens, and underscores."
             )
             raise BadUsernameError(msg)
 
-        if re.search(PATTERN_NO_CONCUSSIVE_CHARS, self.name):
-            msg = "Name mustn't contain double concussive (dot, hyphen, underscore) characters."
+        if re.search(PATTERN_NO_CONSECUTIVE_CHARS, self.name):
+            msg = "Name mustn't contain consecutive special (dot, hyphen, underscore) characters."
             raise BadUsernameError(msg)
 
         if not re.fullmatch(PATTERN_END, self.name):

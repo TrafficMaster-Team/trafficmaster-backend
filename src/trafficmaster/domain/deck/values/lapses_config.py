@@ -32,11 +32,11 @@ class LapsesConfig(BaseValueObject):
             raise TooSmallLeechThresholdError(msg)
 
         if self.min_interval < 1:
-            msg = "Lapses config: minimal interval for repeat card must be greater than 0."
+            msg = "Lapses config: minimum interval for repeat cards must be greater than 0."
             raise TooSmallMinRepeatIntervalError(msg)
 
         if any(step < MIN_INTERVAL_LENGTH for step in self.relearning_steps):
-            msg = "One of the learning steps cannot be less than minimum interval length (1m) "
+            msg = "One of the learning steps cannot be less than minimum interval length (1m)"
             raise TooLowStepIntervalError(msg)
 
     @override

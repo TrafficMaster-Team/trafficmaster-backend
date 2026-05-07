@@ -12,7 +12,7 @@ class DeckConfigName(BaseValueObject):
     @override
     def _validate(self) -> None:
         if self.value == "" or self.value.isspace():
-            msg = "Name of config deck cannot be empty"
+            msg = "Deck config name cannot be empty"
             raise DeckConfigNameEmptyError(msg)
 
     @override

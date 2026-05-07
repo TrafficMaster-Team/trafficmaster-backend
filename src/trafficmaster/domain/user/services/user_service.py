@@ -27,7 +27,7 @@ class UserService:
         raw_password: RawPassword,
         role: UserRole = UserRole.USER,
     ) -> User:
-        """Fabric method for creating a new user."""
+        """Factory method for creating a new user."""
 
         if not role.is_assignable:
             msg = "You cannot assign this role to user."

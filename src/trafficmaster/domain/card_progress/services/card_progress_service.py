@@ -117,7 +117,7 @@ class CardProgressService:
             case ReviewRating.HARD:
                 new_ease = max(_MIN_EASE_FACTOR, current_ease - _EASE_HARD_PENALTY)
                 new_interval = max(
-                    current_interval + 1, round(current_interval * config.hard_interval * config.interval_modificator)
+                    current_interval + 1, round(current_interval * config.hard_interval * config.interval_modifier)
                 )
                 new_interval = min(new_interval, config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
@@ -127,7 +127,7 @@ class CardProgressService:
 
             case ReviewRating.GOOD:
                 new_interval = max(
-                    current_interval + 1, round(current_interval * current_ease * config.interval_modificator)
+                    current_interval + 1, round(current_interval * current_ease * config.interval_modifier)
                 )
                 new_interval = min(new_interval, config.max_interval)
                 progress.interval = Interval(new_interval)
@@ -138,7 +138,7 @@ class CardProgressService:
                 new_ease = current_ease + _EASE_EASY_BONUS
                 new_interval = max(
                     current_interval + 1,
-                    round(current_interval * new_ease * config.interval_modificator * config.easy_factor),
+                    round(current_interval * new_ease * config.interval_modifier * config.easy_factor),
                 )
                 new_interval = min(new_interval, config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
