@@ -2,21 +2,19 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import override
 
+from trafficmaster.domain.card_progress.errors.card_progress import TooLowIntervalError
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
     LearningIntervalGreaterGraduatingError,
     NotEnoughLearningStepsError,
-    TooLowIntervalError,
     TooLowStepIntervalError,
 )
+from trafficmaster.domain.deck.values._constants import MIN_INTERVAL_LENGTH
 
 
 class NewCardOrder(StrEnum):
     SEQUENTIAL = "sequential"
     RANDOM = "random"
-
-
-MIN_INTERVAL_LENGTH = 1
 
 
 @dataclass(frozen=True, eq=True, unsafe_hash=True)

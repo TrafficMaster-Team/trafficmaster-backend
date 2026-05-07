@@ -9,14 +9,12 @@ from trafficmaster.domain.deck.errors.deck_config import (
     TooSmallLeechThresholdError,
     TooSmallMinRepeatIntervalError,
 )
+from trafficmaster.domain.deck.values._constants import MIN_INTERVAL_LENGTH
 
 
 class LeechAction(StrEnum):
     TAG_ONLY = "tag_only"
     SUSPEND = "suspend"
-
-
-MIN_INTERVAL_LENGTH = 1
 
 
 @dataclass(frozen=True, eq=True, unsafe_hash=True)

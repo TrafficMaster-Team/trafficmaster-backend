@@ -1,17 +1,17 @@
 from dataclasses import dataclass
 from typing import override
 
+from trafficmaster.domain.card_progress.errors.card_progress import TooLowEaseFactorError
+from trafficmaster.domain.card_progress.values.ease_factor import MIN_EASE_FACTOR
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
     HardIntervalNotLessThanEaseFactorError,
     InvalidIntervalModifierError,
     InvalidNewIntervalError,
-    TooLowEaseFactorError,
     TooLowEasyFactorError,
     TooLowMaxIntervalError,
 )
 
-MIN_EASE_FACTOR = 1.3
 MIN_EASY_FACTOR = 1.0
 MIN_MAX_INTERVAL = 1
 

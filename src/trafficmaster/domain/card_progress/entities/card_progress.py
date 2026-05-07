@@ -10,7 +10,7 @@ from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.user.values.user_id import UserID
 
 
-@dataclass
+@dataclass(eq=False)
 class CardProgress(BaseEntity[CardProgressID]):
     """
     Tracks SRS state of a card for a specific user.

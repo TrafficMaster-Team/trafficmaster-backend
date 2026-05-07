@@ -10,7 +10,7 @@ from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.deck.values.deck_id import DeckID
 
 
-@dataclass
+@dataclass(eq=False)
 class Card(BaseEntity[CardID]):
     """
     Card entity.

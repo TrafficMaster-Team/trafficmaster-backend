@@ -4,10 +4,10 @@ from typing import Final
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.card_progress.entities.card_progress import CardProgress
 from trafficmaster.domain.card_progress.entities.review_log import ReviewLog
-from trafficmaster.domain.card_progress.ports.card_progress_id_generator import CardProgressIdGenerator
-from trafficmaster.domain.card_progress.ports.review_id_generator import ReviewIdGenerator
+from trafficmaster.domain.card_progress.ports.card_progress_id_generator import CardProgressIDGenerator
+from trafficmaster.domain.card_progress.ports.review_id_generator import ReviewIDGenerator
 from trafficmaster.domain.card_progress.values.card_state import CardState
-from trafficmaster.domain.card_progress.values.ease_factor import EaseFactor
+from trafficmaster.domain.card_progress.values.ease_factor import MIN_EASE_FACTOR, EaseFactor
 from trafficmaster.domain.card_progress.values.interval import Interval
 from trafficmaster.domain.card_progress.values.review_rating import ReviewRating
 from trafficmaster.domain.deck.entities.deck_config import DeckConfig
@@ -16,7 +16,6 @@ from trafficmaster.domain.deck.values.lapses_config import LapsesConfig
 from trafficmaster.domain.deck.values.new_cards_config import NewCardsConfig
 from trafficmaster.domain.user.values.user_id import UserID
 
-_MIN_EASE_FACTOR = 1.3
 _MAX_EASE_FACTOR = 5.0
 _EASE_AGAIN_PENALTY = 0.2
 _EASE_HARD_PENALTY = 0.15
@@ -26,11 +25,11 @@ _EASE_EASY_BONUS = 0.15
 class CardProgressService:
     def __init__(
         self,
-        card_progress_id_generator: CardProgressIdGenerator,
-        review_id_generator: ReviewIdGenerator,
+        card_progress_id_generator: CardProgressIDGenerator,
+        review_id_generator: ReviewIDGenerator,
     ) -> None:
-        self.card_progress_id_generator: Final[CardProgressIdGenerator] = card_progress_id_generator
-        self.review_id_generator: Final[ReviewIdGenerator] = review_id_generator
+        self._card_progress_id_generator: Final[CardProgressIDGenerator] = card_progress_id_generator
+        self._review_id_generator: Final[ReviewIDGenerator] = review_id_generator
 
     def create_card_progress(
         self,
@@ -39,7 +38,7 @@ class CardProgressService:
         default_ease_factor: EaseFactor,
     ) -> CardProgress:
         return CardProgress(
-            id=self.card_progress_id_generator(),
+            id=self._card_progress_id_generator(),
             user_id=user_id,
             card_id=card_id,
             ease_factor=default_ease_factor,
@@ -88,7 +87,7 @@ class CardProgressService:
         progress.updated_at = now
 
         return ReviewLog(
-            id=self.review_id_generator(),
+            id=self._review_id_generator(),
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,
@@ -108,7 +107,7 @@ class CardProgressService:
 
         match rating:
             case ReviewRating.AGAIN:
-                new_ease = max(_MIN_EASE_FACTOR, current_ease - _EASE_AGAIN_PENALTY)
+                new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_AGAIN_PENALTY)
                 new_interval = max(1, round(current_interval * config.new_interval))
                 progress.ease_factor = EaseFactor(new_ease)
                 progress.interval = Interval(new_interval)
@@ -117,7 +116,7 @@ class CardProgressService:
                 progress.next_review_at = now + timedelta(days=new_interval)
 
             case ReviewRating.HARD:
-                new_ease = max(_MIN_EASE_FACTOR, current_ease - _EASE_HARD_PENALTY)
+                new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_HARD_PENALTY)
                 new_interval = max(
                     current_interval + 1, round(current_interval * config.hard_interval * config.interval_modifier)
                 )
@@ -151,7 +150,7 @@ class CardProgressService:
         progress.updated_at = now
 
         return ReviewLog(
-            id=self.review_id_generator(),
+            id=self._review_id_generator(),
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,
@@ -196,7 +195,7 @@ class CardProgressService:
         progress.updated_at = now
 
         return ReviewLog(
-            id=self.review_id_generator(),
+            id=self._review_id_generator(),
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,

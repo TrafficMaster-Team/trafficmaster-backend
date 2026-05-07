@@ -12,7 +12,7 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 class DeckConfigService:
     def __init__(self, id_generator: DeckConfigIDGenerator) -> None:
-        self.id_generator: Final[DeckConfigIDGenerator] = id_generator
+        self._id_generator: Final[DeckConfigIDGenerator] = id_generator
 
     def create_config(
         self,
@@ -24,7 +24,7 @@ class DeckConfigService:
         advanced: AdvancedConfig,
     ) -> DeckConfig:
 
-        config_id = self.id_generator()
+        config_id = self._id_generator()
         return DeckConfig(
             id=config_id,
             owner_id=owner_id,

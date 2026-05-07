@@ -11,7 +11,7 @@ from trafficmaster.domain.deck.values.new_cards_config import NewCardsConfig
 from trafficmaster.domain.user.values.user_id import UserID
 
 
-@dataclass
+@dataclass(eq=False)
 class DeckConfig(BaseEntity[DeckConfigID]):
     """
     SRS configuration for a deck.

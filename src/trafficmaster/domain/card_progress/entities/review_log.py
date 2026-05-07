@@ -8,7 +8,7 @@ from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.user.values.user_id import UserID
 
 
-@dataclass
+@dataclass(eq=False)
 class ReviewLog(BaseEntity[ReviewLogID]):
     """
     Record of a single card review event. Treated as append-only.

@@ -7,7 +7,7 @@ from trafficmaster.domain.deck.values.deck_title import DeckTitle
 from trafficmaster.domain.user.values.user_id import UserID
 
 
-@dataclass
+@dataclass(eq=False)
 class Deck(BaseEntity[DeckID]):
     """
     Deck entity.

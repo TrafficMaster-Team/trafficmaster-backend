@@ -3,7 +3,7 @@ from typing import Final, override
 
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.user.errors.password import (
-    EmptyPasswordWasProvidedError,
+    PasswordCantBeEmptyError,
     WeakPasswordWasProvidedError,
 )
 
@@ -20,7 +20,7 @@ class RawPassword(BaseValueObject):
 
         if self.password == "" or self.password.isspace():
             msg = "Please enter a password."
-            raise EmptyPasswordWasProvidedError(msg)
+            raise PasswordCantBeEmptyError(msg)
 
         if self.password.isdigit():
             msg = "Password must contain at least one letter."

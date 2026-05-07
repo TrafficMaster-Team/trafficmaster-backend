@@ -1,5 +1,5 @@
 from trafficmaster.domain.card.entities.card import Card
-from trafficmaster.domain.card.ports.card_id_generator import CardIdGenerator
+from trafficmaster.domain.card.ports.card_id_generator import CardIDGenerator
 from trafficmaster.domain.card.values.card_answer import CardAnswer
 from trafficmaster.domain.card.values.card_question import CardQuestion
 from trafficmaster.domain.card.values.card_tag import CardTag
@@ -7,7 +7,7 @@ from trafficmaster.domain.deck.values.deck_id import DeckID
 
 
 class CardService:
-    def __init__(self, id_generator: CardIdGenerator) -> None:
+    def __init__(self, id_generator: CardIDGenerator) -> None:
         self._id_generator = id_generator
 
     def create_card(

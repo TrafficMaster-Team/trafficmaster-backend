@@ -1,15 +1,15 @@
 from typing import Final
 
 from trafficmaster.domain.deck.entities.deck import Deck
-from trafficmaster.domain.deck.ports.deck_id_generator import DeckIdGenerator
+from trafficmaster.domain.deck.ports.deck_id_generator import DeckIDGenerator
 from trafficmaster.domain.deck.values.deck_config_id import DeckConfigID
 from trafficmaster.domain.deck.values.deck_title import DeckTitle
 from trafficmaster.domain.user.values.user_id import UserID
 
 
 class DeckService:
-    def __init__(self, deck_id_generator: DeckIdGenerator) -> None:
-        self._id_generator: Final[DeckIdGenerator] = deck_id_generator
+    def __init__(self, deck_id_generator: DeckIDGenerator) -> None:
+        self._id_generator: Final[DeckIDGenerator] = deck_id_generator
 
     def create_deck(
         self,

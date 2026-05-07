@@ -1,9 +1,6 @@
 from trafficmaster.domain.common.errors import DomainFieldError
 
 
-class EmailNotValidError(DomainFieldError): ...
-
-
 class TooBigUsernameError(DomainFieldError): ...
 
 
