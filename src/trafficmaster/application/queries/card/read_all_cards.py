@@ -64,7 +64,10 @@ class ReadAllCardsQueryHandler:
             msg = "User not found"
             raise UserNotFoundByIdError(msg)
 
-        if not self._access_service.can_manage_user(subject=current_user, target=user):
+        if not deck.is_public and not self._access_service.can_manage_user(
+            subject=current_user,
+            target=user,
+        ):
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 

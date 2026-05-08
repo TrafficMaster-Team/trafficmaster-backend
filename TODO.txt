@@ -1,0 +1,7 @@
+  2. read_deck_stats — без него главный экран пустой.
+  3. read_card_progress_by_card — UI ревью.
+  4. (сильно полезно) preview_review_intervals — кнопки с прогнозом.
+  5. read_review_log_by_card / read_review_log_by_user — история и стата.
+  6. read_public_decks + copy_deck command — discovery.
+  7. read_user_aggregate_stats — мотивационные числа.
+8. UTC CLOCK FOR all users
