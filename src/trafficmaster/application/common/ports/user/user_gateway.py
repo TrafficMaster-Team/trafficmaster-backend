@@ -22,6 +22,3 @@ class UserGateway(Protocol):
 
     @abstractmethod
     async def read_all_users(self, user_params: UserParams) -> list[User] | None: ...
-
-    @abstractmethod
-    async def update(self, user: User) -> User: ...
