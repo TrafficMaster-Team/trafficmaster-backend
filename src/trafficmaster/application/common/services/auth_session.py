@@ -33,7 +33,7 @@ class AuthSessionService:
     async def create_session(self, user_id: UserID) -> None:
 
         auth_session_id = self._auth_session_id()
-        expiration: datetime = self._auth_timer.auth_session_expired
+        expiration: datetime = self._auth_timer.auth_session_expires_at
         auth_session = AuthSession(
             id=auth_session_id,
             user_id=user_id,
@@ -43,7 +43,7 @@ class AuthSessionService:
             await self._auth_gateway.add(auth_session)
             await self._transaction_manager.commit()
         except GatewayError as error:
-            msg = "Authentification is currently unavailable"
+            msg = "Authentication is currently unavailable"
             raise AuthenticationError(msg) from error
 
         self._auth_transport.deliver(auth_session)
@@ -70,7 +70,7 @@ class AuthSessionService:
         try:
             auth_session = await self._auth_gateway.read_by_id(auth_session_id)
         except GatewayError as error:
-            msg = "Authentification is currently unavailable"
+            msg = "Authentication is currently unavailable"
             raise AuthenticationError(msg) from error
 
         if auth_session is None:
@@ -80,7 +80,7 @@ class AuthSessionService:
             await self._auth_gateway.delete(auth_session_id=auth_session.id)
             await self._transaction_manager.commit()
         except GatewayError as error:
-            msg = "Authentification is currently unavailable"
+            msg = "Authentication is currently unavailable"
             raise AuthenticationError(msg) from error
 
     async def invalidate_all_user_sessions(self, user_id: UserID) -> None:
@@ -89,7 +89,7 @@ class AuthSessionService:
             await self._auth_gateway.delete_all_for_user(user_id)
             await self._transaction_manager.commit()
         except GatewayError as error:
-            msg = "Authentification is currently unavailable"
+            msg = "Authentication is currently unavailable"
             raise AuthenticationError(msg) from error
 
     async def load_current_session(self) -> AuthSession | None:
@@ -117,23 +117,20 @@ class AuthSessionService:
 
     async def validate_and_extend_session(self, auth_session: AuthSession) -> AuthSession:
         now = self._auth_timer.current_time
-        original_expiration = auth_session.expiration
-        if original_expiration <= now:
+        if auth_session.expiration <= now:
             msg = "Session expired"
             raise AuthenticationError(msg)
 
-        if original_expiration - now > self._auth_timer.refresh_trigger_interval:
+        if auth_session.expiration - now > self._auth_timer.refresh_trigger_interval:
             return auth_session
 
-        auth_session.expiration = self._auth_timer.auth_session_expired
+        auth_session.expiration = self._auth_timer.auth_session_expires_at
         try:
-            await self._auth_gateway.add(auth_session)
+            await self._auth_gateway.update(auth_session)
             await self._transaction_manager.commit()
         except GatewayError as error:
-            msg = "Authentification failed."
+            msg = "Authentication failed."
             raise AuthenticationError(msg) from error
-
-        auth_session.expiration = original_expiration
 
         self._cached_session = auth_session
         return auth_session

@@ -11,7 +11,7 @@ class UtcAuthSessionTimer:
         return datetime.now(UTC)
 
     @property
-    def auth_session_expired(self) -> datetime:
+    def auth_session_expires_at(self) -> datetime:
         return self.current_time + self._ttl
 
     @property

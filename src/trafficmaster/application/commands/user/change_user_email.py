@@ -8,7 +8,6 @@ from trafficmaster.application.common.services.current_user import CurrentUserSe
 from trafficmaster.application.errors.user import (
     EmailAlreadyExistsError,
     NoPermissionToManageUserError,
-    UserNotFoundByEmailError,
     UserNotFoundByIdError,
 )
 from trafficmaster.domain.user.services.access_service import AccessService
@@ -44,11 +43,7 @@ class ChangeUserEmailCommandHandler:
     async def __call__(self, data: ChangeUserEmailCommand) -> None:
 
         validated_email = UserEmail(data.email)
-        existing: User | None = await self._user_gateway.read_by_email(validated_email)
-        if existing is None:
-            msg = f"Could not find user with email '{data.email}'"
-            raise UserNotFoundByEmailError(msg)
-        if existing is not None and existing.email != validated_email:
+        if (await self._user_gateway.read_by_email(validated_email)) is not None:
             msg = "User with this email already exists"
             raise EmailAlreadyExistsError(msg)
 
@@ -60,7 +55,7 @@ class ChangeUserEmailCommandHandler:
             msg = f"Can't find user with id {data.user_id}"
             raise UserNotFoundByIdError(msg)
 
-        if not self._access_service.can_manage_user(user_for_update_email, current_user):
+        if not self._access_service.can_manage_user(current_user, user_for_update_email):
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 

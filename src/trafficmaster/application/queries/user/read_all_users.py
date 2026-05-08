@@ -8,7 +8,9 @@ from trafficmaster.application.common.query_params.user_filters import UserParam
 from trafficmaster.application.common.services.current_user import CurrentUserService
 from trafficmaster.application.common.views.user.read_user_by_id import ReadUserByIDView
 from trafficmaster.application.errors.query_params import SortingError
+from trafficmaster.application.errors.user import NoPermissionToManageUserError
 from trafficmaster.domain.user.services.access_service import AccessService
+from trafficmaster.domain.user.values.user_role import UserRole
 
 if TYPE_CHECKING:
     from trafficmaster.domain.user.entities.user import User
@@ -22,7 +24,7 @@ class ReadAllUsersQuery:
     sorting_order: SortingOrder
 
 
-class ReadUserByIdQueryHandler:
+class ReadAllUsersQueryHandler:
     def __init__(
         self,
         current_user_service: CurrentUserService,
@@ -34,6 +36,11 @@ class ReadUserByIdQueryHandler:
         self._user_gateway: Final[UserGateway] = user_gateway
 
     async def __call__(self, data: ReadAllUsersQuery) -> list[ReadUserByIDView]:
+
+        current_user: User = await self._current_user_service.get_current_user()
+        if current_user.role == UserRole.USER:
+            msg = "You don't have permission to list users"
+            raise NoPermissionToManageUserError(msg)
 
         users: list[User] | None = await self._user_gateway.read_all_users(
             user_params=UserParams(

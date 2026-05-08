@@ -11,8 +11,8 @@ class Pagination:
     def __post_init__(self) -> None:
         msg: str | None
         if self.offset is not None and self.offset < 0:
-            msg = f"offset must be positive: {self.offset}"
+            msg = f"offset must be non-negative: {self.offset}"
             raise PaginationError(msg)
         if self.limit is not None and self.limit < 0:
-            msg = f"limit must be positive: {self.limit}"
+            msg = f"limit must be non-negative: {self.limit}"
             raise PaginationError(msg)

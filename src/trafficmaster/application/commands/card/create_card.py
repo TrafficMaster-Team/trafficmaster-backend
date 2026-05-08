@@ -1,11 +1,13 @@
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
+from uuid import UUID
 
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.common.views.card.create_card import CreateCardView
 from trafficmaster.application.errors.deck import DeckNotFoundError
 from trafficmaster.application.errors.user import (
     NoPermissionToManageUserError,
@@ -27,7 +29,7 @@ if TYPE_CHECKING:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class CreateCardCommand:
-    deck_id: DeckID
+    deck_id: UUID
     question: str
     answer: str
     tags: list[str] | None = None
@@ -52,9 +54,25 @@ class CreateCardCommandHandler:
         self._deck_gateway = deck_gateway
         self._card_gateway = card_gateway
 
-    async def __call__(self, data: CreateCardCommand) -> None:
+    async def __call__(self, data: CreateCardCommand) -> CreateCardView:
+
+        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+
+        if deck is None:
+            msg = "Deck not found"
+            raise DeckNotFoundError(msg)
+
+        user_card_handler: User | None = await self._user_gateway.read_by_id(user_id=UserID(deck.owner_id))
+
+        if user_card_handler is None:
+            msg = "User not found"
+            raise UserNotFoundByIdError(msg)
 
         current_user: User = await self._current_user_service.get_current_user()
+
+        if not self._access_service.can_manage_user(subject=current_user, target=user_card_handler):
+            msg = "You are not allowed to manage this card"
+            raise NoPermissionToManageUserError(msg)
 
         created_card: Card = self._card_service.create_card(
             deck_id=DeckID(data.deck_id),
@@ -62,21 +80,8 @@ class CreateCardCommandHandler:
             answer=CardAnswer(data.answer),
             tags=[CardTag(tag) for tag in data.tags] if data.tags is not None else [],
         )
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(created_card.deck_id))
-
-        if deck is None:
-            msg = "Deck not found"
-            raise DeckNotFoundError(msg)
-
-        user_card_handler: User | None = await self._user_gateway.read_by_id(user=UserID(deck.owner_id))
-
-        if user_card_handler is None:
-            msg = "User not found"
-            raise UserNotFoundByIdError(msg)
-
-        if not self._access_service.can_manage_user(subject=current_user, target=user_card_handler):
-            msg = "You are not allowed to manage this card"
-            raise NoPermissionToManageUserError(msg)
 
         await self._card_gateway.add(created_card)
         await self._transaction_manager.commit()
+
+        return CreateCardView(id=created_card.id)

@@ -60,7 +60,7 @@ class ChangeImagePathCommandHandler:
             msg = "Deck not found"
             raise DeckNotFoundError(msg)
 
-        user_card_handler: User | None = await self._user_gateway.read_by_id(user=UserID(deck.owner_id))
+        user_card_handler: User | None = await self._user_gateway.read_by_id(user_id=UserID(deck.owner_id))
 
         if user_card_handler is None:
             msg = "User not found"

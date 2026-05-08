@@ -3,7 +3,6 @@ from enum import StrEnum
 
 from trafficmaster.application.common.query_params.pagination import Pagination
 from trafficmaster.application.common.query_params.sorting import SortingOrder
-from trafficmaster.application.common.query_params.user_filters import UserQueryFilters
 from trafficmaster.domain.deck.values.deck_id import DeckID
 
 
@@ -17,6 +16,6 @@ class CardQueryFilters(StrEnum):
 class CardParams:
     pagination: Pagination
     sorting_order: SortingOrder
-    sorting_filter: UserQueryFilters
+    sorting_filter: CardQueryFilters
     deck_id: DeckID | None = None
-    tags: tuple[str] | None = None
+    tags: tuple[str, ...] | None = None

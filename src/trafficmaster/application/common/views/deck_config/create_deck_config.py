@@ -3,5 +3,5 @@ from uuid import UUID
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class CreateCardView:
+class CreateDeckConfigView:
     id: UUID

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import UTC, datetime
 
 from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.deck.values.deck_config_id import DeckConfigID
@@ -23,4 +24,20 @@ class Deck(BaseEntity[DeckID]):
     deck_config_id: DeckConfigID
     title: DeckTitle
     description: str | None
-    is_public: bool
+    is_public: bool = False
+
+    def change_title(self, title: DeckTitle) -> None:
+        self.title = title
+        self.updated_at = datetime.now(UTC)
+
+    def change_description(self, description: str | None) -> None:
+        self.description = description
+        self.updated_at = datetime.now(UTC)
+
+    def change_privacy(self, is_public: bool) -> None:
+        self.is_public = is_public
+        self.updated_at = datetime.now(UTC)
+
+    def assign_deck_config(self, deck_config_id: DeckConfigID) -> None:
+        self.deck_config_id = deck_config_id
+        self.updated_at = datetime.now(UTC)

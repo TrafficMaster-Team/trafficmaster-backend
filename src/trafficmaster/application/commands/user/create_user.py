@@ -46,18 +46,19 @@ class CreateUserCommandHandler:
 
         current_user: User = await self._current_user_service.get_current_user()
 
+        validated_email = UserEmail(data.email)
+        if (await self._user_gateway.read_by_email(validated_email)) is not None:
+            msg = "User with this email already exists"
+            raise UserAlreadyExistsError(msg)
+
         created_user: User = self._user_service.create_user(
-            email=UserEmail(data.email),
+            email=validated_email,
             name=Username(data.username),
             role=data.role,
             raw_password=RawPassword(data.password),
         )
 
-        if (await self._user_gateway.read_by_email(created_user.email)) is not None:
-            msg = "User with this email already exists"
-            raise UserAlreadyExistsError(msg)
-
-        if not self._access_service.can_manage_user(created_user, current_user):
+        if not self._access_service.can_manage_user(current_user, created_user):
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 

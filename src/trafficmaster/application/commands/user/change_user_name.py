@@ -46,7 +46,7 @@ class ChangeUserNameCommandHandler:
             msg = f"Can't find user with id {data.user_id}"
             raise UserNotFoundByIdError(msg)
 
-        if not self._access_service.can_manage_user(user_for_update_name, current_user):
+        if not self._access_service.can_manage_user(current_user, user_for_update_name):
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 

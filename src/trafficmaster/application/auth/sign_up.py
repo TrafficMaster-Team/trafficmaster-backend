@@ -63,8 +63,8 @@ class SignUpHandler:
             await self._user_gateway.add(new_user)
             await self._transaction_manager.commit()
 
-        except GatewayError:
+        except GatewayError as error:
             msg = "Authentication failed"
-            raise AuthenticationError(msg) from GatewayError
+            raise AuthenticationError(msg) from error
 
-        return SignUpView(user_id=new_user.id)
+        return SignUpView(id=new_user.id)

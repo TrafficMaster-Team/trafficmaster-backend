@@ -4,4 +4,4 @@ from uuid import UUID
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class SignUpView:
-    user_id: UUID
+    id: UUID
