@@ -30,13 +30,20 @@ class DeckService:
             is_public=is_public,
         )
 
-    def copy_deck(self, deck: Deck, new_user_id: UserID) -> Deck:
-        """Returns copy of deck object."""
+    def copy_deck(
+        self,
+        deck: Deck,
+        new_user_id: UserID,
+        new_deck_config_id: DeckConfigID,
+        *,
+        is_public: bool,
+    ) -> Deck:
+        """Returns copy of deck object owned by another user."""
         return Deck(
             id=self._id_generator(),
             owner_id=new_user_id,
             title=deck.title,
             description=deck.description,
-            deck_config_id=deck.deck_config_id,
-            is_public=deck.is_public,
+            deck_config_id=new_deck_config_id,
+            is_public=is_public,
         )

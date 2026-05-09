@@ -6,6 +6,7 @@ from trafficmaster.application.common.ports.card_progress.card_with_progress imp
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.card_progress.entities.card_progress import CardProgress
 from trafficmaster.domain.card_progress.values.card_progress_id import CardProgressID
+from trafficmaster.domain.card_progress.values.card_state import CardState
 from trafficmaster.domain.deck.values.deck_id import DeckID
 from trafficmaster.domain.deck.values.new_cards_config import NewCardOrder
 from trafficmaster.domain.user.values.user_id import UserID
@@ -47,3 +48,12 @@ class CardProgressGateway(Protocol):
         limit: int,
         order: NewCardOrder,
     ) -> list[CardWithProgress]: ...
+
+    @abstractmethod
+    async def count_by_state(self, user_id: UserID, deck_id: DeckID | None) -> dict[CardState | None, int]: ...
+
+    @abstractmethod
+    async def count_due_learning(self, user_id: UserID, deck_id: DeckID | None, now: datetime) -> int: ...
+
+    @abstractmethod
+    async def count_due_review(self, user_id: UserID, deck_id: DeckID | None, now: datetime) -> int: ...

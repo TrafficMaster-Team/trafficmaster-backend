@@ -23,3 +23,14 @@ class CardService:
         return Card(
             id=card_id, question=question, deck_id=deck_id, answer=answer, tags=tags or [], image_path=image_path
         )
+
+    def copy_card(self, card: Card, new_deck_id: DeckID) -> Card:
+        """Returns copy of card object placed into another deck."""
+        return Card(
+            id=self._id_generator(),
+            deck_id=new_deck_id,
+            question=card.question,
+            answer=card.answer,
+            image_path=card.image_path,
+            tags=list(card.tags),
+        )

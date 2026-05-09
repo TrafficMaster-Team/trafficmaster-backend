@@ -34,3 +34,15 @@ class DeckConfigService:
             lapses=lapses,
             advanced=advanced,
         )
+
+    def copy_config(self, config: DeckConfig, new_owner_id: UserID) -> DeckConfig:
+        """Returns copy of deck config owned by another user."""
+        return DeckConfig(
+            id=self._id_generator(),
+            owner_id=new_owner_id,
+            name=config.name,
+            daily_limits=config.daily_limits,
+            new_cards=config.new_cards,
+            lapses=config.lapses,
+            advanced=config.advanced,
+        )
