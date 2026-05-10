@@ -6,6 +6,6 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 @dataclass(slots=True, eq=True, kw_only=True)
 class AuthSession:
-    id: str
+    id_: str
     user_id: UserID
     expiration: datetime
