@@ -20,6 +20,7 @@ default:
 #Run docker container
 @up:
 	docker compose -f {{ DOCKER_COMPOSE_DEV }} up --build -d
+	export $(grep -v '^#' .env | xargs)
 
 #Stop docker container
 @stop:

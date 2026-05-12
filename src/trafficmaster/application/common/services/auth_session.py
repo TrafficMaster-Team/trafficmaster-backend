@@ -35,7 +35,7 @@ class AuthSessionService:
         auth_session_id = self._auth_session_id()
         expiration: datetime = self._auth_timer.auth_session_expires_at
         auth_session = AuthSession(
-            id=auth_session_id,
+            id_=auth_session_id,
             user_id=user_id,
             expiration=expiration,
         )
@@ -77,7 +77,7 @@ class AuthSessionService:
             return
 
         try:
-            await self._auth_gateway.delete(auth_session_id=auth_session.id)
+            await self._auth_gateway.delete(auth_session_id=auth_session.id_)
             await self._transaction_manager.commit()
         except GatewayError as error:
             msg = "Authentication is currently unavailable"

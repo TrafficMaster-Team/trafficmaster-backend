@@ -1,5 +1,3 @@
-from uuid import UUID
-
 import sqlalchemy as sa
 from sqlalchemy import func
 from sqlalchemy.orm import composite
@@ -13,7 +11,7 @@ from trafficmaster.infrastructure.persistence.models.base import mapper_registry
 users_table = sa.Table(
     "users",
     mapper_registry.metadata,
-    sa.Column("id", UUID(as_uuid=True), primary_key=True),
+    sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
     sa.Column("email", sa.String(length=50), nullable=False, unique=True),
     sa.Column("name", sa.String(length=20), nullable=False),
     sa.Column("hashed_password", sa.LargeBinary(), nullable=False),
