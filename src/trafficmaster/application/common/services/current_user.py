@@ -1,6 +1,6 @@
 from typing import Final
 
-from trafficmaster.application.common.ports.access_revoke import AccessRevoker
+from trafficmaster.application.common.ports.access_revoker import AccessRevoker
 from trafficmaster.application.common.ports.identity_provider import IdentityProvider
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.errors.auth import AuthorizationError
@@ -23,7 +23,7 @@ class CurrentUserService:
         user = await self._user_gateway.read_by_id(user_id)
         if user is None:
             msg = "User not found"
-            self._access_revoker.remove_all_user_access(user_id)
+            await self._access_revoker.remove_all_user_access(user_id)
             raise AuthorizationError(msg)
         self._cached_user = user
         return user
