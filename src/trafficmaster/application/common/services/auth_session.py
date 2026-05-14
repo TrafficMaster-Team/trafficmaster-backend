@@ -5,6 +5,7 @@ from trafficmaster.application.common.ports.auth.gateway import AuthSessionGatew
 from trafficmaster.application.common.ports.auth.id_generator import AuthIDGenerator
 from trafficmaster.application.common.ports.auth.session_timer import SessionTimer
 from trafficmaster.application.common.ports.auth.transport import AuthSessionTransport
+from trafficmaster.application.common.ports.clock import Clock
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
 from trafficmaster.application.errors.auth import AuthenticationError
 from trafficmaster.application.errors.gateway import GatewayError
@@ -19,12 +20,14 @@ class AuthSessionService:
         self,
         auth_session_id: AuthIDGenerator,
         auth_timer: SessionTimer,
+        clock: Clock,
         auth_gateway: AuthSessionGateway,
         transaction_manager: TransactionManager,
         auth_transport: AuthSessionTransport,
     ) -> None:
         self._auth_session_id: Final[AuthIDGenerator] = auth_session_id
         self._auth_timer: Final[SessionTimer] = auth_timer
+        self._clock: Final[Clock] = clock
         self._auth_gateway: Final[AuthSessionGateway] = auth_gateway
         self._transaction_manager: Final[TransactionManager] = transaction_manager
         self._cached_session: AuthSession | None = None
@@ -116,7 +119,7 @@ class AuthSessionService:
         return self._cached_session
 
     async def validate_and_extend_session(self, auth_session: AuthSession) -> AuthSession:
-        now = self._auth_timer.current_time
+        now = self._clock.current_time
         if auth_session.expiration <= now:
             msg = "Session expired"
             raise AuthenticationError(msg)

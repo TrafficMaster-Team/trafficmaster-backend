@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, time
+from datetime import UTC, datetime
 
 
 class UtcClock:
@@ -8,4 +8,4 @@ class UtcClock:
 
     @property
     def today_start(self) -> datetime:
-        return datetime.combine(self.current_time.date(), time.min, tzinfo=UTC)
+        return self.current_time.replace(hour=0, minute=0, second=0, microsecond=0)
