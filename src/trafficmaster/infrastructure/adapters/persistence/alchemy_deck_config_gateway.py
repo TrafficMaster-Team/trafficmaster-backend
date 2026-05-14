@@ -22,10 +22,7 @@ class AlchemyDeckConfigGateway(DeckConfigGateway):
 
     @override
     async def add(self, deck_config: DeckConfig) -> None:
-        try:
-            self._session.add(deck_config)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(deck_config)
 
     @override
     async def delete_by_id(self, deck_config_id: DeckConfigID) -> None:

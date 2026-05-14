@@ -43,6 +43,8 @@ class SqlAlchemyTransactionManager(TransactionManager):
         try:
             await self._session.flush()
         except IntegrityError as error:
+            await self._session.rollback()
             raise EntityAddError(DB_CONSTRAINT_VIOLATION) from error
         except SQLAlchemyError as error:
+            await self._session.rollback()
             raise GatewayError(DB_QUERY_FAILED) from error

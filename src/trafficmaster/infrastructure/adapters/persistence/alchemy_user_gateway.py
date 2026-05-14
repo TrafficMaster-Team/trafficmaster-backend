@@ -28,10 +28,7 @@ class AlchemyUserGateway(UserGateway):
 
     @override
     async def add(self, user: User) -> None:
-        try:
-            self._session.add(user)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(user)
 
     @override
     async def delete_by_id(self, user_id: UserID) -> None:

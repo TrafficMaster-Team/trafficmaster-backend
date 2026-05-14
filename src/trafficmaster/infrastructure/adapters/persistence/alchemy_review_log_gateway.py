@@ -28,10 +28,7 @@ class AlchemyReviewLogGateway(ReviewLogGateway):
 
     @override
     async def add(self, review: ReviewLog) -> None:
-        try:
-            self._session.add(review)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(review)
 
     @override
     async def delete_by_id(self, review_id: ReviewLogID) -> None:

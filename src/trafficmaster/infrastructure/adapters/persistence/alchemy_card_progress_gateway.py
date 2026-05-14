@@ -33,10 +33,7 @@ class AlchemyCardProgressGateway(CardProgressGateway):
 
     @override
     async def add(self, progress: CardProgress) -> None:
-        try:
-            self._session.add(progress)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(progress)
 
     @override
     async def delete_by_id(self, progress_id: CardProgressID) -> None:

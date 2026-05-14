@@ -27,7 +27,7 @@ class JwtAuthSessionTransport(AuthSessionTransport):
 
     @override
     def extract_id(self) -> str | None:
-        access_token = self._request.cookies.get("access_token")
+        access_token = self._request.cookies.get(self._cookie_params.name)
         if access_token is None:
             return None
 

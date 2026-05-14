@@ -125,6 +125,7 @@ class SQLAlchemyConfig(BaseModel):
 
     expire_on_commit: bool = Field(
         alias="DB_EXPIRE_ON_COMMIT",
-        description="Enable auto commit mode.",
+        description="Expire ORM entities after commit. Keep False for async sessions.",
+        default=False,
         validate_default=False,
     )

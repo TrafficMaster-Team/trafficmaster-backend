@@ -18,10 +18,7 @@ class AlchemyAuthSessionGateway(AuthSessionGateway):
 
     @override
     async def add(self, auth_session: AuthSession) -> None:
-        try:
-            self._session.add(auth_session)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(auth_session)
 
     @override
     async def update(self, auth_session: AuthSession) -> None:

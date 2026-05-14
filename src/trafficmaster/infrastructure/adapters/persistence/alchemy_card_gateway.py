@@ -28,10 +28,7 @@ class AlchemyCardGateway(CardGateway):
 
     @override
     async def add(self, card: Card) -> None:
-        try:
-            self._session.add(card)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(card)
 
     @override
     async def delete_by_id(self, card_id: CardID) -> None:

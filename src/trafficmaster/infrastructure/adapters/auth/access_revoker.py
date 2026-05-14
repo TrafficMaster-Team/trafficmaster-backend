@@ -7,8 +7,8 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 class AuthSessionAccessRevoker(AccessRevoker):
     def __init__(self, auth_session_service: AuthSessionService) -> None:
-        self.auth_session_service: Final[AuthSessionService] = auth_session_service
+        self._auth_session_service: Final[AuthSessionService] = auth_session_service
 
     @override
     async def remove_all_user_access(self, user: UserID) -> None:
-        await self.auth_session_service.invalidate_all_user_sessions(user)
+        await self._auth_session_service.invalidate_all_user_sessions(user)

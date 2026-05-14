@@ -4,7 +4,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from trafficmaster.infrastructure.persistence.models.base import metadata
-from trafficmaster.setup.bootstrap import setup_config
+from trafficmaster.setup.bootstrap import setup_config, setup_map_configs
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,7 +21,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-
+setup_map_configs()
 target_metadata = metadata
 db_uri = setup_config().postgres.uri
 config.set_main_option("sqlalchemy.url", db_uri + "?async_fallback=True")

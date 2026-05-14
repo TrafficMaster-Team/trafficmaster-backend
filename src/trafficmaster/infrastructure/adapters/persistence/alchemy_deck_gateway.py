@@ -24,10 +24,7 @@ class AlchemyDeckGateway(DeckGateway):
 
     @override
     async def add(self, deck: Deck) -> None:
-        try:
-            self._session.add(deck)
-        except SQLAlchemyError as error:
-            raise GatewayError(DB_QUERY_FAILED) from error
+        self._session.add(deck)
 
     @override
     async def delete_by_id(self, deck_id: DeckID) -> None:
