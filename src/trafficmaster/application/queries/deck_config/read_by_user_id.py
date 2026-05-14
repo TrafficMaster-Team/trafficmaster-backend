@@ -47,12 +47,9 @@ class ReadDeckConfigsByUserIdQueryHandler:
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 
-        deck_configs: list[DeckConfig] | None = await self._deck_config_gateway.read_by_user_id(
+        deck_configs: list[DeckConfig] = await self._deck_config_gateway.read_by_user_id(
             UserID(data.user_id),
         )
-
-        if deck_configs is None:
-            return []
 
         return [
             ReadDeckConfigByIDView(

@@ -56,6 +56,7 @@ class CardProgressService:
     ) -> ReviewLog:
         now = datetime.now(UTC)
         steps = config.learning_steps
+        card_state = progress.state
         progress.state = CardState.LEARNING
 
         match rating:
@@ -91,6 +92,7 @@ class CardProgressService:
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,
+            card_state=card_state,
             reviewed_at=now,
         )
 
@@ -101,6 +103,7 @@ class CardProgressService:
         config: AdvancedConfig,
     ) -> ReviewLog:
         now = datetime.now(UTC)
+        card_state = progress.state
         current_ease = progress.ease_factor.value
         delay = max(0, (now - progress.next_review_at).days) if progress.next_review_at else 0
         current_interval = progress.interval.value + delay
@@ -154,6 +157,7 @@ class CardProgressService:
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,
+            card_state=card_state,
             reviewed_at=now,
         )
 
@@ -164,6 +168,7 @@ class CardProgressService:
         config: LapsesConfig,
     ) -> ReviewLog:
         now = datetime.now(UTC)
+        card_state = progress.state
         steps = config.relearning_steps
 
         match rating:
@@ -199,6 +204,7 @@ class CardProgressService:
             user_id=progress.user_id,
             card_id=progress.card_id,
             rating=rating,
+            card_state=card_state,
             reviewed_at=now,
         )
 

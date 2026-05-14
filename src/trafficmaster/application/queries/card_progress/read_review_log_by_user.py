@@ -48,7 +48,7 @@ class ReadReviewLogByUserQueryHandler:
         deck_id: DeckID | None = None
 
         if data.deck_id is not None:
-            deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+            deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.deck_id))
 
             if deck is None:
                 msg = "Deck not found"

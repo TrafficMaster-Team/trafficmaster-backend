@@ -42,7 +42,7 @@ class ChangePrivacyCommandHandler:
 
         current_user: User = await self._current_user_service.get_current_user()
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.deck_id))
 
         if deck is None:
             msg = "Deck not found"

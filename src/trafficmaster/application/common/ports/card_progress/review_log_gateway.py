@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from datetime import datetime
 from typing import Protocol
 
@@ -11,29 +10,24 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 
 class ReviewLogGateway(Protocol):
-    @abstractmethod
     async def add(self, review: ReviewLog) -> None: ...
 
-    @abstractmethod
-    async def remove_by_id(self, review_id: ReviewLogID) -> None: ...
+    async def delete_by_id(self, review_id: ReviewLogID) -> None: ...
 
-    @abstractmethod
-    async def read_count_new_done(
+    async def count_new_done(
         self,
         user_id: UserID,
         deck_id: DeckID | None,
         since: datetime,
     ) -> int: ...
 
-    @abstractmethod
-    async def read_count_reviews_done(
+    async def count_reviews_done(
         self,
         user_id: UserID,
         deck_id: DeckID | None,
         since: datetime,
     ) -> int: ...
 
-    @abstractmethod
     async def read_by_card(
         self,
         user_id: UserID,
@@ -41,7 +35,6 @@ class ReviewLogGateway(Protocol):
         pagination: Pagination,
     ) -> list[ReviewLog]: ...
 
-    @abstractmethod
     async def read_by_user(
         self,
         user_id: UserID,

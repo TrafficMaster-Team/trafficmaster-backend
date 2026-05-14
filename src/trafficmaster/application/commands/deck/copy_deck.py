@@ -59,7 +59,7 @@ class CopyDeckCommandHandler:
     async def __call__(self, data: CopyDeckCommand) -> CopyDeckView:
         current_user: User = await self._current_user_service.get_current_user()
 
-        source_deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.source_deck_id))
+        source_deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.source_deck_id))
 
         if source_deck is None:
             msg = "Deck not found"

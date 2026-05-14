@@ -61,7 +61,7 @@ class ReadReviewQueueQueryHandler:
 
         current_user: User = await self._current_user_service.get_current_user()
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.deck_id))
 
         if deck is None:
             msg = "Deck not found"
@@ -101,7 +101,7 @@ class ReadReviewQueueQueryHandler:
         remaining = max(0, remaining - len(learning))
 
         if remaining > 0:
-            reviews_done_today = await self._review_log_gateway.read_count_reviews_done(
+            reviews_done_today = await self._review_log_gateway.count_reviews_done(
                 user_id=current_user.id,
                 deck_id=deck.id,
                 since=today_start,
@@ -117,7 +117,7 @@ class ReadReviewQueueQueryHandler:
             remaining = max(0, remaining - len(review))
 
         if remaining > 0:
-            new_done_today = await self._review_log_gateway.read_count_new_done(
+            new_done_today = await self._review_log_gateway.count_new_done(
                 user_id=current_user.id,
                 deck_id=deck.id,
                 since=today_start,

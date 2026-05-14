@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from datetime import datetime
 from typing import Protocol
 
@@ -13,33 +12,26 @@ from trafficmaster.domain.user.values.user_id import UserID
 
 
 class CardProgressGateway(Protocol):
-    @abstractmethod
     async def add(self, progress: CardProgress) -> None: ...
 
-    @abstractmethod
     async def delete_by_id(self, progress_id: CardProgressID) -> None: ...
 
-    @abstractmethod
-    async def read_by_id(self, card_progress_id: CardProgressID) -> CardProgress | None: ...
+    async def read_by_id(self, progress_id: CardProgressID) -> CardProgress | None: ...
 
-    @abstractmethod
     async def read_by_user_and_card(
         self,
         user_id: UserID,
         card_id: CardID,
     ) -> CardProgress | None: ...
 
-    @abstractmethod
     async def read_due_learning(
         self, user_id: UserID, deck_id: DeckID, now: datetime, limit: int
     ) -> list[CardWithProgress]: ...
 
-    @abstractmethod
     async def read_due_review(
         self, user_id: UserID, deck_id: DeckID, now: datetime, limit: int
     ) -> list[CardWithProgress]: ...
 
-    @abstractmethod
     async def read_new_cards(
         self,
         user_id: UserID,
@@ -49,11 +41,8 @@ class CardProgressGateway(Protocol):
         order: NewCardOrder,
     ) -> list[CardWithProgress]: ...
 
-    @abstractmethod
     async def count_by_state(self, user_id: UserID, deck_id: DeckID | None) -> dict[CardState | None, int]: ...
 
-    @abstractmethod
     async def count_due_learning(self, user_id: UserID, deck_id: DeckID | None, now: datetime) -> int: ...
 
-    @abstractmethod
     async def count_due_review(self, user_id: UserID, deck_id: DeckID | None, now: datetime) -> int: ...

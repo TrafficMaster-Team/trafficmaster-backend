@@ -57,7 +57,7 @@ class ReadReviewLogByCardQueryHandler:
             msg = "Card not found"
             raise CardNotFoundError(msg)
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(card.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(card.deck_id))
 
         if deck is None:
             msg = "Deck not found"

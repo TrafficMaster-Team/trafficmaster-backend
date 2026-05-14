@@ -53,7 +53,7 @@ class DeleteCardCommandHandler:
             msg = "Card not found"
             raise CardNotFoundError(msg)
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(card.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(card.deck_id))
 
         if deck is None:
             msg = "Deck not found"
@@ -69,6 +69,6 @@ class DeleteCardCommandHandler:
             msg = "You are not allowed to manage this card"
             raise NoPermissionToManageUserError(msg)
 
-        await self._card_gateway.delete_by_card_id(card.id)
+        await self._card_gateway.delete_by_id(card.id)
 
         await self._transaction_manager.commit()

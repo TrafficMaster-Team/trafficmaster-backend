@@ -47,10 +47,7 @@ class ReadDecksByUserIdQueryHandler:
             msg = "You don't have permission to do that"
             raise NoPermissionToManageUserError(msg)
 
-        decks: list[Deck] | None = await self._deck_gateway.read_decks_by_user_id(UserID(data.user_id))
-
-        if decks is None:
-            return []
+        decks: list[Deck] = await self._deck_gateway.read_by_user_id(UserID(data.user_id))
 
         return [
             ReadDeckByIDView(

@@ -56,7 +56,7 @@ class CreateCardCommandHandler:
 
     async def __call__(self, data: CreateCardCommand) -> CreateCardView:
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.deck_id))
 
         if deck is None:
             msg = "Deck not found"

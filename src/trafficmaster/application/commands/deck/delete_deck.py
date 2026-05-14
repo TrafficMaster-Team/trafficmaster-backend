@@ -41,7 +41,7 @@ class DeleteDeckCommandHandler:
 
         current_user: User = await self._current_user_service.get_current_user()
 
-        deck: Deck | None = await self._deck_gateway.read_deck_by_id(DeckID(data.deck_id))
+        deck: Deck | None = await self._deck_gateway.read_by_id(DeckID(data.deck_id))
 
         if deck is None:
             msg = "Deck not found"
@@ -57,6 +57,6 @@ class DeleteDeckCommandHandler:
             msg = "You are not allowed to manage this deck"
             raise NoPermissionToManageUserError(msg)
 
-        await self._deck_gateway.delete_deck_by_id(deck.id)
+        await self._deck_gateway.delete_by_id(deck.id)
 
         await self._transaction_manager.commit()

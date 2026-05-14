@@ -58,12 +58,12 @@ class ReadUserAggregateStatsQueryHandler:
             now=now,
         )
 
-        new_done_today: int = await self._review_log_gateway.read_count_new_done(
+        new_done_today: int = await self._review_log_gateway.count_new_done(
             user_id=current_user.id,
             deck_id=None,
             since=today_start,
         )
-        reviews_done_today: int = await self._review_log_gateway.read_count_reviews_done(
+        reviews_done_today: int = await self._review_log_gateway.count_reviews_done(
             user_id=current_user.id,
             deck_id=None,
             since=today_start,

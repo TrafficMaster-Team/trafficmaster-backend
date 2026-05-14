@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 
 from trafficmaster.domain.card_progress.entities.review_log import ReviewLog
+from trafficmaster.domain.card_progress.values.card_state import CardState
 from trafficmaster.domain.card_progress.values.review_rating import ReviewRating
 from trafficmaster.infrastructure.persistence.models.base import mapper_registry
 
@@ -11,6 +12,7 @@ review_logs_table = sa.Table(
     sa.Column("user_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id"), nullable=False),
     sa.Column("card_id", sa.UUID(as_uuid=True), sa.ForeignKey("cards.id"), nullable=False),
     sa.Column("rating", sa.Enum(ReviewRating), nullable=False),
+    sa.Column("card_state", sa.Enum(CardState), nullable=False),
     sa.Column("reviewed_at", sa.DateTime(timezone=True), nullable=False),
     sa.Column(
         "created_at",
@@ -41,6 +43,7 @@ def map_review_logs_table() -> None:
             "user_id": review_logs_table.c.user_id,
             "card_id": review_logs_table.c.card_id,
             "rating": review_logs_table.c.rating,
+            "card_state": review_logs_table.c.card_state,
             "reviewed_at": review_logs_table.c.reviewed_at,
             "created_at": review_logs_table.c.created_at,
             "updated_at": review_logs_table.c.updated_at,

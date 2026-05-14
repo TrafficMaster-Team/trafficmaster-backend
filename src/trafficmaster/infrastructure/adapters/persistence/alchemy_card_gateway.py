@@ -8,6 +8,7 @@ from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.query_params.card_filters import CardParams
 from trafficmaster.application.common.query_params.sorting import SortingOrder
 from trafficmaster.application.errors.gateway import GatewayError
+from trafficmaster.application.errors.query_params import SortingError
 from trafficmaster.domain.card.entities.card import Card
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.deck.values.deck_id import DeckID
@@ -33,7 +34,7 @@ class AlchemyCardGateway(CardGateway):
             raise GatewayError(DB_QUERY_FAILED) from error
 
     @override
-    async def delete_by_card_id(self, card_id: CardID) -> None:
+    async def delete_by_id(self, card_id: CardID) -> None:
         try:
             delete_stmt = delete(Card).where(cards_table.c.id == card_id)
             await self._session.execute(delete_stmt)
@@ -67,11 +68,12 @@ class AlchemyCardGateway(CardGateway):
         return list(cards)
 
     @override
-    async def read_all_deck_cards(self, deck_id: DeckID, card_params: CardParams) -> list[Card] | None:
+    async def read_all_deck_cards(self, deck_id: DeckID, card_params: CardParams) -> list[Card]:
         table_sorting_field: ColumnElement[UUID | str] | None = cards_table.c.get(card_params.sorting_filter)
 
         if table_sorting_field is None:
-            return None
+            msg = f"Unknown sorting field: {card_params.sorting_filter}"
+            raise SortingError(msg)
 
         order_by_param: ColumnElement[UUID | str] = (
             table_sorting_field.asc() if card_params.sorting_order == SortingOrder.ASC else table_sorting_field.desc()
