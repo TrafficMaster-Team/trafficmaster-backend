@@ -1,0 +1,9 @@
+from typing import Protocol
+
+
+class CacheStore(Protocol):
+    async def set(self, name: str, value: bytes, ttl: int) -> None: ...
+
+    async def get(self, name: str) -> bytes: ...
+
+    async def delete(self, name: str) -> None: ...

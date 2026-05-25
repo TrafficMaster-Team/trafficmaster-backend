@@ -16,6 +16,11 @@ x-postgres-environment: &x-db-env
   POSTGRES_PORT: $POSTGRES_PORT
   POSTGRES_DB: $POSTGRES_DB
 
+x-redis-environment: &x-redis-environment
+  REDIS_PASSWORD: $REDIS_PASSWORD
+  REDIS_PORT: $REDIS_PORT
+  REDIS_CACHE_DB: $REDIS_CACHE_DB
+  REDIS_MAX_CONNECTIONS: $REDIS_MAX_CONNECTIONS
 
 services:
   postgres:
@@ -31,9 +36,26 @@ services:
       - 127.0.0.1:${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - trafficmaster.db.data:/var/lib/postgresql/data
+  redis:
+    <<: *default
+    image: redis:8.0.2-alpine
+    environment:
+      <<: *x-redis-environment
+    command: redis-server --requirepass $REDIS_PASSWORD --appendonly yes
+    healthcheck:
+      test:
+        ["CMD", "redis-cli", "-a", "$REDIS_PASSWORD", "ping"]
+      <<: *hc-interval
+    ports:
+      - "127.0.0.1:$REDIS_PORT:$REDIS_PORT"
+    volumes:
+      - trafficmaster.redis.data:/data
+
+
 
 volumes:
   trafficmaster.db.data: {}
+  trafficmaster.redis.data: {}
 
 networks:
   overlay:
