@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Self, TypedDict
 from uuid import UUID
 
@@ -17,6 +18,8 @@ class SerializedUser(TypedDict):
     role: str
     is_active: bool
     password: str
+    created_at: str
+    updated_at: str
 
 
 @dataclass(eq=False)
@@ -45,6 +48,8 @@ class User(BaseEntity[UserID]):
             "role": self.role.value,
             "is_active": self.is_active,
             "password": self.hashed_password.password.decode("utf-8"),
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
         }
 
     @classmethod
@@ -56,4 +61,6 @@ class User(BaseEntity[UserID]):
             hashed_password=HashedPassword(data["password"].encode("utf-8")),
             role=UserRole(data["role"]),
             is_active=data["is_active"],
+            created_at=datetime.fromisoformat(data["created_at"]),
+            updated_at=datetime.fromisoformat(data["updated_at"]),
         )

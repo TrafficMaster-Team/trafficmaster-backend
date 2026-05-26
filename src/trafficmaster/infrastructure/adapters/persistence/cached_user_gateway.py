@@ -6,10 +6,10 @@ from trafficmaster.application.common.query_params.user_filters import UserParam
 from trafficmaster.domain.user.entities.user import User
 from trafficmaster.domain.user.values.user_email import UserEmail
 from trafficmaster.domain.user.values.user_id import UserID
-from trafficmaster.infrastructure.cache.cache_store import CacheStore
+from trafficmaster.infrastructure.cache.cache_store import CacheStore, CacheStoreError
 
 
-class CachedUserQueryGateway(UserGateway):
+class CachedUserGateway(UserGateway):
     ALL_USERS_TTL: Final[int] = 60
     USER_BY_ID_TTL: Final[int] = 300
 
@@ -47,7 +47,7 @@ class CachedUserQueryGateway(UserGateway):
                 user_data = self._serialize_user(user)
                 await self._cache_store.set(cache_key, user_data, self.USER_BY_ID_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._user_gateway.read_by_id(user_id)
         else:
             return user
@@ -66,22 +66,18 @@ class CachedUserQueryGateway(UserGateway):
                 user_data = self._serialize_user(user)
                 await self._cache_store.set(cache_key, user_data, self.USER_BY_ID_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._user_gateway.read_by_email(user_email)
         else:
             return user
 
     @override
     async def read_all_users(self, user_params: UserParams) -> list[User]:
-        hash_for_key: int = hash(
-            (
-                user_params.pagination.limit,
-                user_params.pagination.offset,
-                user_params.sorting_order,
-                user_params.sorting_filter,
-            )
+        cache_key: str = (
+            f"users:all:"
+            f"{user_params.pagination.limit}:{user_params.pagination.offset}:"
+            f"{user_params.sorting_order.value}:{user_params.sorting_filter.value}"
         )
-        cache_key: str = f"users:all:{hash_for_key}"
         try:
             cached_data: bytes | None = await self._cache_store.get(cache_key)
             if cached_data:
@@ -93,7 +89,7 @@ class CachedUserQueryGateway(UserGateway):
                 users_data = self._serialize_users_list(users)
                 await self._cache_store.set(cache_key, users_data, self.ALL_USERS_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._user_gateway.read_all_users(user_params)
         else:
             return users
@@ -104,7 +100,7 @@ class CachedUserQueryGateway(UserGateway):
         try:
             await self._cache_store.delete(f"users:{user.id}")
             await self._cache_store.delete(f"users:email:{user.email}")
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return
 
     @override
@@ -112,5 +108,5 @@ class CachedUserQueryGateway(UserGateway):
         await self._user_gateway.delete_by_id(user_id)
         try:
             await self._cache_store.delete(f"users:{user_id}")
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return

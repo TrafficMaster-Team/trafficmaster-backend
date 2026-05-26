@@ -32,11 +32,12 @@ class RedisConfig(BaseModel):
 
     @field_validator("max_connections")
     @classmethod
-    def validate_connections(cls, value: int) -> None:
+    def validate_connections(cls, value: int) -> int:
         if value < REDIS_MAX_CONNECTION_MIN:
             raise ValueError(
                 f"Redis max connections must be at least {REDIS_MAX_CONNECTION_MIN}",
             )
+        return value
 
     @property
     def cache_uri(self) -> str:

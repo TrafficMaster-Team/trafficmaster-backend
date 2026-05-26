@@ -15,6 +15,7 @@ def setup_config() -> AppConfig:
     return AppConfig()
 
 
+@lru_cache(maxsize=1)
 def setup_map_configs() -> None:
     map_auth_session_table()
     map_card_progress_table()

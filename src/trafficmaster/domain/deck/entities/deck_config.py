@@ -50,6 +50,8 @@ class SerializedDeckConfig(TypedDict):
     new_cards: SerializedNewCardsConfig
     lapses: SerializedLapsesConfig
     advanced: SerializedAdvancedConfig
+    created_at: str
+    updated_at: str
 
 
 @dataclass(eq=False)
@@ -122,6 +124,8 @@ class DeckConfig(BaseEntity[DeckConfigID]):
                 "hard_interval": self.advanced.hard_interval,
                 "new_interval": self.advanced.new_interval,
             },
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
         }
 
     @classmethod
@@ -155,4 +159,6 @@ class DeckConfig(BaseEntity[DeckConfigID]):
                 hard_interval=data["advanced"]["hard_interval"],
                 new_interval=data["advanced"]["new_interval"],
             ),
+            created_at=datetime.fromisoformat(data["created_at"]),
+            updated_at=datetime.fromisoformat(data["updated_at"]),
         )

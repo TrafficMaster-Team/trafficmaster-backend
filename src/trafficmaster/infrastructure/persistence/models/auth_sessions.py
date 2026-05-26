@@ -8,7 +8,7 @@ auth_sessions_table = Table(
     mapper_registry.metadata,
     Column("id", String, primary_key=True),
     Column("user_id", UUID(as_uuid=True), nullable=False),
-    Column("expiration", DateTime, nullable=False),
+    Column("expiration", DateTime(timezone=True), nullable=False),
 )
 
 

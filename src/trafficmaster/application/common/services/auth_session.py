@@ -53,10 +53,7 @@ class AuthSessionService:
 
     async def get_authenticated_user_id(self) -> UserID:
 
-        session: AuthSession | None = await self.load_current_session()
-        if session is None:
-            msg = "No auth session available"
-            raise AuthenticationError(msg)
+        session = await self.load_current_session()
         validated_session = await self.validate_and_extend_session(session)
 
         return validated_session.user_id
@@ -95,7 +92,7 @@ class AuthSessionService:
             msg = "Authentication is currently unavailable"
             raise AuthenticationError(msg) from error
 
-    async def load_current_session(self) -> AuthSession | None:
+    async def load_current_session(self) -> AuthSession:
         if self._cached_session:
             return self._cached_session
 

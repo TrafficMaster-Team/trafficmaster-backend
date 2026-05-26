@@ -17,6 +17,8 @@ class SerializedDeck(TypedDict):
     title: str
     description: str | None
     is_public: bool
+    created_at: str
+    updated_at: str
 
 
 @dataclass(eq=False)
@@ -61,6 +63,8 @@ class Deck(BaseEntity[DeckID]):
             "title": str(self.title),
             "description": self.description,
             "is_public": self.is_public,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
         }
 
     @classmethod
@@ -72,4 +76,6 @@ class Deck(BaseEntity[DeckID]):
             title=DeckTitle(data["title"]),
             description=data["description"],
             is_public=data["is_public"],
+            created_at=datetime.fromisoformat(data["created_at"]),
+            updated_at=datetime.fromisoformat(data["updated_at"]),
         )

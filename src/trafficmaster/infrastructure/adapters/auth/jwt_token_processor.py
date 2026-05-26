@@ -32,4 +32,5 @@ class JwtAccessTokenProcessor:
         except jwt.PyJWTError:
             return None
 
-        return payload.get("auth_session_id")
+        session_id = payload.get("auth_session_id")
+        return session_id if isinstance(session_id, str) else None

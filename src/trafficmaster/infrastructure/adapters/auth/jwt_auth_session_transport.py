@@ -4,8 +4,8 @@ from starlette.requests import Request
 
 from trafficmaster.application.auth.auth_model import AuthSession
 from trafficmaster.application.common.ports.auth.transport import AuthSessionTransport
+from trafficmaster.infrastructure.adapters.auth.cookie_params import CookieParams
 from trafficmaster.infrastructure.adapters.auth.jwt_token_processor import JwtAccessTokenProcessor
-from trafficmaster.infrastructure.auth.cookie_params import CookieParams
 
 
 class JwtAuthSessionTransport(AuthSessionTransport):

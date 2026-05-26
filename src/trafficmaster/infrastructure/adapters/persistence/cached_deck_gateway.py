@@ -7,10 +7,10 @@ from trafficmaster.domain.deck.entities.deck import Deck
 from trafficmaster.domain.deck.values.deck_config_id import DeckConfigID
 from trafficmaster.domain.deck.values.deck_id import DeckID
 from trafficmaster.domain.user.values.user_id import UserID
-from trafficmaster.infrastructure.cache.cache_store import CacheStore
+from trafficmaster.infrastructure.cache.cache_store import CacheStore, CacheStoreError
 
 
-class CachedDeckQueryGateway(DeckGateway):
+class CachedDeckGateway(DeckGateway):
     DECK_BY_ID_TTL: Final[int] = 300
     USER_DECKS_TTL: Final[int] = 120
     PUBLIC_DECKS_TTL: Final[int] = 60
@@ -51,7 +51,7 @@ class CachedDeckQueryGateway(DeckGateway):
                 deck_data = self._serialize_deck(deck)
                 await self._cache_store.set(cache_key, deck_data, self.DECK_BY_ID_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._deck_gateway.read_by_id(deck_id)
         else:
             return deck
@@ -70,7 +70,7 @@ class CachedDeckQueryGateway(DeckGateway):
                 decks_data = self._serialize_decks_list(decks)
                 await self._cache_store.set(cache_key, decks_data, self.USER_DECKS_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._deck_gateway.read_by_user_id(user_id)
         else:
             return decks
@@ -89,7 +89,7 @@ class CachedDeckQueryGateway(DeckGateway):
                 decks_data = self._serialize_decks_list(decks)
                 await self._cache_store.set(cache_key, decks_data, self.PUBLIC_DECKS_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._deck_gateway.read_public_decks(pagination)
         else:
             return decks
@@ -105,7 +105,7 @@ class CachedDeckQueryGateway(DeckGateway):
             count: int = await self._deck_gateway.count_by_user(user_id)
             await self._cache_store.set(cache_key, str(count).encode("utf-8"), self.COUNT_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._deck_gateway.count_by_user(user_id)
         else:
             return count
@@ -121,7 +121,7 @@ class CachedDeckQueryGateway(DeckGateway):
             exists: bool = await self._deck_gateway.exists_with_deck_config_id(deck_config_id)
             await self._cache_store.set(cache_key, b"1" if exists else b"0", self.EXISTS_TTL)
 
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return await self._deck_gateway.exists_with_deck_config_id(deck_config_id)
         else:
             return exists
@@ -134,7 +134,7 @@ class CachedDeckQueryGateway(DeckGateway):
             await self._cache_store.delete(f"decks:user:{deck.owner_id}")
             await self._cache_store.delete(f"decks:count:user:{deck.owner_id}")
             await self._cache_store.delete(f"decks:exists_config:{deck.deck_config_id}")
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return
 
     @override
@@ -147,8 +147,8 @@ class CachedDeckQueryGateway(DeckGateway):
                 deck = self._deserialize_deck(cached_data)
                 cached_owner_id = deck.owner_id
                 cached_config_id = deck.deck_config_id
-        except Exception:  # noqa: BLE001, S110  # best-effort peek; proceed without owner/config invalidation
-            pass
+        except CacheStoreError:
+            pass  # best-effort peek; proceed without owner/config invalidation
 
         await self._deck_gateway.delete_by_id(deck_id)
 
@@ -159,5 +159,5 @@ class CachedDeckQueryGateway(DeckGateway):
                 await self._cache_store.delete(f"decks:count:user:{cached_owner_id}")
             if cached_config_id is not None:
                 await self._cache_store.delete(f"decks:exists_config:{cached_config_id}")
-        except Exception:  # noqa: BLE001  # cache failures must fall back to the underlying gateway
+        except CacheStoreError:
             return
