@@ -13,7 +13,7 @@ class RedisCacheStore(CacheStore):
         return cast("bytes", await self._redis_client.get(name=name))
 
     async def set(self, name: str, value: bytes, ttl: int = 30) -> None:
-        await self._redis_client.set(name=name, value=value, ttl=ttl)
+        await self._redis_client.set(name=name, value=value, ex=ttl)
 
     async def delete(self, name: str) -> None:
         await self._redis_client.delete(name)
