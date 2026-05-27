@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import Final
 
 from dishka import Provider, Scope
@@ -94,14 +95,6 @@ def db_provider() -> Provider:
     provider.provide(source=get_engine, scope=Scope.APP)
     provider.provide(source=get_sessionmaker, scope=Scope.APP)
     provider.provide(source=get_session)
-    provider.provide(source=SqlAlchemyTransactionManager, provides=TransactionManager)
-    provider.provide(source=AlchemyUserGateway, provides=UserGateway)
-    provider.provide(source=AlchemyDeckGateway, provides=DeckGateway)
-    provider.provide(source=AlchemyDeckConfigGateway, provides=DeckConfigGateway)
-    provider.provide(source=AlchemyCardGateway, provides=CardGateway)
-    provider.provide(source=AlchemyCardProgressGateway, provides=CardProgressGateway)
-    provider.provide(source=AlchemyReviewLogGateway, provides=ReviewLogGateway)
-    provider.provide(source=AlchemyAuthSessionGateway, provides=AuthSessionGateway)
     return provider
 
 
@@ -148,3 +141,27 @@ def auth_ports_provider() -> Provider:
     provider.provide(source=AuthSessionService)
     provider.provide(source=JwtAuthSessionTransport, provides=AuthSessionTransport)
     return provider
+
+
+def gateway_ports_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide(source=SqlAlchemyTransactionManager, provides=TransactionManager)
+    provider.provide(source=AlchemyUserGateway, provides=UserGateway)
+    provider.provide(source=AlchemyDeckGateway, provides=DeckGateway)
+    provider.provide(source=AlchemyDeckConfigGateway, provides=DeckConfigGateway)
+    provider.provide(source=AlchemyCardGateway, provides=CardGateway)
+    provider.provide(source=AlchemyCardProgressGateway, provides=CardProgressGateway)
+    provider.provide(source=AlchemyReviewLogGateway, provides=ReviewLogGateway)
+    provider.provide(source=AlchemyAuthSessionGateway, provides=AuthSessionGateway)
+    return provider
+
+
+def setup_providers() -> Iterable[Provider]:
+    return (
+        configs_provider(),
+        db_provider(),
+        cache_provider(),
+        domain_ports_provider(),
+        auth_ports_provider(),
+        gateway_ports_provider(),
+    )
