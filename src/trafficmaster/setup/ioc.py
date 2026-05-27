@@ -5,6 +5,42 @@ from dishka import Provider, Scope
 from starlette.requests import Request
 
 from trafficmaster.application.auth.auth_model import AuthSession  # noqa: F401  # required for mapper side-effects
+from trafficmaster.application.auth.log_in import LogInHandler
+from trafficmaster.application.auth.log_out import LogOutHandler
+from trafficmaster.application.auth.read_current_user import ReadCurrentUserHandler
+from trafficmaster.application.auth.sign_up import SignUpHandler
+from trafficmaster.application.commands.card.add_tag import AddTagCommandHandler
+from trafficmaster.application.commands.card.change_answer import ChangeAnswerCommandHandler
+from trafficmaster.application.commands.card.change_deck import ChangeDeckCommandHandler
+from trafficmaster.application.commands.card.change_image_path import ChangeImagePathCommandHandler
+from trafficmaster.application.commands.card.change_question import ChangeQuestionCommandHandler
+from trafficmaster.application.commands.card.create_card import CreateCardCommandHandler
+from trafficmaster.application.commands.card.delete_card import DeleteCardCommandHandler
+from trafficmaster.application.commands.card.remove_tag import RemoveTagCommandHandler
+from trafficmaster.application.commands.card_progress.reset_card_progress import ResetCardProgressCommandHandler
+from trafficmaster.application.commands.card_progress.review_card import ReviewCardCommandHandler
+from trafficmaster.application.commands.deck.assign_deck_config import AssignDeckConfigCommandHandler
+from trafficmaster.application.commands.deck.change_description import ChangeDescriptionCommandHandler
+from trafficmaster.application.commands.deck.change_privacy import ChangePrivacyCommandHandler
+from trafficmaster.application.commands.deck.change_title import ChangeTitleCommandHandler
+from trafficmaster.application.commands.deck.copy_deck import CopyDeckCommandHandler
+from trafficmaster.application.commands.deck.create_deck import CreateDeckCommandHandler
+from trafficmaster.application.commands.deck.delete_deck import DeleteDeckCommandHandler
+from trafficmaster.application.commands.deck_config.change_advanced import ChangeAdvancedCommandHandler
+from trafficmaster.application.commands.deck_config.change_config_name import ChangeConfigNameCommandHandler
+from trafficmaster.application.commands.deck_config.change_daily_limits import ChangeDailyLimitsCommandHandler
+from trafficmaster.application.commands.deck_config.change_lapses import ChangeLapsesCommandHandler
+from trafficmaster.application.commands.deck_config.change_new_cards import ChangeNewCardsCommandHandler
+from trafficmaster.application.commands.deck_config.create_deck_config import CreateDeckConfigCommandHandler
+from trafficmaster.application.commands.deck_config.delete_deck_config import DeleteDeckConfigCommandHandler
+from trafficmaster.application.commands.user.activate_user import ActivateUserCommandHandler
+from trafficmaster.application.commands.user.change_user_email import ChangeUserEmailCommandHandler
+from trafficmaster.application.commands.user.change_user_name import ChangeUserNameCommandHandler
+from trafficmaster.application.commands.user.change_user_password import ChangeUserPasswordCommandHandler
+from trafficmaster.application.commands.user.create_user import CreateUserCommandHandler
+from trafficmaster.application.commands.user.delete_user_by_id import DeleteUserByIdCommandHandler
+from trafficmaster.application.commands.user.grant_admin_by_id import GrantAdminByIdCommandHandler
+from trafficmaster.application.commands.user.revoke_admin_by_id import RevokeAdminByIdCommandHandler
 from trafficmaster.application.common.ports.access_revoker import AccessRevoker
 from trafficmaster.application.common.ports.auth.gateway import AuthSessionGateway
 from trafficmaster.application.common.ports.auth.id_generator import AuthIDGenerator
@@ -21,6 +57,22 @@ from trafficmaster.application.common.ports.transaction_manager import Transacti
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.auth_session import AuthSessionService
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.queries.card.read_all_cards import ReadAllCardsQueryHandler
+from trafficmaster.application.queries.card.read_by_id import ReadCardByIdQueryHandler
+from trafficmaster.application.queries.card_progress.preview_review_intervals import PreviewReviewIntervalsQueryHandler
+from trafficmaster.application.queries.card_progress.read_card_progress import ReadCardProgressQueryHandler
+from trafficmaster.application.queries.card_progress.read_deck_stats import ReadDeckStatsQueryHandler
+from trafficmaster.application.queries.card_progress.read_review_log_by_card import ReadReviewLogByCardQueryHandler
+from trafficmaster.application.queries.card_progress.read_review_log_by_user import ReadReviewLogByUserQueryHandler
+from trafficmaster.application.queries.card_progress.read_review_queue import ReadReviewQueueQueryHandler
+from trafficmaster.application.queries.deck.read_by_id import ReadDeckByIdQueryHandler
+from trafficmaster.application.queries.deck.read_decks_by_user_id import ReadDecksByUserIdQueryHandler
+from trafficmaster.application.queries.deck.read_public_decks import ReadPublicDecksQueryHandler
+from trafficmaster.application.queries.deck_config.read_by_id import ReadDeckConfigByIdQueryHandler
+from trafficmaster.application.queries.deck_config.read_by_user_id import ReadDeckConfigsByUserIdQueryHandler
+from trafficmaster.application.queries.user.read_aggregate_stats import ReadUserAggregateStatsQueryHandler
+from trafficmaster.application.queries.user.read_all_users import ReadAllUsersQueryHandler
+from trafficmaster.application.queries.user.read_by_id import ReadUserByIdQueryHandler
 from trafficmaster.domain.card.ports.card_id_generator import CardIDGenerator
 from trafficmaster.domain.card.services.card_service import CardService
 from trafficmaster.domain.card_progress.ports.card_progress_id_generator import CardProgressIDGenerator
@@ -156,6 +208,135 @@ def gateway_ports_provider() -> Provider:
     return provider
 
 
+def auth_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        SignUpHandler,
+        LogInHandler,
+        LogOutHandler,
+        ReadCurrentUserHandler,
+    )
+    return provider
+
+
+def user_command_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        CreateUserCommandHandler,
+        ActivateUserCommandHandler,
+        ChangeUserNameCommandHandler,
+        ChangeUserEmailCommandHandler,
+        ChangeUserPasswordCommandHandler,
+        DeleteUserByIdCommandHandler,
+        GrantAdminByIdCommandHandler,
+        RevokeAdminByIdCommandHandler,
+    )
+    return provider
+
+
+def deck_command_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        CreateDeckCommandHandler,
+        DeleteDeckCommandHandler,
+        CopyDeckCommandHandler,
+        ChangeTitleCommandHandler,
+        ChangeDescriptionCommandHandler,
+        ChangePrivacyCommandHandler,
+        AssignDeckConfigCommandHandler,
+    )
+    return provider
+
+
+def deck_config_command_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        CreateDeckConfigCommandHandler,
+        DeleteDeckConfigCommandHandler,
+        ChangeConfigNameCommandHandler,
+        ChangeAdvancedCommandHandler,
+        ChangeDailyLimitsCommandHandler,
+        ChangeLapsesCommandHandler,
+        ChangeNewCardsCommandHandler,
+    )
+    return provider
+
+
+def card_command_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        CreateCardCommandHandler,
+        DeleteCardCommandHandler,
+        ChangeQuestionCommandHandler,
+        ChangeAnswerCommandHandler,
+        ChangeImagePathCommandHandler,
+        ChangeDeckCommandHandler,
+        AddTagCommandHandler,
+        RemoveTagCommandHandler,
+    )
+    return provider
+
+
+def card_progress_command_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReviewCardCommandHandler,
+        ResetCardProgressCommandHandler,
+    )
+    return provider
+
+
+def user_query_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReadUserByIdQueryHandler,
+        ReadAllUsersQueryHandler,
+        ReadUserAggregateStatsQueryHandler,
+    )
+    return provider
+
+
+def deck_query_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReadDeckByIdQueryHandler,
+        ReadDecksByUserIdQueryHandler,
+        ReadPublicDecksQueryHandler,
+    )
+    return provider
+
+
+def deck_config_query_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReadDeckConfigByIdQueryHandler,
+        ReadDeckConfigsByUserIdQueryHandler,
+    )
+    return provider
+
+
+def card_query_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReadCardByIdQueryHandler,
+        ReadAllCardsQueryHandler,
+    )
+    return provider
+
+
+def card_progress_query_handlers_provider() -> Provider:
+    provider: Final[Provider] = Provider(scope=Scope.REQUEST)
+    provider.provide_all(
+        ReadCardProgressQueryHandler,
+        ReadReviewQueueQueryHandler,
+        ReadReviewLogByCardQueryHandler,
+        ReadReviewLogByUserQueryHandler,
+        ReadDeckStatsQueryHandler,
+        PreviewReviewIntervalsQueryHandler,
+    )
+    return provider
+
+
 def setup_providers() -> Iterable[Provider]:
     return (
         configs_provider(),
@@ -164,4 +345,15 @@ def setup_providers() -> Iterable[Provider]:
         domain_ports_provider(),
         auth_ports_provider(),
         gateway_ports_provider(),
+        auth_handlers_provider(),
+        user_command_handlers_provider(),
+        deck_command_handlers_provider(),
+        deck_config_command_handlers_provider(),
+        card_command_handlers_provider(),
+        card_progress_command_handlers_provider(),
+        user_query_handlers_provider(),
+        deck_query_handlers_provider(),
+        deck_config_query_handlers_provider(),
+        card_query_handlers_provider(),
+        card_progress_query_handlers_provider(),
     )
