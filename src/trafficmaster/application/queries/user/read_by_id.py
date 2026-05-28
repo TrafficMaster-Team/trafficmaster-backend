@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class ReadByIdQuery:
+class ReadUserByIdQuery:
     user_id: UUID
 
 
@@ -29,7 +29,7 @@ class ReadUserByIdQueryHandler:
         self._current_user_service: Final[CurrentUserService] = current_user_service
         self._user_gateway: Final[UserGateway] = user_gateway
 
-    async def __call__(self, data: ReadByIdQuery) -> ReadUserByIDView:
+    async def __call__(self, data: ReadUserByIdQuery) -> ReadUserByIDView:
 
         user_id: UserID = UserID(data.user_id)
 

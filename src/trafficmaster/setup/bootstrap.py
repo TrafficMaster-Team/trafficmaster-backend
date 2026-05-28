@@ -11,7 +11,7 @@ from trafficmaster.setup.config.settings import AppConfig
 
 
 @lru_cache(maxsize=1)
-def setup_config() -> AppConfig:
+def setup_configs() -> AppConfig:
     return AppConfig()
 
 
