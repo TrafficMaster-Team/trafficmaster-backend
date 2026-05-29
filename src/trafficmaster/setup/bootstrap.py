@@ -1,5 +1,7 @@
 from functools import lru_cache
 
+from fastapi import FastAPI
+
 from trafficmaster.infrastructure.persistence.models.auth_sessions import map_auth_session_table
 from trafficmaster.infrastructure.persistence.models.card_progress import map_card_progress_table
 from trafficmaster.infrastructure.persistence.models.cards import map_cards_table
@@ -7,6 +9,7 @@ from trafficmaster.infrastructure.persistence.models.deck_configs import map_dec
 from trafficmaster.infrastructure.persistence.models.decks import map_decks_table
 from trafficmaster.infrastructure.persistence.models.review_logs import map_review_logs_table
 from trafficmaster.infrastructure.persistence.models.users import map_users_table
+from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionHandler
 from trafficmaster.setup.config.settings import AppConfig
 
 
@@ -24,3 +27,8 @@ def setup_map_configs() -> None:
     map_deck_configs_table()
     map_review_logs_table()
     map_users_table()
+
+
+def setup_exc_handlers(app: FastAPI) -> None:
+    exception_handler: ExceptionHandler = ExceptionHandler(app)
+    exception_handler.setup_exception_handlers()
