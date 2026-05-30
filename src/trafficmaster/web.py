@@ -2,6 +2,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING
 
+import uvicorn
 from dishka import AsyncContainer, make_async_container
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
@@ -11,7 +12,13 @@ from trafficmaster.infrastructure.adapters.auth.cookie_params import CookieParam
 from trafficmaster.infrastructure.adapters.auth.jwt_token_processor import JwtAlgorithm, JwtSecret
 from trafficmaster.infrastructure.adapters.auth.timer_utc import AuthSessionRefreshThreshold, AuthSessionTtlMin
 from trafficmaster.infrastructure.adapters.common.password_hasher_bcrypt import PasswordPepper
-from trafficmaster.setup.bootstrap import setup_configs, setup_exc_handlers, setup_http_routes, setup_map_configs
+from trafficmaster.setup.bootstrap import (
+    setup_configs,
+    setup_exc_handlers,
+    setup_http_middlewares,
+    setup_http_routes,
+    setup_map_configs,
+)
 from trafficmaster.setup.config.asgi import ASGIConfig
 from trafficmaster.setup.config.database import PostgresConfig, SQLAlchemyConfig
 from trafficmaster.setup.config.redis import RedisConfig
@@ -49,7 +56,17 @@ def create_fastapi_app() -> FastAPI:
     }
 
     container: AsyncContainer = make_async_container(*setup_providers(), context=context)
-    setup_dishka(container, app)
     setup_exc_handlers(app)
     setup_http_routes(app)
+    setup_http_middlewares(app, configs.asgi)
+    setup_dishka(container, app)
     return app
+
+
+if __name__ == "__main__":
+    asgi_conf = setup_configs().asgi
+    uvicorn.run(
+        create_fastapi_app(),
+        host=asgi_conf.host,
+        port=asgi_conf.port,
+    )

@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 from fastapi import APIRouter, FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 from trafficmaster.infrastructure.persistence.models.auth_sessions import map_auth_session_table
 from trafficmaster.infrastructure.persistence.models.card_progress import map_card_progress_table
@@ -11,7 +12,10 @@ from trafficmaster.infrastructure.persistence.models.review_logs import map_revi
 from trafficmaster.infrastructure.persistence.models.users import map_users_table
 from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionHandler
 from trafficmaster.presentation.http.v1.common.routes import healthcheck, index
+from trafficmaster.presentation.http.v1.middlewares.asgi_auth import ASGIAuthMiddleware
+from trafficmaster.presentation.http.v1.middlewares.client_cache import ClientCacheMiddleware
 from trafficmaster.presentation.http.v1.routes.user import user_router
+from trafficmaster.setup.config.asgi import ASGIConfig
 from trafficmaster.setup.config.settings import AppConfig
 
 
@@ -42,3 +46,20 @@ def setup_http_routes(app: FastAPI) -> None:
 def setup_exc_handlers(app: FastAPI) -> None:
     exception_handler: ExceptionHandler = ExceptionHandler(app)
     exception_handler.setup_exception_handlers()
+
+
+def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig) -> None:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            f"http://localhost:{api_config.port}",
+            f"https://{api_config.host}:{api_config.port}",
+            f"http://127.0.0.1:{api_config.port}",
+            "http://127.0.0.1",
+        ],
+        allow_credentials=api_config.allow_credentials,
+        allow_methods=api_config.allow_methods,
+        allow_headers=api_config.allow_headers,
+    )
+    app.add_middleware(ASGIAuthMiddleware)
+    app.add_middleware(ClientCacheMiddleware)

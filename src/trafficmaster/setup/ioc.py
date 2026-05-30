@@ -341,10 +341,10 @@ def setup_providers() -> Iterable[Provider]:
     return (
         configs_provider(),
         db_provider(),
-        cache_provider(),
         domain_ports_provider(),
         auth_ports_provider(),
         gateway_ports_provider(),
+        cache_provider(),
         auth_handlers_provider(),
         user_command_handlers_provider(),
         deck_command_handlers_provider(),

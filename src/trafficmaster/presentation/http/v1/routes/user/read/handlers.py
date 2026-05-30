@@ -30,7 +30,7 @@ UserIDPathParameter = Path(
     response_model=ReadUserByIDResponse,
     summary="Get user by ID",
     responses={
-        status.HTTP_401_UNATHORIZED: {"model": ExceptionSchema},
+        status.HTTP_401_UNAUTHORIZED: {"model": ExceptionSchema},
         status.HTTP_403_FORBIDDEN: {"model": ExceptionSchema},
         status.HTTP_400_BAD_REQUEST: {"model": ExceptionSchema},
         status.HTTP_404_NOT_FOUND: {"model": ExceptionSchema},

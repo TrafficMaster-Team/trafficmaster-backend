@@ -12,9 +12,9 @@ users_table = sa.Table(
     "users",
     mapper_registry.metadata,
     sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
-    sa.Column("email", sa.String(length=50), nullable=False, unique=True),
+    sa.Column("email", sa.String(length=50), key="email_value", nullable=False, unique=True),
     sa.Column("name", sa.String(length=20), nullable=False),
-    sa.Column("hashed_password", sa.LargeBinary(), nullable=False),
+    sa.Column("hashed_password", sa.LargeBinary(), key="hashed_password_value", nullable=False),
     sa.Column("role", sa.Enum(UserRole), nullable=False),
     sa.Column("is_active", sa.Boolean, nullable=False),
     sa.Column(
@@ -41,11 +41,11 @@ def map_users_table() -> None:
         users_table,
         properties={
             "id": users_table.c.id,
-            "email": composite(UserEmail, users_table.c.email),
+            "email": composite(UserEmail, users_table.c.email_value),
             "role": users_table.c.role,
             "is_active": users_table.c.is_active,
             "created_at": users_table.c.created_at,
             "updated_at": users_table.c.updated_at,
-            "hashed_password": composite(HashedPassword, users_table.c.hashed_password),
+            "hashed_password": composite(HashedPassword, users_table.c.hashed_password_value),
         },
     )

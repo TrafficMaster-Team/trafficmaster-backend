@@ -14,7 +14,7 @@ deck_configs_table = sa.Table(
     mapper_registry.metadata,
     sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
     sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id"), nullable=False),
-    sa.Column("name", sa.String(length=100), nullable=False),
+    sa.Column("name", sa.String(length=100), key="name_value", nullable=False),
     sa.Column("new_cards_per_day", sa.Integer, nullable=False),
     sa.Column("max_reviews_per_day", sa.Integer, nullable=False),
     sa.Column("reviews_dont_bury_new", sa.Boolean, nullable=False),
@@ -57,7 +57,7 @@ def map_deck_configs_table() -> None:
         properties={
             "id": deck_configs_table.c.id,
             "owner_id": deck_configs_table.c.owner_id,
-            "name": composite(DeckConfigName, deck_configs_table.c.name),
+            "name": composite(DeckConfigName, deck_configs_table.c.name_value),
             "daily_limits": composite(
                 DailyLimits,
                 deck_configs_table.c.new_cards_per_day,

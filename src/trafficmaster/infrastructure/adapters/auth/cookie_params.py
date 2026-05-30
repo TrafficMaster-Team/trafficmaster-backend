@@ -4,7 +4,6 @@ from typing import Literal
 
 @dataclass(eq=False, slots=True, kw_only=True)
 class CookieParams:
-    name: str
     secure: bool
     same_site: Literal["strict"] | None = None
 

@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 from trafficmaster.setup.config.asgi import ASGIConfig
 from trafficmaster.setup.config.database import PostgresConfig, SQLAlchemyConfig
 from trafficmaster.setup.config.redis import RedisConfig
-from trafficmaster.setup.config.security import SecurityConfig
+from trafficmaster.setup.config.security import SecurityConfig, AuthSettings, CookieSettings, PasswordSettings
 
 
 class AppConfig(BaseModel):
@@ -31,6 +31,10 @@ class AppConfig(BaseModel):
     )
 
     security: SecurityConfig = Field(
-        default_factory= lambda: SecurityConfig(**os.environ),
+        default_factory= lambda: SecurityConfig(
+            auth=AuthSettings(**os.environ),
+            cookies=CookieSettings(**os.environ),
+            password=PasswordSettings(**os.environ),
+        ),
         description="security settings"
     )

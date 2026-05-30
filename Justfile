@@ -11,6 +11,8 @@ default:
 	python3 -m pip install uv
 	uv sync --group dev
 	pre-commit install
+	export $(grep -v '^#' .env | xargs)
+
 
 #Lint files
 @lint:

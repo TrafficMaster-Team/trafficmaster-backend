@@ -31,7 +31,7 @@ class AuthSettings(BaseModel):
         lt=1.0
     )
 
-    @field_validator(session_ttl_min, mode="before")
+    @field_validator("session_ttl_min", mode="before")
     @classmethod
     def convert_session_ttl_min(cls, v: Any) -> timedelta:
 
@@ -48,13 +48,13 @@ class AuthSettings(BaseModel):
 
         return timedelta(minutes=minutes)
 
-class CookieSettings:
+class CookieSettings(BaseModel):
     secure: bool = Field(
         alias="SECURE",
         description="Secure cookie.",
     )
 
-class PasswordSettings:
+class PasswordSettings(BaseModel):
     pepper: str = Field(
         alias="PEPPER",
         description="Pepper password.",

@@ -11,7 +11,7 @@ decks_table = sa.Table(
     sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
     sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id"), nullable=False),
     sa.Column("deck_config_id", sa.UUID(as_uuid=True), sa.ForeignKey("deck_configs.id"), nullable=False),
-    sa.Column("title", sa.String(length=100), nullable=False),
+    sa.Column("title", sa.String(length=100), key="title_value", nullable=False),
     sa.Column("description", sa.String(length=1000), nullable=True),
     sa.Column("is_public", sa.Boolean, nullable=False, default=False),
     sa.Column(
@@ -40,7 +40,7 @@ def map_decks_table() -> None:
             "id": decks_table.c.id,
             "owner_id": decks_table.c.owner_id,
             "deck_config_id": decks_table.c.deck_config_id,
-            "title": composite(DeckTitle, decks_table.c.title),
+            "title": composite(DeckTitle, decks_table.c.title_value),
             "description": decks_table.c.description,
             "is_public": decks_table.c.is_public,
             "created_at": decks_table.c.created_at,

@@ -1,8 +1,8 @@
 from typing import Any, Final
 
 from pydantic import BaseModel, Field, field_validator, PostgresDsn
-from consts import PORT_MAX, PORT_MIN
 
+from trafficmaster.setup.config.consts import PORT_MIN, PORT_MAX
 
 POOL_SIZE_MIN: Final[int] = 1
 POOL_SIZE_MAX: Final[int] = 1000
