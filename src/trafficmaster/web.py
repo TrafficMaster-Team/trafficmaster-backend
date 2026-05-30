@@ -40,7 +40,14 @@ def create_fastapi_app() -> FastAPI:
     configs: AppConfig = setup_configs()
     setup_map_configs()
 
-    app: FastAPI = FastAPI(lifespan=lifespan, version="1.0.0", debug=configs.asgi.fastapi_debug)
+    app: FastAPI = FastAPI(
+        lifespan=lifespan,
+        version="1.0.0",
+        debug=configs.asgi.fastapi_debug,
+        title="TrafficMaster API",
+        description="API for learning traffic rules using Anki-method",
+        contact={"name": "Dzianis Pametska", "email": "denispometko8@gmail.com"},
+    )
 
     context = {
         ASGIConfig: configs.asgi,
