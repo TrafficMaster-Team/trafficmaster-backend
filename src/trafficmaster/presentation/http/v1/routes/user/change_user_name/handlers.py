@@ -20,7 +20,7 @@ UserIDPathParameter = Path(
 
 
 @change_username_router.patch(
-    "{user_id}/username",
+    "/{user_id}/username",
     status_code=status.HTTP_204_NO_CONTENT,
     description=getdoc(ChangeUserNameCommandHandler),
     summary="Change username",
@@ -32,7 +32,7 @@ UserIDPathParameter = Path(
         status.HTTP_503_SERVICE_UNAVAILABLE: {"model": ExceptionSchema},
         status.HTTP_422_UNPROCESSABLE_CONTENT: {"model": ExceptionSchemaRich},
     },
-    dependencies=Security(cookie_scheme),
+    dependencies=[Security(cookie_scheme)],
 )
 async def change_username_by_id(
     user_id: Annotated[UUID, UserIDPathParameter],

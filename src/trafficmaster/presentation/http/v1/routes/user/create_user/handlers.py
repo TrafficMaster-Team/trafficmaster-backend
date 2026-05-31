@@ -27,7 +27,7 @@ create_user_route: Final[APIRouter] = APIRouter(
     status_code=status.HTTP_201_CREATED,
     summary="Create user",
     description=getdoc(CreateUserCommandHandler),
-    dependencies=Security(cookie_scheme),
+    dependencies=[Security(cookie_scheme)],
     response_model=CreateUserResponseSchema,
     responses={
         status.HTTP_401_UNAUTHORIZED: {"model": ExceptionSchema},

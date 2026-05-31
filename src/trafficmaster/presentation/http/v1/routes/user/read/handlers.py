@@ -23,7 +23,7 @@ UserIDPathParameter = Path(
 
 
 @read_router.get(
-    "/id/{user_id}",
+    "/{user_id}",
     status_code=status.HTTP_200_OK,
     dependencies=[Security(cookie_scheme)],
     description=getdoc(ReadUserByIdQueryHandler),

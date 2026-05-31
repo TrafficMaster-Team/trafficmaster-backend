@@ -18,10 +18,11 @@ from trafficmaster.presentation.http.v1.routes.user.revoke_admin.handlers import
 user_router = APIRouter(prefix="/user", tags=["User"], route_class=DishkaRoute)
 
 sub_routers: Iterable[APIRouter] = [
-    read_router,
     read_all_router,
+    # Static paths must be registered before "/{user_id}" so they aren't swallowed by the path param.
     read_aggregate_stats_router,
     create_user_route,
+    read_router,
     delete_user_route,
     grant_admin_route,
     revoke_admin_route,

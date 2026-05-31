@@ -31,7 +31,7 @@ UserIDPathParameter = Path(
     status_code=status.HTTP_204_NO_CONTENT,
     summary="Delete user",
     description=getdoc(DeleteUserByIdCommandHandler),
-    dependencies=Security(cookie_scheme),
+    dependencies=[Security(cookie_scheme)],
     responses={
         status.HTTP_401_UNAUTHORIZED: {"model": ExceptionSchema},
         status.HTTP_403_FORBIDDEN: {"model": ExceptionSchema},

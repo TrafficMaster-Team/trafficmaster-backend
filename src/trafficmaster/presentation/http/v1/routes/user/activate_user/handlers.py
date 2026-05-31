@@ -6,7 +6,7 @@ from dishka import FromDishka
 from dishka.integrations.fastapi import DishkaRoute
 from fastapi import APIRouter, Path, Security, status
 
-from trafficmaster.application.commands.user.activate_user import ActivateUserCommandHandler
+from trafficmaster.application.commands.user.activate_user import ActivateUserCommand, ActivateUserCommandHandler
 from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionSchema, ExceptionSchemaRich
 from trafficmaster.presentation.http.v1.common.fastapi_openapi_marker import cookie_scheme
 
@@ -21,7 +21,7 @@ UserIDPathParameter = Path(
 
 
 @activate_user_route.patch(
-    "/id/{user_id}/activate",
+    "/{user_id}/activate",
     status_code=status.HTTP_204_NO_CONTENT,
     description=getdoc(ActivateUserCommandHandler),
     summary="Activate user in system if this user is blocked",
@@ -38,4 +38,6 @@ UserIDPathParameter = Path(
 async def activate_user_handler(
     user_id: Annotated[UUID, UserIDPathParameter], interactor: FromDishka[ActivateUserCommandHandler]
 ) -> None:
-    await interactor(data=user_id)
+    command: ActivateUserCommand = ActivateUserCommand(user_id=user_id)
+
+    await interactor(data=command)
