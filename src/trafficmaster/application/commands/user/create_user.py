@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.common.views.user.create_user import CreateUserView
 from trafficmaster.application.errors.user import (
     NoPermissionToManageUserError,
     UserAlreadyExistsError,
@@ -42,7 +43,7 @@ class CreateUserCommandHandler:
         self._access_service = access_service
         self._transaction_manager = transaction_manager
 
-    async def __call__(self, data: CreateUserCommand) -> None:
+    async def __call__(self, data: CreateUserCommand) -> CreateUserView:
 
         current_user: User = await self._current_user_service.get_current_user()
 
@@ -64,3 +65,5 @@ class CreateUserCommandHandler:
 
         await self._user_gateway.add(created_user)
         await self._transaction_manager.commit()
+
+        return CreateUserView(id=created_user.id)
