@@ -22,7 +22,8 @@ class JwtAccessTokenProcessor:
     def encode(self, auth_session: AuthSession) -> str:
         payload: JwtPayload = JwtPayload(auth_session_id=auth_session.id_, exp=int(auth_session.expiration.timestamp()))
 
-        return jwt.encode(cast("dict[str, Any]", payload), self._jwt_secret, algorithm=self._jwt_algorithm)
+        token: str = jwt.encode(cast("dict[str, Any]", payload), self._jwt_secret, algorithm=self._jwt_algorithm)
+        return token
 
     def decode_auth_session_id(self, jwt_token: str) -> str | None:
 

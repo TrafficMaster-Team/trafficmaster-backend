@@ -1,7 +1,8 @@
-from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
+
+from trafficmaster.domain.user.values.user_role import UserRole
 
 
 class ReadUserByIDResponse(BaseModel):
@@ -32,8 +33,8 @@ class ReadUserByIDResponse(BaseModel):
         ],
     )
 
-    role: Literal["admin", "user", "super_admin"] = Field(
+    role: UserRole = Field(
         title="User Role",
         description="User role in system",
-        examples=["admin", "user", "super_admin"],
+        examples=[UserRole.ADMIN, UserRole.USER, UserRole.SUPERADMIN],
     )

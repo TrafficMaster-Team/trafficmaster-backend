@@ -6,7 +6,9 @@ from starlette.requests import Request
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from trafficmaster.infrastructure.adapters.auth.constraints import (
+    ACCESS_TOKEN_COOKIE_KEY,
     REQUEST_STATE_COOKIE_PARAMS_KEY,
+    REQUEST_STATE_DELETE_ACCESS_TOKEN_KEY,
     REQUEST_STATE_NEW_ACCESS_TOKEN_KEY,
 )
 from trafficmaster.infrastructure.adapters.auth.cookie_params import CookieParams
@@ -50,7 +52,7 @@ class ASGIAuthMiddleware:
 
     def _maybe_delete_cookie(self, request: Request, headers: MutableHeaders) -> None:
 
-        if not getattr(request.state, REQUEST_STATE_NEW_ACCESS_TOKEN_KEY, False):
+        if not getattr(request.state, REQUEST_STATE_DELETE_ACCESS_TOKEN_KEY, False):
             return
 
         cookie_header = self._make_cookie_header(value="", max_age=0)
@@ -65,15 +67,15 @@ class ASGIAuthMiddleware:
         max_age: int | None = None,
     ) -> str:
         cookie = SimpleCookie()
-        cookie["access_token"] = value
-        cookie["access_token"]["path"] = "/"
-        cookie["access_token"]["httponly"] = True
+        cookie[ACCESS_TOKEN_COOKIE_KEY] = value
+        cookie[ACCESS_TOKEN_COOKIE_KEY]["path"] = "/"
+        cookie[ACCESS_TOKEN_COOKIE_KEY]["httponly"] = True
 
         if is_secure:
-            cookie["access_token"]["secure"] = True
+            cookie[ACCESS_TOKEN_COOKIE_KEY]["secure"] = True
         if samesite:
-            cookie["access_token"]["samesite"] = samesite
+            cookie[ACCESS_TOKEN_COOKIE_KEY]["samesite"] = samesite
         if max_age is not None:
-            cookie["access_token"]["max-age"] = max_age
+            cookie[ACCESS_TOKEN_COOKIE_KEY]["max-age"] = max_age
 
         return cookie.output(header="").strip()

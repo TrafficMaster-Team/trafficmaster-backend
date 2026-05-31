@@ -1,3 +1,5 @@
 from fastapi.security import APIKeyCookie
 
-cookie_scheme = APIKeyCookie(name="access_token")
+from trafficmaster.infrastructure.adapters.auth.constraints import ACCESS_TOKEN_COOKIE_KEY
+
+cookie_scheme = APIKeyCookie(name=ACCESS_TOKEN_COOKIE_KEY)
