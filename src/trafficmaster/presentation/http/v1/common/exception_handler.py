@@ -175,7 +175,7 @@ class ExceptionHandler:
 
         response: ExceptionSchema | ExceptionSchemaRich
         if isinstance(exc, pydantic.ValidationError):
-            response = ExceptionSchemaRich(str(exc), jsonable_encoder(exc.errors))
+            response = ExceptionSchemaRich(str(exc), jsonable_encoder(exc.errors()))
         elif status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
             message_if_unavailable: str = "Service temporary unavailable. Please try later."
             response = ExceptionSchema(message_if_unavailable)
@@ -183,7 +183,7 @@ class ExceptionHandler:
             message: str = str(exc) if status_code < self._internal_server_error else "Internal server error"
             response = ExceptionSchema(message)
 
-        return JSONResponse(response=response, status_code=status_code)
+        return JSONResponse(content=jsonable_encoder(response), status_code=status_code)
 
     def setup_exception_handlers(self) -> None:
         for exc_class in self._ERROR_MAPPING:
