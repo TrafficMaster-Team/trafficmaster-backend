@@ -1,4 +1,0 @@
-8. UTC CLOCK FOR all users
-gateway error and command query
-logging
-testing

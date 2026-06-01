@@ -1,3 +1,5 @@
+set dotenv-load := true
+
 DOCKER_COMPOSE_DEV := "docker-compose-local.yaml"
 
 #All command section
@@ -43,3 +45,6 @@ default:
 #Run tests with HTML coverage report (open htmlcov/index.html)
 @cov:
 	pytest tests/ --cov-report=html
+#Run API server (uvicorn)
+@uvicorn:
+	PYTHONPATH=src uvicorn trafficmaster.web:create_fastapi_app --factory

@@ -9,7 +9,7 @@ from trafficmaster.domain.card.errors.card import (
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 
 MINIMUM_CARD_QUESTION: Final[int] = 1
-MAXIMUM_CARD_QUESTION: Final[int] = 500
+MAXIMUM_CARD_QUESTION: Final[int] = 1000
 
 
 @dataclass(frozen=True, eq=True, unsafe_hash=True)
