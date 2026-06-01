@@ -5,8 +5,11 @@ from unittest.mock import AsyncMock, Mock, create_autospec
 import pytest
 
 from tests.unit.factories.user_entity import create_user
+from trafficmaster.application.common.services.auth_session import AuthSessionService
 from trafficmaster.domain.card.services.card_service import CardService
 from trafficmaster.domain.card_progress.services.card_progress_service import CardProgressService
+from trafficmaster.domain.deck.services.deck_config_service import DeckConfigService
+from trafficmaster.domain.deck.services.deck_service import DeckService
 from trafficmaster.domain.user.services.access_service import AccessService
 from trafficmaster.domain.user.services.user_service import UserService
 
@@ -131,3 +134,18 @@ def fake_clock() -> Mock:
     clock.current_time = datetime(2026, 6, 1, 12, 0, tzinfo=UTC)
     clock.today_start = datetime(2026, 6, 1, 0, 0, tzinfo=UTC)
     return clock
+
+
+@pytest.fixture
+def fake_deck_service() -> Mock:
+    return cast("Mock", create_autospec(DeckService))
+
+
+@pytest.fixture
+def fake_deck_config_service() -> Mock:
+    return cast("Mock", create_autospec(DeckConfigService))
+
+
+@pytest.fixture
+def fake_auth_session_service() -> Mock:
+    return cast("Mock", create_autospec(AuthSessionService))
