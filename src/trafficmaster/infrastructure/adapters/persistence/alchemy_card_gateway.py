@@ -64,9 +64,14 @@ class AlchemyCardGateway(CardGateway):
             raise GatewayError(DB_QUERY_FAILED) from error
         return list(cards)
 
+    # CardQueryFilters values map to their domain attribute names; the question column
+    # uses a different storage key ("card_question") because it is mapped as a composite.
+    _SORT_COLUMN_KEYS: Final[dict[str, str]] = {"question": "card_question"}
+
     @override
     async def read_all_deck_cards(self, deck_id: DeckID, card_params: CardParams) -> list[Card]:
-        table_sorting_field: ColumnElement[UUID | str] | None = cards_table.c.get(card_params.sorting_filter)
+        column_key: str = self._SORT_COLUMN_KEYS.get(card_params.sorting_filter, card_params.sorting_filter)
+        table_sorting_field: ColumnElement[UUID | str] | None = cards_table.c.get(column_key)
 
         if table_sorting_field is None:
             msg = f"Unknown sorting field: {card_params.sorting_filter}"

@@ -23,6 +23,9 @@ if TYPE_CHECKING:
 
 
 class AlchemyUserGateway(UserGateway):
+    # name/email are stored under composite keys ("name_value"/"email_value").
+    _SORT_COLUMN_KEYS: Final[dict[str, str]] = {"name": "name_value", "email": "email_value"}
+
     def __init__(self, session: AsyncSession) -> None:
         self._session: Final[AsyncSession] = session
 
@@ -65,7 +68,8 @@ class AlchemyUserGateway(UserGateway):
 
     @override
     async def read_all_users(self, user_params: UserParams) -> list[User]:
-        sorting_field: ColumnElement[UUID | str | UserRole] | None = users_table.c.get(user_params.sorting_filter)
+        column_key: str = self._SORT_COLUMN_KEYS.get(user_params.sorting_filter, user_params.sorting_filter)
+        sorting_field: ColumnElement[UUID | str | UserRole] | None = users_table.c.get(column_key)
 
         if sorting_field is None:
             msg = f"Unknown sorting field: {user_params.sorting_filter}"

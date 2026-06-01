@@ -1,13 +1,3 @@
-"""Integration test wiring: a real FastAPI app backed by throwaway containers.
-
-Postgres and Redis are started via testcontainers, their host/port are injected
-into the environment, and the real ``create_fastapi_app`` is built so requests go
-through the full ASGI stack (routing, middlewares, DI container, exc handlers).
-
-Everything shares a single session-scoped event loop because the dishka
-``AsyncEngine`` is APP-scoped and asyncpg connections are loop-bound.
-"""
-
 import os
 from collections.abc import AsyncIterator, Iterator
 

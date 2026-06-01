@@ -9,7 +9,7 @@ decks_table = sa.Table(
     "decks",
     mapper_registry.metadata,
     sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
-    sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id"), nullable=False),
+    sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False),
     sa.Column("deck_config_id", sa.UUID(as_uuid=True), sa.ForeignKey("deck_configs.id"), nullable=False),
     sa.Column("title", sa.String(length=100), key="title_value", nullable=False),
     sa.Column("description", sa.String(length=1000), nullable=True),

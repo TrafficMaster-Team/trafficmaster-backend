@@ -13,7 +13,7 @@ deck_configs_table = sa.Table(
     "deck_configs",
     mapper_registry.metadata,
     sa.Column("id", sa.UUID(as_uuid=True), primary_key=True),
-    sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id"), nullable=False),
+    sa.Column("owner_id", sa.UUID(as_uuid=True), sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False),
     sa.Column("name", sa.String(length=100), key="name_value", nullable=False),
     sa.Column("new_cards_per_day", sa.Integer, nullable=False),
     sa.Column("max_reviews_per_day", sa.Integer, nullable=False),
