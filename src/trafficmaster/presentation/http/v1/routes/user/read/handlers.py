@@ -34,7 +34,7 @@ UserIDPathParameter = Path(
         status.HTTP_403_FORBIDDEN: {"model": ExceptionSchema},
         status.HTTP_400_BAD_REQUEST: {"model": ExceptionSchema},
         status.HTTP_404_NOT_FOUND: {"model": ExceptionSchema},
-        status.HTTP_422_UNPROCESSABLE_ENTITY: {"model": ExceptionSchemaRich},
+        status.HTTP_422_UNPROCESSABLE_CONTENT: {"model": ExceptionSchemaRich},
         status.HTTP_503_SERVICE_UNAVAILABLE: {"model": ExceptionSchema},
     },
 )

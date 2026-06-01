@@ -28,6 +28,7 @@ dev = [
     "pre-commit",
     "pytest-cov>=7.1.0",
     "pytest-asyncio>=1.4.0",
+    "testcontainers[postgres,redis]>=4.14.2",
 ]
 
 
@@ -37,6 +38,10 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "--cov --cov-report=term-missing"
 asyncio_mode = "auto"
+filterwarnings = [
+    # third-party: testcontainers still ships the deprecated readiness decorator
+    "ignore:The @wait_container_is_ready decorator is deprecated:DeprecationWarning",
+]
 
 [tool.coverage.run]
 branch = true

@@ -53,7 +53,7 @@ class AlchemyUserGateway(UserGateway):
 
     @override
     async def read_by_email(self, user_email: UserEmail) -> User | None:
-        select_stmt: Select[tuple[User]] = select(User).where(users_table.c.email == str(user_email))
+        select_stmt: Select[tuple[User]] = select(User).where(users_table.c.email_value == str(user_email))
 
         try:
             rows: Result[tuple[User]] = await self._session.execute(select_stmt)

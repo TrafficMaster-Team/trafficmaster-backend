@@ -42,8 +42,8 @@ class PostgresConfig(BaseModel):
         description="Database driver name",
     )
 
-    @classmethod
     @field_validator("port")
+    @classmethod
     def validate_port(cls, v: int) -> int:
         if not PORT_MIN <= v <= PORT_MAX:
             raise ValueError(f"Port must be between {PORT_MIN} and {PORT_MAX}")
@@ -84,8 +84,8 @@ class SQLAlchemyConfig(BaseModel):
         description="Database connection pool max overflow.",
     )
 
-    @classmethod
     @field_validator("pool_size")
+    @classmethod
     def validate_pool_size(cls, v: int) -> int:
         if not POOL_SIZE_MIN <= v <= POOL_SIZE_MAX:
             raise ValueError(
@@ -93,8 +93,8 @@ class SQLAlchemyConfig(BaseModel):
             )
         return v
 
-    @classmethod
     @field_validator("pool_recycle")
+    @classmethod
     def validate_pool_recycle(cls, v: int) -> int:
         if v < POOL_RECYCLE_MIN:
             raise ValueError(
@@ -102,8 +102,8 @@ class SQLAlchemyConfig(BaseModel):
             )
         return v
 
-    @classmethod
     @field_validator("max_overflow")
+    @classmethod
     def validate_max_overflow(cls, v: int) -> int:
         if v < POOL_OVERFLOW_MIN:
             raise ValueError(
