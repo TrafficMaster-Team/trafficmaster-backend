@@ -1,3 +1,4 @@
+
 [project]
 name = "trafficmaster"
 version = "0.1.0"
@@ -25,8 +26,27 @@ dev = [
     "pytest>=9.0.2",
     "ruff>=0.15.11",
     "pre-commit",
+    "pytest-cov>=7.1.0",
 ]
 
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "--cov --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["src/trafficmaster"]
+omit = [
+    "src/trafficmaster/setup/config/*",
+    "tests/unit/domain/factories/*",
+    "tests/unit/factories/*",
+]
+
+[tool.coverage.report]
+show_missing = true
 
 
 [tool.mypy]

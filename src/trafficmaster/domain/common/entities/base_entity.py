@@ -31,17 +31,13 @@ class BaseEntity[OIDType]:
         super().__setattr__(key, value)
 
     def __eq__(self, other: object) -> bool:
-
-        if other is None:
+        if not isinstance(other, BaseEntity):
             return False
 
         if type(self) is not type(other):
             return False
 
-        if isinstance(other, BaseEntity):
-            return bool(self.id == other.id)
-
-        return False
+        return bool(self.id == other.id)
 
     def __hash__(self) -> int:
         return hash((type(self), self.id))

@@ -39,3 +39,7 @@ default:
 #Run tests
 @test:
 	pytest tests/
+
+#Run tests with HTML coverage report (open htmlcov/index.html)
+@cov:
+	pytest tests/ --cov-report=html

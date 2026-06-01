@@ -14,6 +14,11 @@ from trafficmaster.presentation.http.v1.common.exception_handler import Exceptio
 from trafficmaster.presentation.http.v1.common.routes import healthcheck, index
 from trafficmaster.presentation.http.v1.middlewares.asgi_auth import ASGIAuthMiddleware
 from trafficmaster.presentation.http.v1.middlewares.client_cache import ClientCacheMiddleware
+from trafficmaster.presentation.http.v1.routes.auth import auth_router
+from trafficmaster.presentation.http.v1.routes.card import card_router
+from trafficmaster.presentation.http.v1.routes.card_progress import card_progress_router
+from trafficmaster.presentation.http.v1.routes.deck import deck_router
+from trafficmaster.presentation.http.v1.routes.deck_config import deck_config_router
 from trafficmaster.presentation.http.v1.routes.user import user_router
 from trafficmaster.setup.config.asgi import ASGIConfig
 from trafficmaster.setup.config.settings import AppConfig
@@ -39,7 +44,12 @@ def setup_http_routes(app: FastAPI) -> None:
     app.include_router(index.router)
     app.include_router(healthcheck.router)
     router_v1: APIRouter = APIRouter(prefix="/v1")
+    router_v1.include_router(auth_router)
     router_v1.include_router(user_router)
+    router_v1.include_router(deck_router)
+    router_v1.include_router(card_router)
+    router_v1.include_router(deck_config_router)
+    router_v1.include_router(card_progress_router)
     app.include_router(router_v1)
 
 

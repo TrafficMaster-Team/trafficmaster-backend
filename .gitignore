@@ -160,3 +160,10 @@ CLAUDE.md
 .idea/
 
 TODO.txt
+
+# Coverage artifacts
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+.pytest_cache/
