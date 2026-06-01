@@ -27,6 +27,7 @@ dev = [
     "ruff>=0.15.11",
     "pre-commit",
     "pytest-cov>=7.1.0",
+    "pytest-asyncio>=1.4.0",
 ]
 
 
@@ -35,6 +36,7 @@ dev = [
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "--cov --cov-report=term-missing"
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 branch = true
