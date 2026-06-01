@@ -1,7 +1,4 @@
-from datetime import UTC, datetime
 from unittest.mock import Mock, create_autospec
-
-import pytest
 
 from tests.unit.factories.user_entity import create_user
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
@@ -11,14 +8,6 @@ from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.views.user.aggregate_stats import UserAggregateStatsView
 from trafficmaster.application.queries.user.read_aggregate_stats import ReadUserAggregateStatsQueryHandler
 from trafficmaster.domain.card_progress.values.card_state import CardState
-
-
-@pytest.fixture
-def fake_clock() -> Mock:
-    clock = Mock()
-    clock.current_time = datetime(2026, 6, 1, 12, 0, tzinfo=UTC)
-    clock.today_start = datetime(2026, 6, 1, 0, 0, tzinfo=UTC)
-    return clock
 
 
 async def test_aggregates_user_stats(
