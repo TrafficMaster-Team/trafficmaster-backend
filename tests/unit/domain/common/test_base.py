@@ -2,8 +2,8 @@ from datetime import UTC, datetime
 
 import pytest
 
-from tests.unit.domain.factories.named_entity import create_entity_id, create_named_entity, create_named_entity_subclass
-from tests.unit.domain.factories.tagged_entity import create_tagged_entity
+from tests.unit.factories.named_entity import create_entity_id, create_named_entity, create_named_entity_subclass
+from tests.unit.factories.tagged_entity import create_tagged_entity
 from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.common.errors import DomainError, InconsistentTimeError
 

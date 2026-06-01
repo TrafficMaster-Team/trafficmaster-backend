@@ -2,7 +2,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from tests.unit.domain.factories.value_object import (
+from tests.unit.factories.value_object import (
     EmptyValue,
     IntValue,
     PositiveValue,
