@@ -159,6 +159,8 @@ CLAUDE.md
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
+.agents/
+AGENTS.md
 TODO.txt
 
 # Coverage artifacts

@@ -3,7 +3,6 @@ from fastapi import APIRouter, status
 router: APIRouter = APIRouter(
     prefix="/healthcheck",
     tags=["healthcheck"],
-    include_in_schema=True,
 )
 
 
