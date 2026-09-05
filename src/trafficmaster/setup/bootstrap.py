@@ -62,12 +62,7 @@ def setup_exc_handlers(app: FastAPI) -> None:
 def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig, cookie_params: AuthCookieParams) -> None:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[
-            f"http://localhost:{api_config.port}",
-            f"https://{api_config.host}:{api_config.port}",
-            f"http://127.0.0.1:{api_config.port}",
-            "http://127.0.0.1",
-        ],
+        allow_origins=api_config.allow_origins,
         allow_credentials=api_config.allow_credentials,
         allow_methods=api_config.allow_methods,
         allow_headers=api_config.allow_headers,
