@@ -65,7 +65,9 @@ class AlchemyDeckGateway(DeckGateway):
     @override
     async def read_public_decks(self, pagination: Pagination) -> list[Deck]:
 
-        select_stmt: Select[tuple[Deck]] = select(Deck).offset(pagination.offset).limit(pagination.limit)
+        select_stmt: Select[tuple[Deck]] = (
+            select(Deck).where(decks_table.c.is_public.is_(True)).offset(pagination.offset).limit(pagination.limit)
+        )
 
         try:
             rows: Result[tuple[Deck]] = await self._session.execute(select_stmt)
