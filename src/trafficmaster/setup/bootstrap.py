@@ -10,9 +10,10 @@ from trafficmaster.infrastructure.persistence.models.deck_configs import map_dec
 from trafficmaster.infrastructure.persistence.models.decks import map_decks_table
 from trafficmaster.infrastructure.persistence.models.review_logs import map_review_logs_table
 from trafficmaster.infrastructure.persistence.models.users import map_users_table
+from trafficmaster.presentation.http.v1.common.auth_cookie import AuthCookieParams
 from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionHandler
 from trafficmaster.presentation.http.v1.common.routes import healthcheck, index
-from trafficmaster.presentation.http.v1.middlewares.asgi_auth import ASGIAuthMiddleware
+from trafficmaster.presentation.http.v1.middlewares.auth_cookie import AuthCookieMiddleware
 from trafficmaster.presentation.http.v1.middlewares.client_cache import ClientCacheMiddleware
 from trafficmaster.presentation.http.v1.routes.auth import auth_router
 from trafficmaster.presentation.http.v1.routes.card import card_router
@@ -58,7 +59,7 @@ def setup_exc_handlers(app: FastAPI) -> None:
     exception_handler.setup_exception_handlers()
 
 
-def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig) -> None:
+def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig, cookie_params: AuthCookieParams) -> None:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[
@@ -71,5 +72,5 @@ def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig) -> None:
         allow_methods=api_config.allow_methods,
         allow_headers=api_config.allow_headers,
     )
-    app.add_middleware(ASGIAuthMiddleware)
+    app.add_middleware(AuthCookieMiddleware, cookie_params=cookie_params)
     app.add_middleware(ClientCacheMiddleware)

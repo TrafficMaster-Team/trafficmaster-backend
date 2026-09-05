@@ -8,10 +8,10 @@ from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 from sqlalchemy.orm import clear_mappers
 
-from trafficmaster.infrastructure.adapters.auth.cookie_params import CookieParams
 from trafficmaster.infrastructure.adapters.auth.jwt_token_processor import JwtAlgorithm, JwtSecret
 from trafficmaster.infrastructure.adapters.auth.timer_utc import AuthSessionRefreshThreshold, AuthSessionTtlMin
 from trafficmaster.infrastructure.adapters.common.password_hasher_bcrypt import PasswordPepper
+from trafficmaster.presentation.http.v1.common.auth_cookie import AuthCookieParams
 from trafficmaster.setup.bootstrap import (
     setup_configs,
     setup_exc_handlers,
@@ -49,6 +49,11 @@ def create_fastapi_app() -> FastAPI:
         contact={"name": "Dzianis Pametska", "email": "denispometko8@gmail.com"},
     )
 
+    cookie_params = AuthCookieParams(
+        secure=configs.security.cookies.secure,
+        same_site=configs.security.cookies.same_site,
+    )
+
     context = {
         ASGIConfig: configs.asgi,
         RedisConfig: configs.redis,
@@ -59,13 +64,12 @@ def create_fastapi_app() -> FastAPI:
         JwtAlgorithm: configs.security.auth.jwt_algorithm,
         AuthSessionTtlMin: configs.security.auth.session_ttl_min,
         AuthSessionRefreshThreshold: configs.security.auth.session_refresh_threshold,
-        CookieParams: CookieParams(secure=configs.security.cookies.secure),
     }
 
     container: AsyncContainer = make_async_container(*setup_providers(), context=context)
     setup_exc_handlers(app)
     setup_http_routes(app)
-    setup_http_middlewares(app, configs.asgi)
+    setup_http_middlewares(app, configs.asgi, cookie_params)
     setup_dishka(container, app)
     return app
 

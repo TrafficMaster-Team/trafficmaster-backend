@@ -45,6 +45,7 @@ from trafficmaster.application.common.ports.access_revoker import AccessRevoker
 from trafficmaster.application.common.ports.auth.gateway import AuthSessionGateway
 from trafficmaster.application.common.ports.auth.id_generator import AuthIDGenerator
 from trafficmaster.application.common.ports.auth.session_timer import SessionTimer
+from trafficmaster.application.common.ports.auth.token_processor import AuthSessionTokenProcessor
 from trafficmaster.application.common.ports.auth.transport import AuthSessionTransport
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.card_progress.card_progress_gateway import CardProgressGateway
@@ -87,9 +88,7 @@ from trafficmaster.domain.user.ports.password_hasher import PasswordHasher
 from trafficmaster.domain.user.services.access_service import AccessService
 from trafficmaster.domain.user.services.user_service import UserService
 from trafficmaster.infrastructure.adapters.auth.access_revoker import AuthSessionAccessRevoker
-from trafficmaster.infrastructure.adapters.auth.cookie_params import CookieParams
 from trafficmaster.infrastructure.adapters.auth.identity_provider import AuthSessionIdentityProvider
-from trafficmaster.infrastructure.adapters.auth.jwt_auth_session_transport import JwtAuthSessionTransport
 from trafficmaster.infrastructure.adapters.auth.jwt_token_processor import (
     JwtAccessTokenProcessor,
     JwtAlgorithm,
@@ -124,6 +123,7 @@ from trafficmaster.infrastructure.cache.cache_store import CacheStore
 from trafficmaster.infrastructure.cache.provider import get_redis, get_redis_pool
 from trafficmaster.infrastructure.cache.redis_cache_store import RedisCacheStore
 from trafficmaster.infrastructure.persistence.provider import get_engine, get_session, get_sessionmaker
+from trafficmaster.presentation.http.v1.common.cookie_auth_session_transport import CookieAuthSessionTransport
 from trafficmaster.setup.config.database import PostgresConfig, SQLAlchemyConfig
 from trafficmaster.setup.config.redis import RedisConfig
 
@@ -138,7 +138,6 @@ def configs_provider() -> Provider:
     provider.from_context(provides=PasswordPepper)
     provider.from_context(provides=AuthSessionTtlMin)
     provider.from_context(provides=AuthSessionRefreshThreshold)
-    provider.from_context(provides=CookieParams)
     return provider
 
 
@@ -185,13 +184,14 @@ def domain_ports_provider() -> Provider:
 def auth_ports_provider() -> Provider:
     provider: Final[Provider] = Provider(scope=Scope.REQUEST)
     provider.from_context(provides=Request, scope=Scope.REQUEST)
-    provider.provide_all(CurrentUserService, JwtAccessTokenProcessor)
+    provider.provide(source=CurrentUserService)
+    provider.provide(source=JwtAccessTokenProcessor, provides=AuthSessionTokenProcessor)
     provider.provide(source=UtcAuthSessionTimer, provides=SessionTimer)
     provider.provide(source=SecretsAuthSessionIdGenerator, provides=AuthIDGenerator)
     provider.provide(source=AuthSessionAccessRevoker, provides=AccessRevoker)
     provider.provide(source=AuthSessionIdentityProvider, provides=IdentityProvider)
     provider.provide(source=AuthSessionService)
-    provider.provide(source=JwtAuthSessionTransport, provides=AuthSessionTransport)
+    provider.provide(source=CookieAuthSessionTransport, provides=AuthSessionTransport)
     return provider
 
 

@@ -61,11 +61,10 @@ class AuthSessionService:
     async def invalidate_current_session(self) -> None:
 
         auth_session_id: str | None = self._auth_transport.extract_id()
+        self._auth_transport.remove_current()
 
         if auth_session_id is None:
             return
-
-        self._auth_transport.remove_current()
 
         try:
             auth_session = await self._auth_gateway.read_by_id(auth_session_id)
@@ -133,4 +132,5 @@ class AuthSessionService:
             raise AuthenticationError(msg) from error
 
         self._cached_session = auth_session
+        self._auth_transport.deliver(auth_session)
         return auth_session
