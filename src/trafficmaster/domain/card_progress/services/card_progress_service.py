@@ -100,7 +100,8 @@ class CardProgressService:
         self,
         progress: CardProgress,
         rating: ReviewRating,
-        config: AdvancedConfig,
+        advanced_config: AdvancedConfig,
+        lapses_config: LapsesConfig,
     ) -> ReviewLog:
         now = datetime.now(UTC)
         card_state = progress.state
@@ -111,19 +112,21 @@ class CardProgressService:
         match rating:
             case ReviewRating.AGAIN:
                 new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_AGAIN_PENALTY)
-                new_interval = max(1, round(current_interval * config.new_interval))
+                new_interval = max(1, round(current_interval * advanced_config.new_interval))
+                new_interval = min(new_interval, advanced_config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
                 progress.interval = Interval(new_interval)
                 progress.repetitions = 0
                 progress.state = CardState.RELEARNING
-                progress.next_review_at = now + timedelta(days=new_interval)
+                progress.next_review_at = now + timedelta(minutes=lapses_config.relearning_steps[0])
 
             case ReviewRating.HARD:
                 new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_HARD_PENALTY)
                 new_interval = max(
-                    current_interval + 1, round(current_interval * config.hard_interval * config.interval_modifier)
+                    current_interval + 1,
+                    round(current_interval * advanced_config.hard_interval * advanced_config.interval_modifier),
                 )
-                new_interval = min(new_interval, config.max_interval)
+                new_interval = min(new_interval, advanced_config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
                 progress.interval = Interval(new_interval)
                 progress.repetitions += 1
@@ -131,9 +134,10 @@ class CardProgressService:
 
             case ReviewRating.GOOD:
                 new_interval = max(
-                    current_interval + 1, round(current_interval * current_ease * config.interval_modifier)
+                    current_interval + 1,
+                    round(current_interval * current_ease * advanced_config.interval_modifier),
                 )
-                new_interval = min(new_interval, config.max_interval)
+                new_interval = min(new_interval, advanced_config.max_interval)
                 progress.interval = Interval(new_interval)
                 progress.repetitions += 1
                 progress.next_review_at = now + timedelta(days=new_interval)
@@ -142,9 +146,11 @@ class CardProgressService:
                 new_ease = min(_MAX_EASE_FACTOR, current_ease + _EASE_EASY_BONUS)
                 new_interval = max(
                     current_interval + 1,
-                    round(current_interval * new_ease * config.interval_modifier * config.easy_factor),
+                    round(
+                        current_interval * new_ease * advanced_config.interval_modifier * advanced_config.easy_factor
+                    ),
                 )
-                new_interval = min(new_interval, config.max_interval)
+                new_interval = min(new_interval, advanced_config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
                 progress.interval = Interval(new_interval)
                 progress.repetitions += 1
@@ -212,26 +218,27 @@ class CardProgressService:
         self,
         progress: CardProgress,
         rating: ReviewRating,
-        deck: DeckConfig,
+        deck_config: DeckConfig,
     ) -> ReviewLog:
         match progress.state:
             case CardState.NEW | CardState.LEARNING:
                 return self.learning_process(
                     progress=progress,
                     rating=rating,
-                    config=deck.new_cards,
+                    config=deck_config.new_cards,
                 )
 
             case CardState.REVIEW:
                 return self.review_process(
                     progress=progress,
                     rating=rating,
-                    config=deck.advanced,
+                    advanced_config=deck_config.advanced,
+                    lapses_config=deck_config.lapses,
                 )
 
             case CardState.RELEARNING:
                 return self.relearning_process(
                     progress=progress,
                     rating=rating,
-                    config=deck.lapses,
+                    config=deck_config.lapses,
                 )

@@ -124,7 +124,7 @@ class PreviewReviewIntervalsQueryHandler:
         self._card_progress_service.schedule(
             progress=simulated,
             rating=rating,
-            deck=deck_config,
+            deck_config=deck_config,
         )
         return ReviewPreviewItem(
             rating=rating,

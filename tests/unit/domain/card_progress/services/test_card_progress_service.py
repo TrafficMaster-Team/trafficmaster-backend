@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from unittest.mock import Mock
 
 import pytest
@@ -140,10 +140,16 @@ def test_review_good_grows_interval(service: CardProgressService) -> None:
         interval=create_interval(10),
         repetitions=2,
     )
-    config = create_advanced_config()
+    advanced_config = create_advanced_config()
+    lapses_config = create_lapses_config()
 
     # Act
-    service.review_process(progress=progress, rating=ReviewRating.GOOD, config=config)
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.GOOD,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
 
     # GOOD grows the interval to 25 days
     assert progress.interval == create_interval(25)
@@ -160,10 +166,16 @@ def test_review_hard_reduces_ease(service: CardProgressService) -> None:
         interval=create_interval(10),
         repetitions=2,
     )
-    config = create_advanced_config()
+    advanced_config = create_advanced_config()
+    lapses_config = create_lapses_config()
 
     # Act
-    service.review_process(progress=progress, rating=ReviewRating.HARD, config=config)
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.HARD,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
 
     # HARD lowers ease to 2.35 and sets interval to 12 days
     assert progress.ease_factor.value == pytest.approx(2.35)
@@ -179,10 +191,16 @@ def test_review_easy_boosts_ease_and_interval(service: CardProgressService) -> N
         interval=create_interval(10),
         repetitions=2,
     )
-    config = create_advanced_config()
+    advanced_config = create_advanced_config()
+    lapses_config = create_lapses_config()
 
     # Act
-    service.review_process(progress=progress, rating=ReviewRating.EASY, config=config)
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.EASY,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
 
     # EASY raises ease to 2.65 and sets interval to 34 days
     assert progress.ease_factor.value == pytest.approx(2.65)
@@ -198,16 +216,27 @@ def test_review_again_moves_to_relearning(service: CardProgressService) -> None:
         interval=create_interval(10),
         repetitions=2,
     )
-    config = create_advanced_config()
+    advanced_config = create_advanced_config()
+    lapses_config = create_lapses_config(relearning_steps=[10])
+    before_review = datetime.now(UTC)
 
     # Act
-    service.review_process(progress=progress, rating=ReviewRating.AGAIN, config=config)
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.AGAIN,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
+    after_review = datetime.now(UTC)
 
     # AGAIN lowers ease to 2.3 and resets interval to 1 day
     assert progress.state == CardState.RELEARNING
     assert progress.ease_factor.value == pytest.approx(2.3)
     assert progress.interval == create_interval(1)
     assert progress.repetitions == 0
+    assert progress.next_review_at is not None
+    assert before_review + timedelta(minutes=10) <= progress.next_review_at
+    assert progress.next_review_at <= after_review + timedelta(minutes=10)
 
 
 def test_review_interval_capped_at_max(service: CardProgressService) -> None:
@@ -218,10 +247,39 @@ def test_review_interval_capped_at_max(service: CardProgressService) -> None:
         interval=create_interval(10),
         repetitions=2,
     )
-    config = create_advanced_config(max_interval=20)
+    advanced_config = create_advanced_config(max_interval=20)
+    lapses_config = create_lapses_config()
 
     # Act: GOOD would grow the interval beyond the configured cap
-    service.review_process(progress=progress, rating=ReviewRating.GOOD, config=config)
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.GOOD,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
+
+    # Assert
+    assert progress.interval == create_interval(20)
+
+
+def test_review_again_interval_capped_at_max(service: CardProgressService) -> None:
+    # Arrange
+    progress = create_card_progress(
+        state=CardState.REVIEW,
+        ease_factor=create_ease_factor(2.5),
+        interval=create_interval(100),
+        repetitions=2,
+    )
+    advanced_config = create_advanced_config(max_interval=20, new_interval=1.0)
+    lapses_config = create_lapses_config()
+
+    # Act
+    service.review_process(
+        progress=progress,
+        rating=ReviewRating.AGAIN,
+        advanced_config=advanced_config,
+        lapses_config=lapses_config,
+    )
 
     # Assert
     assert progress.interval == create_interval(20)
@@ -275,7 +333,7 @@ def test_schedule_routes_new_card_to_learning(service: CardProgressService) -> N
     deck_config = create_deck_config(new_cards=create_new_cards_config(learning_steps=[1, 10]))
 
     # Act
-    log = service.schedule(progress=progress, rating=ReviewRating.GOOD, deck=deck_config)
+    log = service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
 
     # Assert
     assert isinstance(log, ReviewLog)
@@ -294,7 +352,7 @@ def test_schedule_routes_review_card_to_review(service: CardProgressService) -> 
     deck_config = create_deck_config(advanced=create_advanced_config())
 
     # Act
-    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck=deck_config)
+    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -307,7 +365,7 @@ def test_schedule_routes_relearning_card_to_relearning(service: CardProgressServ
     deck_config = create_deck_config(lapses=create_lapses_config(relearning_steps=[10]))
 
     # Act
-    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck=deck_config)
+    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -328,7 +386,12 @@ def test_review_log_carries_user_and_card_ids(
     )
 
     # Act
-    log = service.review_process(progress=progress, rating=ReviewRating.GOOD, config=create_advanced_config())
+    log = service.review_process(
+        progress=progress,
+        rating=ReviewRating.GOOD,
+        advanced_config=create_advanced_config(),
+        lapses_config=create_lapses_config(),
+    )
 
     # Assert
     assert log.id == expected_log_id

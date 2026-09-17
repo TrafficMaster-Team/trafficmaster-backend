@@ -116,7 +116,7 @@ class ReviewCardCommandHandler:
         review_log: ReviewLog = self._card_progress_service.schedule(
             progress=progress,
             rating=data.rating,
-            deck=deck_config,
+            deck_config=deck_config,
         )
 
         await self._review_log_gateway.add(review_log)
