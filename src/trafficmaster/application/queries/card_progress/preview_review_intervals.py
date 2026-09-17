@@ -1,10 +1,12 @@
 import copy
 from dataclasses import dataclass
+from datetime import datetime
 from typing import TYPE_CHECKING, Final
 from uuid import UUID
 
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.card_progress.card_progress_gateway import CardProgressGateway
+from trafficmaster.application.common.ports.clock import Clock
 from trafficmaster.application.common.ports.deck.deck_config_gateway import DeckConfigGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
@@ -49,6 +51,7 @@ class PreviewReviewIntervalsQueryHandler:
         card_progress_gateway: CardProgressGateway,
         access_service: AccessService,
         card_progress_service: CardProgressService,
+        clock: Clock,
     ) -> None:
         self._current_user_service: Final[CurrentUserService] = current_user_service
         self._card_gateway: Final[CardGateway] = card_gateway
@@ -58,6 +61,7 @@ class PreviewReviewIntervalsQueryHandler:
         self._card_progress_gateway: Final[CardProgressGateway] = card_progress_gateway
         self._access_service: Final[AccessService] = access_service
         self._card_progress_service: Final[CardProgressService] = card_progress_service
+        self._clock: Final[Clock] = clock
 
     async def __call__(self, data: PreviewReviewIntervalsQuery) -> PreviewReviewIntervalsView:
         current_user: User = await self._current_user_service.get_current_user()
@@ -107,8 +111,9 @@ class PreviewReviewIntervalsQueryHandler:
                 default_ease_factor=EaseFactor(deck_config.advanced.ease_factor),
             )
 
+        now = self._clock.current_time
         items: list[ReviewPreviewItem] = [
-            self._simulate(progress=progress, rating=rating, deck_config=deck_config)
+            self._simulate(progress=progress, rating=rating, deck_config=deck_config, now=now)
             for rating in (ReviewRating.AGAIN, ReviewRating.HARD, ReviewRating.GOOD, ReviewRating.EASY)
         ]
 
@@ -119,12 +124,14 @@ class PreviewReviewIntervalsQueryHandler:
         progress: CardProgress,
         rating: ReviewRating,
         deck_config: "DeckConfig",
+        now: datetime,
     ) -> ReviewPreviewItem:
         simulated: CardProgress = copy.copy(progress)
         self._card_progress_service.schedule(
             progress=simulated,
             rating=rating,
             deck_config=deck_config,
+            now=now,
         )
         return ReviewPreviewItem(
             rating=rating,

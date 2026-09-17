@@ -22,6 +22,8 @@ from trafficmaster.domain.card_progress.services.card_progress_service import Ca
 from trafficmaster.domain.card_progress.values.card_state import CardState
 from trafficmaster.domain.card_progress.values.review_rating import ReviewRating
 
+NOW = datetime(2026, 6, 1, 12, 0, tzinfo=UTC)
+
 
 @pytest.fixture
 def service(card_progress_id_generator: Mock, review_id_generator: Mock) -> CardProgressService:
@@ -66,7 +68,7 @@ def test_learning_again_resets_repetitions(service: CardProgressService) -> None
     config = create_new_cards_config(learning_steps=[1, 10])
 
     # Act
-    log = service.learning_process(progress=progress, rating=ReviewRating.AGAIN, config=config)
+    log = service.learning_process(progress=progress, rating=ReviewRating.AGAIN, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.LEARNING
@@ -82,7 +84,7 @@ def test_learning_hard_keeps_learning_state(service: CardProgressService) -> Non
     config = create_new_cards_config(learning_steps=[1, 10])
 
     # Act
-    service.learning_process(progress=progress, rating=ReviewRating.HARD, config=config)
+    service.learning_process(progress=progress, rating=ReviewRating.HARD, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.LEARNING
@@ -96,7 +98,7 @@ def test_learning_good_advances_step(service: CardProgressService) -> None:
     config = create_new_cards_config(learning_steps=[1, 10])
 
     # Act
-    service.learning_process(progress=progress, rating=ReviewRating.GOOD, config=config)
+    service.learning_process(progress=progress, rating=ReviewRating.GOOD, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.LEARNING
@@ -109,7 +111,7 @@ def test_learning_good_graduates_to_review(service: CardProgressService) -> None
     config = create_new_cards_config(learning_steps=[1, 10], graduating_interval=1)
 
     # Act
-    service.learning_process(progress=progress, rating=ReviewRating.GOOD, config=config)
+    service.learning_process(progress=progress, rating=ReviewRating.GOOD, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -123,7 +125,7 @@ def test_learning_easy_graduates_to_review(service: CardProgressService) -> None
     config = create_new_cards_config(learning_steps=[1, 10], easy_interval=4)
 
     # Act
-    service.learning_process(progress=progress, rating=ReviewRating.EASY, config=config)
+    service.learning_process(progress=progress, rating=ReviewRating.EASY, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -149,6 +151,7 @@ def test_review_good_grows_interval(service: CardProgressService) -> None:
         rating=ReviewRating.GOOD,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
 
     # GOOD grows the interval to 25 days
@@ -175,6 +178,7 @@ def test_review_hard_reduces_ease(service: CardProgressService) -> None:
         rating=ReviewRating.HARD,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
 
     # HARD lowers ease to 2.35 and sets interval to 12 days
@@ -200,6 +204,7 @@ def test_review_easy_boosts_ease_and_interval(service: CardProgressService) -> N
         rating=ReviewRating.EASY,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
 
     # EASY raises ease to 2.65 and sets interval to 34 days
@@ -218,25 +223,21 @@ def test_review_again_moves_to_relearning(service: CardProgressService) -> None:
     )
     advanced_config = create_advanced_config()
     lapses_config = create_lapses_config(relearning_steps=[10])
-    before_review = datetime.now(UTC)
-
     # Act
     service.review_process(
         progress=progress,
         rating=ReviewRating.AGAIN,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
-    after_review = datetime.now(UTC)
 
     # AGAIN lowers ease to 2.3 and resets interval to 1 day
     assert progress.state == CardState.RELEARNING
     assert progress.ease_factor.value == pytest.approx(2.3)
     assert progress.interval == create_interval(1)
     assert progress.repetitions == 0
-    assert progress.next_review_at is not None
-    assert before_review + timedelta(minutes=10) <= progress.next_review_at
-    assert progress.next_review_at <= after_review + timedelta(minutes=10)
+    assert progress.next_review_at == NOW + timedelta(minutes=10)
 
 
 def test_review_interval_capped_at_max(service: CardProgressService) -> None:
@@ -256,6 +257,7 @@ def test_review_interval_capped_at_max(service: CardProgressService) -> None:
         rating=ReviewRating.GOOD,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
 
     # Assert
@@ -279,6 +281,7 @@ def test_review_again_interval_capped_at_max(service: CardProgressService) -> No
         rating=ReviewRating.AGAIN,
         advanced_config=advanced_config,
         lapses_config=lapses_config,
+        now=NOW,
     )
 
     # Assert
@@ -292,7 +295,7 @@ def test_relearning_again_resets_repetitions(service: CardProgressService) -> No
     config = create_lapses_config(relearning_steps=[10])
 
     # Act
-    service.relearning_process(progress=progress, rating=ReviewRating.AGAIN, config=config)
+    service.relearning_process(progress=progress, rating=ReviewRating.AGAIN, config=config, now=NOW)
 
     # Assert
     assert progress.state == CardState.RELEARNING
@@ -305,7 +308,7 @@ def test_relearning_good_graduates_to_review(service: CardProgressService) -> No
     config = create_lapses_config(relearning_steps=[10], min_interval=1)
 
     # Act
-    service.relearning_process(progress=progress, rating=ReviewRating.GOOD, config=config)
+    service.relearning_process(progress=progress, rating=ReviewRating.GOOD, config=config, now=NOW)
 
     # interval keeps the larger of the configured minimum and the current value
     assert progress.state == CardState.REVIEW
@@ -319,7 +322,7 @@ def test_relearning_respects_min_interval(service: CardProgressService) -> None:
     config = create_lapses_config(relearning_steps=[10], min_interval=7)
 
     # Act
-    service.relearning_process(progress=progress, rating=ReviewRating.EASY, config=config)
+    service.relearning_process(progress=progress, rating=ReviewRating.EASY, config=config, now=NOW)
 
     # interval is raised to the configured minimum
     assert progress.state == CardState.REVIEW
@@ -333,7 +336,7 @@ def test_schedule_routes_new_card_to_learning(service: CardProgressService) -> N
     deck_config = create_deck_config(new_cards=create_new_cards_config(learning_steps=[1, 10]))
 
     # Act
-    log = service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
+    log = service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config, now=NOW)
 
     # Assert
     assert isinstance(log, ReviewLog)
@@ -352,7 +355,7 @@ def test_schedule_routes_review_card_to_review(service: CardProgressService) -> 
     deck_config = create_deck_config(advanced=create_advanced_config())
 
     # Act
-    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
+    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config, now=NOW)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -365,7 +368,7 @@ def test_schedule_routes_relearning_card_to_relearning(service: CardProgressServ
     deck_config = create_deck_config(lapses=create_lapses_config(relearning_steps=[10]))
 
     # Act
-    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config)
+    service.schedule(progress=progress, rating=ReviewRating.GOOD, deck_config=deck_config, now=NOW)
 
     # Assert
     assert progress.state == CardState.REVIEW
@@ -391,6 +394,7 @@ def test_review_log_carries_user_and_card_ids(
         rating=ReviewRating.GOOD,
         advanced_config=create_advanced_config(),
         lapses_config=create_lapses_config(),
+        now=NOW,
     )
 
     # Assert

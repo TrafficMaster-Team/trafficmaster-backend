@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from unittest.mock import Mock
 from uuid import uuid4
 
@@ -28,6 +29,8 @@ def _handler(
     access_service: Mock,
     card_progress_service: Mock,
 ) -> PreviewReviewIntervalsQueryHandler:
+    clock = Mock()
+    clock.current_time = datetime(2026, 6, 1, 12, 0, tzinfo=UTC)
     return PreviewReviewIntervalsQueryHandler(
         current_user_service=cus,
         card_gateway=card_gateway,
@@ -37,6 +40,7 @@ def _handler(
         card_progress_gateway=card_progress_gateway,
         access_service=access_service,
         card_progress_service=card_progress_service,
+        clock=clock,
     )
 
 

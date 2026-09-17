@@ -5,6 +5,7 @@ from uuid import UUID
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.card_progress.card_progress_gateway import CardProgressGateway
 from trafficmaster.application.common.ports.card_progress.review_log_gateway import ReviewLogGateway
+from trafficmaster.application.common.ports.clock import Clock
 from trafficmaster.application.common.ports.deck.deck_config_gateway import DeckConfigGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
@@ -51,6 +52,7 @@ class ReviewCardCommandHandler:
         card_progress_service: CardProgressService,
         card_progress_gateway: CardProgressGateway,
         review_log_gateway: ReviewLogGateway,
+        clock: Clock,
     ) -> None:
         self._transaction_manager: Final[TransactionManager] = transaction_manager
         self._card_gateway: Final[CardGateway] = card_gateway
@@ -62,6 +64,7 @@ class ReviewCardCommandHandler:
         self._card_progress_service: Final[CardProgressService] = card_progress_service
         self._card_progress_gateway: Final[CardProgressGateway] = card_progress_gateway
         self._review_log_gateway: Final[ReviewLogGateway] = review_log_gateway
+        self._clock: Final[Clock] = clock
 
     async def __call__(self, data: ReviewCardCommand) -> ReviewCardView:
 
@@ -117,6 +120,7 @@ class ReviewCardCommandHandler:
             progress=progress,
             rating=data.rating,
             deck_config=deck_config,
+            now=self._clock.current_time,
         )
 
         await self._review_log_gateway.add(review_log)

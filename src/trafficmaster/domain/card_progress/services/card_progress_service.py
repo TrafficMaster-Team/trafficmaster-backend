@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from typing import Final
 
 from trafficmaster.domain.card.values.card_id import CardID
@@ -52,8 +52,8 @@ class CardProgressService:
         progress: CardProgress,
         rating: ReviewRating,
         config: NewCardsConfig,
+        now: datetime,
     ) -> ReviewLog:
-        now = datetime.now(UTC)
         steps = config.learning_steps
         card_state = progress.state
         progress.state = CardState.LEARNING
@@ -101,8 +101,8 @@ class CardProgressService:
         rating: ReviewRating,
         advanced_config: AdvancedConfig,
         lapses_config: LapsesConfig,
+        now: datetime,
     ) -> ReviewLog:
-        now = datetime.now(UTC)
         card_state = progress.state
         current_ease = progress.ease_factor.value
         delay = max(0, (now - progress.next_review_at).days) if progress.next_review_at else 0
@@ -176,8 +176,8 @@ class CardProgressService:
         progress: CardProgress,
         rating: ReviewRating,
         config: LapsesConfig,
+        now: datetime,
     ) -> ReviewLog:
-        now = datetime.now(UTC)
         card_state = progress.state
         steps = config.relearning_steps
 
@@ -229,6 +229,7 @@ class CardProgressService:
         progress: CardProgress,
         rating: ReviewRating,
         deck_config: DeckConfig,
+        now: datetime,
     ) -> ReviewLog:
         match progress.state:
             case CardState.NEW | CardState.LEARNING:
@@ -236,6 +237,7 @@ class CardProgressService:
                     progress=progress,
                     rating=rating,
                     config=deck_config.new_cards,
+                    now=now,
                 )
 
             case CardState.REVIEW:
@@ -244,6 +246,7 @@ class CardProgressService:
                     rating=rating,
                     advanced_config=deck_config.advanced,
                     lapses_config=deck_config.lapses,
+                    now=now,
                 )
 
             case CardState.RELEARNING:
@@ -251,4 +254,5 @@ class CardProgressService:
                     progress=progress,
                     rating=rating,
                     config=deck_config.lapses,
+                    now=now,
                 )
