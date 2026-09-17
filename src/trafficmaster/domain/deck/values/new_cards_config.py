@@ -1,12 +1,15 @@
 from dataclasses import dataclass
 from enum import StrEnum
+from itertools import pairwise
 from typing import override
 
 from trafficmaster.domain.card_progress.errors.card_progress import TooLowIntervalError
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
+    EasyIntervalLessThanGraduatingError,
     LearningIntervalGreaterGraduatingError,
     NotEnoughLearningStepsError,
+    StepsNotIncreasingError,
     TooLowStepIntervalError,
 )
 from trafficmaster.domain.deck.values._constants import MIN_INTERVAL_LENGTH
@@ -37,12 +40,20 @@ class NewCardsConfig(BaseValueObject):
             raise LearningIntervalGreaterGraduatingError(msg)
 
         if self.graduating_interval < MIN_INTERVAL_LENGTH or self.easy_interval < MIN_INTERVAL_LENGTH:
-            msg = "Interval cannot be less than minimum interval length (1m)"
+            msg = "Graduating and easy intervals cannot be less than 1 day"
             raise TooLowIntervalError(msg)
+
+        if self.easy_interval < self.graduating_interval:
+            msg = "Easy interval cannot be less than graduating interval"
+            raise EasyIntervalLessThanGraduatingError(msg)
 
         if any(step < MIN_INTERVAL_LENGTH for step in self.learning_steps):
             msg = "One of the learning steps cannot be less than minimum interval length (1m)"
             raise TooLowStepIntervalError(msg)
+
+        if any(current >= following for current, following in pairwise(self.learning_steps)):
+            msg = "Learning steps must be strictly increasing"
+            raise StepsNotIncreasingError(msg)
 
     @override
     def __str__(self) -> str:

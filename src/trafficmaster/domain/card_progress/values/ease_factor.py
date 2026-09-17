@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 from typing import override
 
-from trafficmaster.domain.card_progress.errors.card_progress import TooLowEaseFactorError
+from trafficmaster.domain.card_progress.errors.card_progress import TooHighEaseFactorError, TooLowEaseFactorError
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 
 MIN_EASE_FACTOR = 1.3
+MAX_EASE_FACTOR = 5.0
 
 
 @dataclass(eq=True, frozen=True, unsafe_hash=True)
@@ -17,6 +18,10 @@ class EaseFactor(BaseValueObject):
         if self.value < MIN_EASE_FACTOR:
             msg = f"Ease factor cannot be less than {MIN_EASE_FACTOR}"
             raise TooLowEaseFactorError(msg)
+
+        if self.value > MAX_EASE_FACTOR:
+            msg = f"Ease factor cannot be greater than {MAX_EASE_FACTOR}"
+            raise TooHighEaseFactorError(msg)
 
     @override
     def __str__(self) -> str:

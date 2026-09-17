@@ -42,6 +42,7 @@ from trafficmaster.domain.card.errors.card import (
     TooShortQuestionError,
 )
 from trafficmaster.domain.card_progress.errors.card_progress import (
+    TooHighEaseFactorError,
     TooLowEaseFactorError,
     TooLowIntervalError,
 )
@@ -49,12 +50,15 @@ from trafficmaster.domain.common.errors import DomainFieldError, InconsistentTim
 from trafficmaster.domain.deck.errors.deck import DeckTitleEmptyError
 from trafficmaster.domain.deck.errors.deck_config import (
     DeckConfigNameEmptyError,
-    HardIntervalNotLessThanEaseFactorError,
+    EasyIntervalLessThanGraduatingError,
+    InvalidHardIntervalError,
     InvalidIntervalModifierError,
     InvalidNewIntervalError,
     LearningIntervalGreaterGraduatingError,
+    MinIntervalGreaterThanMaxIntervalError,
     NewGreaterThanReviewedError,
     NotEnoughLearningStepsError,
+    StepsNotIncreasingError,
     TooBigCardLimitError,
     TooLowEasyFactorError,
     TooLowMaxIntervalError,
@@ -131,10 +135,14 @@ class ExceptionHandler:
             TooLowMaxIntervalError: status.HTTP_400_BAD_REQUEST,
             TooLowEasyFactorError: status.HTTP_400_BAD_REQUEST,
             InvalidIntervalModifierError: status.HTTP_400_BAD_REQUEST,
-            HardIntervalNotLessThanEaseFactorError: status.HTTP_400_BAD_REQUEST,
+            InvalidHardIntervalError: status.HTTP_400_BAD_REQUEST,
             InvalidNewIntervalError: status.HTTP_400_BAD_REQUEST,
             TooLowEaseFactorError: status.HTTP_400_BAD_REQUEST,
+            TooHighEaseFactorError: status.HTTP_400_BAD_REQUEST,
             TooLowIntervalError: status.HTTP_400_BAD_REQUEST,
+            EasyIntervalLessThanGraduatingError: status.HTTP_400_BAD_REQUEST,
+            StepsNotIncreasingError: status.HTTP_400_BAD_REQUEST,
+            MinIntervalGreaterThanMaxIntervalError: status.HTTP_400_BAD_REQUEST,
             PaginationError: status.HTTP_400_BAD_REQUEST,
             SortingError: status.HTTP_400_BAD_REQUEST,
             # 401

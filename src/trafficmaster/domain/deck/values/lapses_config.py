@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 from enum import StrEnum
+from itertools import pairwise
 from typing import override
 
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
     NotEnoughLearningStepsError,
+    StepsNotIncreasingError,
     TooLowStepIntervalError,
     TooSmallLeechThresholdError,
     TooSmallMinRepeatIntervalError,
@@ -39,8 +41,12 @@ class LapsesConfig(BaseValueObject):
             raise TooSmallMinRepeatIntervalError(msg)
 
         if any(step < MIN_INTERVAL_LENGTH for step in self.relearning_steps):
-            msg = "One of the learning steps cannot be less than minimum interval length (1m)"
+            msg = "One of the relearning steps cannot be less than minimum interval length (1m)"
             raise TooLowStepIntervalError(msg)
+
+        if any(current >= following for current, following in pairwise(self.relearning_steps)):
+            msg = "Relearning steps must be strictly increasing"
+            raise StepsNotIncreasingError(msg)
 
     @override
     def __str__(self) -> str:

@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from typing import override
 
-from trafficmaster.domain.card_progress.errors.card_progress import TooLowEaseFactorError
-from trafficmaster.domain.card_progress.values.ease_factor import MIN_EASE_FACTOR
+from trafficmaster.domain.card_progress.errors.card_progress import TooHighEaseFactorError, TooLowEaseFactorError
+from trafficmaster.domain.card_progress.values.ease_factor import MAX_EASE_FACTOR, MIN_EASE_FACTOR
 from trafficmaster.domain.common.values.base_value import BaseValueObject
 from trafficmaster.domain.deck.errors.deck_config import (
-    HardIntervalNotLessThanEaseFactorError,
+    InvalidHardIntervalError,
     InvalidIntervalModifierError,
     InvalidNewIntervalError,
     TooLowEasyFactorError,
@@ -35,6 +35,10 @@ class AdvancedConfig(BaseValueObject):
             msg = f"Ease factor cannot be less than minimum value ({MIN_EASE_FACTOR})"
             raise TooLowEaseFactorError(msg)
 
+        if self.ease_factor > MAX_EASE_FACTOR:
+            msg = f"Ease factor cannot be greater than maximum value ({MAX_EASE_FACTOR})"
+            raise TooHighEaseFactorError(msg)
+
         if self.easy_factor < MIN_EASY_FACTOR:
             msg = f"Easy factor cannot be less than minimum value ({MIN_EASY_FACTOR})"
             raise TooLowEasyFactorError(msg)
@@ -43,9 +47,9 @@ class AdvancedConfig(BaseValueObject):
             msg = "Interval modifier must be greater than 0"
             raise InvalidIntervalModifierError(msg)
 
-        if self.hard_interval >= self.ease_factor:
-            msg = f"Hard interval cannot be greater than ease factor ({self.hard_interval})"
-            raise HardIntervalNotLessThanEaseFactorError(msg)
+        if not (1.0 <= self.hard_interval < MIN_EASE_FACTOR):
+            msg = f"Hard interval must be at least 1.0 and less than {MIN_EASE_FACTOR}"
+            raise InvalidHardIntervalError(msg)
 
         if not (0.0 <= self.new_interval <= 1.0):
             msg = f"New interval must be between 0 and 1 ({self.new_interval})"

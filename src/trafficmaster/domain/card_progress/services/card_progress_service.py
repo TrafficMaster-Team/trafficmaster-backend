@@ -7,7 +7,7 @@ from trafficmaster.domain.card_progress.entities.review_log import ReviewLog
 from trafficmaster.domain.card_progress.ports.card_progress_id_generator import CardProgressIDGenerator
 from trafficmaster.domain.card_progress.ports.review_id_generator import ReviewIDGenerator
 from trafficmaster.domain.card_progress.values.card_state import CardState
-from trafficmaster.domain.card_progress.values.ease_factor import MIN_EASE_FACTOR, EaseFactor
+from trafficmaster.domain.card_progress.values.ease_factor import MAX_EASE_FACTOR, MIN_EASE_FACTOR, EaseFactor
 from trafficmaster.domain.card_progress.values.interval import Interval
 from trafficmaster.domain.card_progress.values.review_rating import ReviewRating
 from trafficmaster.domain.deck.entities.deck_config import DeckConfig
@@ -16,7 +16,6 @@ from trafficmaster.domain.deck.values.lapses_config import LapsesConfig
 from trafficmaster.domain.deck.values.new_cards_config import NewCardsConfig
 from trafficmaster.domain.user.values.user_id import UserID
 
-_MAX_EASE_FACTOR = 5.0
 _EASE_AGAIN_PENALTY = 0.2
 _EASE_HARD_PENALTY = 0.15
 _EASE_EASY_BONUS = 0.15
@@ -143,7 +142,7 @@ class CardProgressService:
                 progress.next_review_at = now + timedelta(days=new_interval)
 
             case ReviewRating.EASY:
-                new_ease = min(_MAX_EASE_FACTOR, current_ease + _EASE_EASY_BONUS)
+                new_ease = min(MAX_EASE_FACTOR, current_ease + _EASE_EASY_BONUS)
                 new_interval = max(
                     current_interval + 1,
                     round(
