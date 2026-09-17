@@ -51,7 +51,7 @@ class LapsesConfigSchema(BaseModel):
 
     relearning_steps: list[int] = Field(
         title="Relearning steps",
-        description="Relearning steps in minutes",
+        description="Optional relearning steps in minutes; an empty list skips relearning",
         examples=[[10]],
     )
     min_interval: int = Field(title="Min interval", description="Minimum interval in days", examples=[1])

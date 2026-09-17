@@ -112,12 +112,17 @@ class CardProgressService:
             case ReviewRating.AGAIN:
                 new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_AGAIN_PENALTY)
                 new_interval = max(1, round(current_interval * advanced_config.new_interval))
+                new_interval = max(new_interval, lapses_config.min_interval)
                 new_interval = min(new_interval, advanced_config.max_interval)
                 progress.ease_factor = EaseFactor(new_ease)
                 progress.interval = Interval(new_interval)
                 progress.repetitions = 0
-                progress.state = CardState.RELEARNING
-                progress.next_review_at = now + timedelta(minutes=lapses_config.relearning_steps[0])
+                if lapses_config.relearning_steps:
+                    progress.state = CardState.RELEARNING
+                    progress.next_review_at = now + timedelta(minutes=lapses_config.relearning_steps[0])
+                else:
+                    progress.state = CardState.REVIEW
+                    progress.next_review_at = now + timedelta(days=new_interval)
 
             case ReviewRating.HARD:
                 new_ease = max(MIN_EASE_FACTOR, current_ease - _EASE_HARD_PENALTY)
@@ -176,31 +181,37 @@ class CardProgressService:
         card_state = progress.state
         steps = config.relearning_steps
 
-        match rating:
-            case ReviewRating.AGAIN:
-                progress.repetitions = 0
-                progress.next_review_at = now + timedelta(minutes=steps[0])
+        if not steps:
+            progress.state = CardState.REVIEW
+            progress.interval = Interval(max(config.min_interval, progress.interval.value))
+            progress.repetitions = 0
+            progress.next_review_at = now + timedelta(days=progress.interval.value)
+        else:
+            match rating:
+                case ReviewRating.AGAIN:
+                    progress.repetitions = 0
+                    progress.next_review_at = now + timedelta(minutes=steps[0])
 
-            case ReviewRating.HARD:
-                step_index = min(progress.repetitions, len(steps) - 1)
-                progress.next_review_at = now + timedelta(minutes=steps[step_index])
+                case ReviewRating.HARD:
+                    step_index = min(progress.repetitions, len(steps) - 1)
+                    progress.next_review_at = now + timedelta(minutes=steps[step_index])
 
-            case ReviewRating.GOOD:
-                next_step = progress.repetitions + 1
-                if next_step >= len(steps):
+                case ReviewRating.GOOD:
+                    next_step = progress.repetitions + 1
+                    if next_step >= len(steps):
+                        progress.state = CardState.REVIEW
+                        progress.interval = Interval(max(config.min_interval, progress.interval.value))
+                        progress.repetitions = 1
+                        progress.next_review_at = now + timedelta(days=progress.interval.value)
+                    else:
+                        progress.repetitions = next_step
+                        progress.next_review_at = now + timedelta(minutes=steps[next_step])
+
+                case ReviewRating.EASY:
                     progress.state = CardState.REVIEW
                     progress.interval = Interval(max(config.min_interval, progress.interval.value))
                     progress.repetitions = 1
                     progress.next_review_at = now + timedelta(days=progress.interval.value)
-                else:
-                    progress.repetitions = next_step
-                    progress.next_review_at = now + timedelta(minutes=steps[next_step])
-
-            case ReviewRating.EASY:
-                progress.state = CardState.REVIEW
-                progress.interval = Interval(max(config.min_interval, progress.interval.value))
-                progress.repetitions = 1
-                progress.next_review_at = now + timedelta(days=progress.interval.value)
 
         progress.updated_at = now
 

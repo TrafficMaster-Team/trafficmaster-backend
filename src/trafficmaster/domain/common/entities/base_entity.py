@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, TypeVar
 
 from trafficmaster.domain.common.errors import DomainError, InconsistentTimeError
 
+OIDType = TypeVar("OIDType")
+
 
 @dataclass(eq=False, kw_only=True)
-class BaseEntity[OIDType]:
+class BaseEntity([OIDType]):
     id: OIDType
 
     created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
