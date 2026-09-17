@@ -122,7 +122,7 @@ class AlchemyReviewLogGateway(ReviewLogGateway):
         state_filter = (
             review_logs_table.c.card_state == CardState.NEW
             if is_new
-            else review_logs_table.c.card_state != CardState.NEW
+            else review_logs_table.c.card_state == CardState.REVIEW
         )
 
         select_stmt: Select[tuple[int]] = select(func.count(review_logs_table.c.id)).where(

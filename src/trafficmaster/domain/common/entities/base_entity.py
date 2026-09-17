@@ -8,7 +8,7 @@ OIDType = TypeVar("OIDType")
 
 
 @dataclass(eq=False, kw_only=True)
-class BaseEntity([OIDType]):
+class BaseEntity[OIDType]:
     id: OIDType
 
     created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
