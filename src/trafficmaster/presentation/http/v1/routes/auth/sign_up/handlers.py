@@ -35,7 +35,7 @@ async def sign_up(
     data: SignUpData = SignUpData(
         email=request.email,
         name=request.name,
-        password=request.password,
+        password=request.password.get_secret_value(),
     )
 
     view: SignUpView = await interactor(data=data)
