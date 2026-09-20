@@ -64,7 +64,6 @@ from trafficmaster.domain.deck.errors.deck_config import (
     TooLowMaxIntervalError,
     TooLowStepIntervalError,
     TooSmallCardLimitError,
-    TooSmallLeechThresholdError,
     TooSmallMinRepeatIntervalError,
 )
 from trafficmaster.domain.user.errors.password import (
@@ -130,7 +129,6 @@ class ExceptionHandler:
             LearningIntervalGreaterGraduatingError: status.HTTP_400_BAD_REQUEST,
             NotEnoughLearningStepsError: status.HTTP_400_BAD_REQUEST,
             TooLowStepIntervalError: status.HTTP_400_BAD_REQUEST,
-            TooSmallLeechThresholdError: status.HTTP_400_BAD_REQUEST,
             TooSmallMinRepeatIntervalError: status.HTTP_400_BAD_REQUEST,
             TooLowMaxIntervalError: status.HTTP_400_BAD_REQUEST,
             TooLowEasyFactorError: status.HTTP_400_BAD_REQUEST,

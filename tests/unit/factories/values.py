@@ -17,7 +17,7 @@ from trafficmaster.domain.deck.values.deck_config_id import DeckConfigID
 from trafficmaster.domain.deck.values.deck_config_name import DeckConfigName
 from trafficmaster.domain.deck.values.deck_id import DeckID
 from trafficmaster.domain.deck.values.deck_title import DeckTitle
-from trafficmaster.domain.deck.values.lapses_config import LapsesConfig, LeechAction
+from trafficmaster.domain.deck.values.lapses_config import LapsesConfig
 from trafficmaster.domain.deck.values.new_cards_config import NewCardOrder, NewCardsConfig
 from trafficmaster.domain.user.values.hashed_password import HashedPassword
 from trafficmaster.domain.user.values.raw_password import RawPassword
@@ -115,13 +115,10 @@ def create_deck_config_name(value: str = "Default") -> DeckConfigName:
 def create_daily_limits(
     new_cards_per_day: int = 20,
     max_reviews_per_day: int = 200,
-    *,
-    reviews_dont_bury_new: bool = False,
 ) -> DailyLimits:
     return DailyLimits(
         new_cards_per_day=new_cards_per_day,
         max_reviews_per_day=max_reviews_per_day,
-        reviews_dont_bury_new=reviews_dont_bury_new,
     )
 
 
@@ -142,14 +139,10 @@ def create_new_cards_config(
 def create_lapses_config(
     relearning_steps: list[int] | None = None,
     min_interval: int = 1,
-    leech_threshold: int = 8,
-    leech_action: LeechAction = LeechAction.SUSPEND,
 ) -> LapsesConfig:
     return LapsesConfig(
         relearning_steps=relearning_steps if relearning_steps is not None else [10],
         min_interval=min_interval,
-        leech_threshold=leech_threshold,
-        leech_action=leech_action,
     )
 
 

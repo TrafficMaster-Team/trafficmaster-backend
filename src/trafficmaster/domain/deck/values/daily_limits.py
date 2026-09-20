@@ -16,7 +16,6 @@ MIN_CARDS_REPETITION: Final[int] = 1
 class DailyLimits(BaseValueObject):
     new_cards_per_day: int = 20
     max_reviews_per_day: int = 200
-    reviews_dont_bury_new: bool = False
 
     @override
     def _validate(self) -> None:

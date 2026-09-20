@@ -116,9 +116,6 @@ from trafficmaster.infrastructure.adapters.persistence.alchemy_deck_gateway impo
 from trafficmaster.infrastructure.adapters.persistence.alchemy_review_log_gateway import AlchemyReviewLogGateway
 from trafficmaster.infrastructure.adapters.persistence.alchemy_transaction_manager import SqlAlchemyTransactionManager
 from trafficmaster.infrastructure.adapters.persistence.alchemy_user_gateway import AlchemyUserGateway
-from trafficmaster.infrastructure.adapters.persistence.cached_deck_config_gateway import CachedDeckConfigGateway
-from trafficmaster.infrastructure.adapters.persistence.cached_deck_gateway import CachedDeckGateway
-from trafficmaster.infrastructure.adapters.persistence.cached_user_gateway import CachedUserGateway
 from trafficmaster.infrastructure.cache.cache_store import CacheStore
 from trafficmaster.infrastructure.cache.provider import get_redis, get_redis_pool
 from trafficmaster.infrastructure.cache.redis_cache_store import RedisCacheStore
@@ -154,9 +151,6 @@ def cache_provider() -> Provider:
     provider.provide(source=get_redis_pool, scope=Scope.APP)
     provider.provide(source=get_redis)
     provider.provide(source=RedisCacheStore, provides=CacheStore)
-    provider.decorate(source=CachedUserGateway, provides=UserGateway)
-    provider.decorate(source=CachedDeckGateway, provides=DeckGateway)
-    provider.decorate(source=CachedDeckConfigGateway, provides=DeckConfigGateway)
     return provider
 
 

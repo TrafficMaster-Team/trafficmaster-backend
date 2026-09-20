@@ -1,24 +1,11 @@
 from dataclasses import dataclass
 from datetime import UTC, datetime
-from typing import Self, TypedDict
-from uuid import UUID
 
 from trafficmaster.domain.common.entities.base_entity import BaseEntity
 from trafficmaster.domain.deck.values.deck_config_id import DeckConfigID
 from trafficmaster.domain.deck.values.deck_id import DeckID
 from trafficmaster.domain.deck.values.deck_title import DeckTitle
 from trafficmaster.domain.user.values.user_id import UserID
-
-
-class SerializedDeck(TypedDict):
-    id: str
-    owner_id: str
-    deck_config_id: str
-    title: str
-    description: str | None
-    is_public: bool
-    created_at: str
-    updated_at: str
 
 
 @dataclass(eq=False)
@@ -54,28 +41,3 @@ class Deck(BaseEntity[DeckID]):
     def assign_deck_config(self, deck_config_id: DeckConfigID) -> None:
         self.deck_config_id = deck_config_id
         self.updated_at = datetime.now(UTC)
-
-    def serialize(self) -> SerializedDeck:
-        return {
-            "id": str(self.id),
-            "owner_id": str(self.owner_id),
-            "deck_config_id": str(self.deck_config_id),
-            "title": str(self.title),
-            "description": self.description,
-            "is_public": self.is_public,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
-        }
-
-    @classmethod
-    def deserialize(cls, data: SerializedDeck) -> Self:
-        return cls(
-            id=DeckID(UUID(data["id"])),
-            owner_id=UserID(UUID(data["owner_id"])),
-            deck_config_id=DeckConfigID(UUID(data["deck_config_id"])),
-            title=DeckTitle(data["title"]),
-            description=data["description"],
-            is_public=data["is_public"],
-            created_at=datetime.fromisoformat(data["created_at"]),
-            updated_at=datetime.fromisoformat(data["updated_at"]),
-        )

@@ -1,6 +1,3 @@
-from datetime import UTC, datetime
-from uuid import uuid4
-
 import pytest
 
 from tests.unit.factories.user_entity import create_user
@@ -11,7 +8,7 @@ from tests.unit.factories.values import (
     create_username,
 )
 from trafficmaster.domain.common.errors import DomainError
-from trafficmaster.domain.user.entities.user import SerializedUser, User
+from trafficmaster.domain.user.entities.user import User
 from trafficmaster.domain.user.values.user_role import UserRole
 
 
@@ -150,99 +147,6 @@ def test_user_id_cannot_be_changed() -> None:
     # Act & Assert
     with pytest.raises(DomainError):
         sut.id = create_user_id()
-
-
-def test_user_serialize() -> None:
-    # Arrange
-    user_id = create_user_id()
-    email = create_user_email("alice@example.com")
-    username = create_username("Alice")
-    password_hash = create_password_hash(b"hash123")
-    role = UserRole.ADMIN
-    is_active = False
-
-    sut = User(
-        id=user_id,
-        email=email,
-        name=username,
-        hashed_password=password_hash,
-        role=role,
-        is_active=is_active,
-    )
-
-    # Act
-    result = sut.serialize()
-
-    # Assert
-    assert isinstance(result, dict)
-    assert result["id"] == str(user_id)
-    assert result["email"] == str(email)
-    assert result["name"] == str(username)
-    assert result["role"] == role.value
-    assert result["is_active"] == is_active
-    assert result["password"] == password_hash.password.decode("utf-8")
-    assert result["created_at"] == sut.created_at.isoformat()
-    assert result["updated_at"] == sut.updated_at.isoformat()
-
-
-def test_user_deserialize() -> None:
-    # Arrange
-    user_id = uuid4()
-    email = "bob@example.com"
-    username = "Bob"
-    stored_hash = "hash456"
-    role = UserRole.USER
-    is_active = True
-    created_at = datetime.now(UTC)
-    updated_at = datetime.now(UTC)
-
-    serialized_data: SerializedUser = {
-        "id": str(user_id),
-        "email": email,
-        "name": username,
-        "role": role.value,
-        "is_active": is_active,
-        "password": stored_hash,
-        "created_at": created_at.isoformat(),
-        "updated_at": updated_at.isoformat(),
-    }
-
-    # Act
-    sut = User.deserialize(serialized_data)
-
-    # Assert
-    assert sut.id == user_id
-    assert str(sut.email) == email
-    assert str(sut.name) == username
-    assert sut.role == role
-    assert sut.is_active == is_active
-    assert sut.hashed_password.password == stored_hash.encode("utf-8")
-    assert sut.created_at == created_at
-    assert sut.updated_at == updated_at
-
-
-def test_user_serialize_deserialize_roundtrip() -> None:
-    # Arrange
-    original = create_user(
-        email=create_user_email("test@example.com"),
-        username=create_username("TestUser"),
-        role=UserRole.ADMIN,
-        is_active=False,
-    )
-
-    # Act
-    serialized = original.serialize()
-    deserialized = User.deserialize(serialized)
-
-    # Assert
-    assert deserialized.id == original.id
-    assert deserialized.email == original.email
-    assert deserialized.name == original.name
-    assert deserialized.role == original.role
-    assert deserialized.is_active == original.is_active
-    assert deserialized.hashed_password == original.hashed_password
-    assert deserialized.created_at == original.created_at
-    assert deserialized.updated_at == original.updated_at
 
 
 def test_user_can_be_used_in_set() -> None:

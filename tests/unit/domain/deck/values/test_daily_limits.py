@@ -16,7 +16,6 @@ def test_accepts_default_limits() -> None:
 
     assert sut.new_cards_per_day == 20
     assert sut.max_reviews_per_day == 200
-    assert sut.reviews_dont_bury_new is False
 
 
 def test_accepts_boundary_limits() -> None:

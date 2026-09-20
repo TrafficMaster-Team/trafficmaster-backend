@@ -5,7 +5,7 @@ from trafficmaster.domain.deck.entities.deck_config import DeckConfig
 from trafficmaster.domain.deck.values.advanced_config import AdvancedConfig
 from trafficmaster.domain.deck.values.daily_limits import DailyLimits
 from trafficmaster.domain.deck.values.deck_config_name import DeckConfigName
-from trafficmaster.domain.deck.values.lapses_config import LapsesConfig, LeechAction
+from trafficmaster.domain.deck.values.lapses_config import LapsesConfig
 from trafficmaster.domain.deck.values.new_cards_config import NewCardOrder, NewCardsConfig
 from trafficmaster.infrastructure.persistence.models.base import mapper_registry
 
@@ -17,15 +17,12 @@ deck_configs_table = sa.Table(
     sa.Column("name", sa.String(length=100), key="name_value", nullable=False),
     sa.Column("new_cards_per_day", sa.Integer, nullable=False),
     sa.Column("max_reviews_per_day", sa.Integer, nullable=False),
-    sa.Column("reviews_dont_bury_new", sa.Boolean, nullable=False),
     sa.Column("learning_steps", sa.ARRAY(sa.Integer), nullable=False),
     sa.Column("graduating_interval", sa.Integer, nullable=False),
     sa.Column("easy_interval", sa.Integer, nullable=False),
     sa.Column("new_card_order", sa.Enum(NewCardOrder), nullable=False),
     sa.Column("relearning_steps", sa.ARRAY(sa.Integer), nullable=False),
     sa.Column("min_interval", sa.Integer, nullable=False),
-    sa.Column("leech_threshold", sa.Integer, nullable=False),
-    sa.Column("leech_action", sa.Enum(LeechAction), nullable=False),
     sa.Column("max_interval", sa.Integer, nullable=False),
     sa.Column("ease_factor", sa.Float, nullable=False),
     sa.Column("easy_factor", sa.Float, nullable=False),
@@ -62,7 +59,6 @@ def map_deck_configs_table() -> None:
                 DailyLimits,
                 deck_configs_table.c.new_cards_per_day,
                 deck_configs_table.c.max_reviews_per_day,
-                deck_configs_table.c.reviews_dont_bury_new,
             ),
             "new_cards": composite(
                 NewCardsConfig,
@@ -75,8 +71,6 @@ def map_deck_configs_table() -> None:
                 LapsesConfig,
                 deck_configs_table.c.relearning_steps,
                 deck_configs_table.c.min_interval,
-                deck_configs_table.c.leech_threshold,
-                deck_configs_table.c.leech_action,
             ),
             "advanced": composite(
                 AdvancedConfig,

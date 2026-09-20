@@ -1,7 +1,7 @@
 from typing import Annotated
 from uuid import UUID
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, BeforeValidator, ConfigDict, EmailStr, Field, SecretStr
 
 
 class SignUpRequestSchema(BaseModel):
@@ -24,7 +24,7 @@ class SignUpRequestSchema(BaseModel):
         ),
     ]
     password: Annotated[
-        str,
+        SecretStr,
         BeforeValidator(lambda x: x.strip()),
         Field(
             title="Password",

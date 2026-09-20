@@ -10,7 +10,6 @@ from tests.unit.factories.values import (
     create_new_cards_config,
 )
 from trafficmaster.domain.common.errors import DomainError
-from trafficmaster.domain.deck.entities.deck_config import DeckConfig
 
 
 def test_creates_deck_config_with_given_values() -> None:
@@ -78,22 +77,3 @@ def test_change_advanced() -> None:
     sut.change_advanced(new_advanced)
 
     assert sut.advanced == new_advanced
-
-
-def test_serialize_deserialize_roundtrip() -> None:
-    # Arrange
-    original = create_deck_config()
-
-    # Act
-    restored = DeckConfig.deserialize(original.serialize())
-
-    # Assert
-    assert restored.id == original.id
-    assert restored.owner_id == original.owner_id
-    assert restored.name == original.name
-    assert restored.daily_limits == original.daily_limits
-    assert restored.new_cards == original.new_cards
-    assert restored.lapses == original.lapses
-    assert restored.advanced == original.advanced
-    assert restored.created_at == original.created_at
-    assert restored.updated_at == original.updated_at

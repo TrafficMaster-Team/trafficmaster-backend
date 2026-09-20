@@ -39,7 +39,6 @@ pythonpath = ["src"]
 addopts = "--cov --cov-report=term-missing"
 asyncio_mode = "auto"
 filterwarnings = [
-    # third-party: testcontainers still ships the deprecated readiness decorator
     "ignore:The @wait_container_is_ready decorator is deprecated:DeprecationWarning",
 ]
 
@@ -98,7 +97,6 @@ ignore = ["D", "CPY001", "A005", "TRY003", "COM812", "FBT001", "FBT003", "PLR091
 
 [tool.ruff.lint.per-file-ignores]
 "src/trafficmaster/infrastructure/persistence/migrations/**" = ["ERA001", "INP001", "E501", "PLC0415"]
-"src/trafficmaster/presentation/http/v1/routes/documents/create_documents/handlers.py" = ["S311"]
 "tests/**" = ["S101", "PLR2004", "S106"]
 
 [tool.ruff.format]

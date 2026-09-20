@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from trafficmaster.domain.deck.values.advanced_config import AdvancedConfig
 from trafficmaster.domain.deck.values.daily_limits import DailyLimits
-from trafficmaster.domain.deck.values.lapses_config import LapsesConfig, LeechAction
+from trafficmaster.domain.deck.values.lapses_config import LapsesConfig
 from trafficmaster.domain.deck.values.new_cards_config import NewCardOrder, NewCardsConfig
 
 
@@ -11,17 +11,11 @@ class DailyLimitsSchema(BaseModel):
 
     new_cards_per_day: int = Field(default=20, title="New cards per day", description="Daily limit of new cards")
     max_reviews_per_day: int = Field(default=200, title="Max reviews per day", description="Daily limit of reviews")
-    reviews_dont_bury_new: bool = Field(
-        default=False,
-        title="Reviews don't bury new",
-        description="Whether reviews do not bury sibling new cards",
-    )
 
     def to_domain(self) -> DailyLimits:
         return DailyLimits(
             new_cards_per_day=self.new_cards_per_day,
             max_reviews_per_day=self.max_reviews_per_day,
-            reviews_dont_bury_new=self.reviews_dont_bury_new,
         )
 
 
@@ -55,17 +49,11 @@ class LapsesConfigSchema(BaseModel):
         examples=[[10]],
     )
     min_interval: int = Field(title="Min interval", description="Minimum interval in days", examples=[1])
-    leech_threshold: int = Field(
-        title="Leech threshold", description="Lapses before a card becomes a leech", examples=[8]
-    )
-    leech_action: LeechAction = Field(title="Leech action", description="Action taken when a card becomes a leech")
 
     def to_domain(self) -> LapsesConfig:
         return LapsesConfig(
             relearning_steps=self.relearning_steps,
             min_interval=self.min_interval,
-            leech_threshold=self.leech_threshold,
-            leech_action=self.leech_action,
         )
 
 

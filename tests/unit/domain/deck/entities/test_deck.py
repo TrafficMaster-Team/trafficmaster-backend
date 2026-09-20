@@ -8,7 +8,6 @@ from tests.unit.factories.values import (
     create_user_id,
 )
 from trafficmaster.domain.common.errors import DomainError
-from trafficmaster.domain.deck.entities.deck import Deck
 
 
 def test_creates_deck_with_given_values() -> None:
@@ -84,30 +83,6 @@ def test_assign_deck_config() -> None:
     sut.assign_deck_config(new_config_id)
 
     assert sut.deck_config_id == new_config_id
-
-
-def test_serialize_deserialize_roundtrip() -> None:
-    # Arrange
-    original = create_deck(title=create_deck_title("Roundtrip"), description="d", is_public=True)
-
-    # Act
-    restored = Deck.deserialize(original.serialize())
-
-    # Assert
-    assert restored.id == original.id
-    assert restored.owner_id == original.owner_id
-    assert restored.deck_config_id == original.deck_config_id
-    assert restored.title == original.title
-    assert restored.description == original.description
-    assert restored.is_public == original.is_public
-    assert restored.created_at == original.created_at
-    assert restored.updated_at == original.updated_at
-
-
-def test_serialize_handles_none_description() -> None:
-    sut = create_deck(description=None)
-
-    assert sut.serialize()["description"] is None
 
 
 def test_decks_with_same_id_are_equal() -> None:
