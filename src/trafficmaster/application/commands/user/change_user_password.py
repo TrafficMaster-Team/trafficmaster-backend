@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 from uuid import UUID
 
+from trafficmaster.application.common.ports.auth.gateway import AuthSessionGateway
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.current_user import CurrentUserService
@@ -27,12 +28,14 @@ class ChangeUserPasswordCommandHandler:
         current_user_service: CurrentUserService,
         user_service: UserService,
         user_gateway: UserGateway,
+        auth_session_gateway: AuthSessionGateway,
         access_service: AccessService,
         transaction_manager: TransactionManager,
     ) -> None:
         self._user_service = user_service
         self._current_user_service = current_user_service
         self._user_gateway = user_gateway
+        self._auth_session_gateway = auth_session_gateway
         self._access_service = access_service
         self._transaction_manager = transaction_manager
 
@@ -53,4 +56,5 @@ class ChangeUserPasswordCommandHandler:
         validated_password = RawPassword(data.password)
 
         self._user_service.change_password(user=user_for_update_password, raw_password=validated_password)
+        await self._auth_session_gateway.delete_all_for_user(user_for_update_password.id)
         await self._transaction_manager.commit()

@@ -8,14 +8,15 @@ from trafficmaster.application.commands.user.change_user_password import (
     ChangeUserPasswordCommand,
     ChangeUserPasswordCommandHandler,
 )
-from trafficmaster.application.errors.user import UserNotFoundByIdError
+from trafficmaster.application.errors.user import NoPermissionToManageUserError, UserNotFoundByIdError
 
 
-def _handler(cus: Mock, us: Mock, gw: Mock, acl: Mock, tx: Mock) -> ChangeUserPasswordCommandHandler:
+def _handler(cus: Mock, us: Mock, gw: Mock, auth_gw: Mock, acl: Mock, tx: Mock) -> ChangeUserPasswordCommandHandler:
     return ChangeUserPasswordCommandHandler(
         current_user_service=cus,
         user_service=us,
         user_gateway=gw,
+        auth_session_gateway=auth_gw,
         access_service=acl,
         transaction_manager=tx,
     )
@@ -25,13 +26,20 @@ async def test_changes_password_successfully(
     fake_current_user_service: Mock,
     fake_user_service: Mock,
     fake_user_gateway: Mock,
+    fake_auth_session_gateway: Mock,
     fake_access_service: Mock,
     fake_transaction_manager: Mock,
 ) -> None:
     # Arrange
-    fake_user_gateway.read_by_id.return_value = create_user()
+    target_user = create_user()
+    fake_user_gateway.read_by_id.return_value = target_user
     handler = _handler(
-        fake_current_user_service, fake_user_service, fake_user_gateway, fake_access_service, fake_transaction_manager
+        fake_current_user_service,
+        fake_user_service,
+        fake_user_gateway,
+        fake_auth_session_gateway,
+        fake_access_service,
+        fake_transaction_manager,
     )
 
     # Act
@@ -39,6 +47,7 @@ async def test_changes_password_successfully(
 
     # Assert
     fake_user_service.change_password.assert_called_once()
+    fake_auth_session_gateway.delete_all_for_user.assert_awaited_once_with(target_user.id)
     fake_transaction_manager.commit.assert_awaited_once()
 
 
@@ -46,16 +55,51 @@ async def test_fails_when_user_not_found(
     fake_current_user_service: Mock,
     fake_user_service: Mock,
     fake_user_gateway: Mock,
+    fake_auth_session_gateway: Mock,
     fake_access_service: Mock,
     fake_transaction_manager: Mock,
 ) -> None:
     # Arrange
     fake_user_gateway.read_by_id.return_value = None
     handler = _handler(
-        fake_current_user_service, fake_user_service, fake_user_gateway, fake_access_service, fake_transaction_manager
+        fake_current_user_service,
+        fake_user_service,
+        fake_user_gateway,
+        fake_auth_session_gateway,
+        fake_access_service,
+        fake_transaction_manager,
     )
 
     # Act & Assert
     with pytest.raises(UserNotFoundByIdError):
         await handler(ChangeUserPasswordCommand(user_id=uuid4(), password="newpassword1"))
     fake_user_service.change_password.assert_not_called()
+    fake_auth_session_gateway.delete_all_for_user.assert_not_awaited()
+    fake_transaction_manager.commit.assert_not_awaited()
+
+
+async def test_does_not_change_password_or_revoke_sessions_without_permission(
+    fake_current_user_service: Mock,
+    fake_user_service: Mock,
+    fake_user_gateway: Mock,
+    fake_auth_session_gateway: Mock,
+    fake_access_service: Mock,
+    fake_transaction_manager: Mock,
+) -> None:
+    fake_user_gateway.read_by_id.return_value = create_user()
+    fake_access_service.can_manage_user.return_value = False
+    handler = _handler(
+        fake_current_user_service,
+        fake_user_service,
+        fake_user_gateway,
+        fake_auth_session_gateway,
+        fake_access_service,
+        fake_transaction_manager,
+    )
+
+    with pytest.raises(NoPermissionToManageUserError):
+        await handler(ChangeUserPasswordCommand(user_id=uuid4(), password="newpassword1"))
+
+    fake_user_service.change_password.assert_not_called()
+    fake_auth_session_gateway.delete_all_for_user.assert_not_awaited()
+    fake_transaction_manager.commit.assert_not_awaited()

@@ -62,3 +62,30 @@ async def test_signup_rejects_duplicate_email(client: AsyncClient) -> None:
 
     second = await client.post("/v1/auth/signup", json=payload)
     assert second.status_code == status.HTTP_409_CONFLICT
+
+
+async def test_changing_password_revokes_existing_session(client: AsyncClient) -> None:
+    email = f"password_{uuid.uuid4().hex[:8]}@example.com"
+    old_password = "OldSecure123"  # noqa: S105
+    new_password = "NewSecure456"  # noqa: S105
+
+    signup = await client.post(
+        "/v1/auth/signup",
+        json={"email": email, "name": "Password-Tester", "password": old_password},
+    )
+    user_id = signup.json()["id"]
+    await client.post("/v1/auth/login", json={"email": email, "password": old_password})
+
+    change_password = await client.patch(
+        f"/v1/user/{user_id}/password",
+        json={"password": new_password},
+    )
+
+    assert change_password.status_code == status.HTTP_204_NO_CONTENT
+    assert (await client.get("/v1/auth/me")).status_code == status.HTTP_401_UNAUTHORIZED
+    assert (
+        await client.post("/v1/auth/login", json={"email": email, "password": old_password})
+    ).status_code == status.HTTP_401_UNAUTHORIZED
+    assert (
+        await client.post("/v1/auth/login", json={"email": email, "password": new_password})
+    ).status_code == status.HTTP_204_NO_CONTENT

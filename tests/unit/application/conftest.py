@@ -35,6 +35,17 @@ def fake_user_gateway() -> Mock:
 
 
 @pytest.fixture
+def fake_auth_session_gateway() -> Mock:
+    fake = Mock()
+    fake.add = AsyncMock()
+    fake.update = AsyncMock()
+    fake.read_by_id = AsyncMock(return_value=None)
+    fake.delete = AsyncMock()
+    fake.delete_all_for_user = AsyncMock()
+    return fake
+
+
+@pytest.fixture
 def fake_current_user_service() -> Mock:
     fake = Mock()
     fake.get_current_user = AsyncMock(return_value=create_user())
