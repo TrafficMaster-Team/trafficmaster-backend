@@ -1,10 +1,12 @@
 import os
 from collections.abc import AsyncIterator, Iterator
+from pathlib import Path
 
 import pytest
 import pytest_asyncio
+from alembic import command
+from alembic.config import Config
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncEngine
 from testcontainers.postgres import PostgresContainer
 from testcontainers.redis import RedisContainer
 
@@ -12,6 +14,7 @@ _POSTGRES_DB = "trafficmaster"
 _POSTGRES_USER = "postgres"
 _POSTGRES_PASSWORD = "postgres"  # noqa: S105
 _REDIS_PASSWORD = "secret"  # noqa: S105
+_PROJECT_ROOT = Path(__file__).parents[2]
 
 
 @pytest.fixture(scope="session")
@@ -59,32 +62,30 @@ def _apply_env(postgres: PostgresContainer, redis: RedisContainer) -> None:
     os.environ.update(env)
 
 
-@pytest_asyncio.fixture(scope="session", loop_scope="session")
-async def app(_containers: tuple[PostgresContainer, RedisContainer]) -> AsyncIterator[object]:
+@pytest.fixture(scope="session")
+def _migrated_database(_containers: tuple[PostgresContainer, RedisContainer]) -> None:
     postgres, redis = _containers
     _apply_env(postgres, redis)
 
-    # Build configs/mappers fresh against the container environment.
     from trafficmaster.setup.bootstrap import setup_configs, setup_map_configs  # noqa: PLC0415
 
     setup_configs.cache_clear()
     setup_map_configs.cache_clear()
 
-    from trafficmaster.infrastructure.persistence.models.base import metadata  # noqa: PLC0415
+    alembic_config = Config(str(_PROJECT_ROOT / "alembic.ini"))
+    command.upgrade(alembic_config, "head")
+    command.check(alembic_config)
+
+
+@pytest_asyncio.fixture(scope="session", loop_scope="session")
+async def app(_migrated_database: None) -> AsyncIterator[object]:
     from trafficmaster.web import create_fastapi_app  # noqa: PLC0415
 
     application = create_fastapi_app()
-    container = application.state.dishka_container
-
-    engine = await container.get(AsyncEngine)
-    async with engine.begin() as conn:
-        await conn.run_sync(metadata.create_all)
 
     yield application
 
-    async with engine.begin() as conn:
-        await conn.run_sync(metadata.drop_all)
-    await container.close()
+    await application.state.dishka_container.close()
 
 
 @pytest_asyncio.fixture(loop_scope="session")
