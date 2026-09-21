@@ -1,7 +1,6 @@
 import pytest
 
 from trafficmaster.domain.deck.errors.deck_config import (
-    NotEnoughLearningStepsError,
     TooLowStepIntervalError,
     TooSmallMinRepeatIntervalError,
 )
@@ -17,9 +16,10 @@ def test_accepts_valid_config() -> None:
     assert sut.relearning_steps == [10]
 
 
-def test_rejects_empty_relearning_steps() -> None:
-    with pytest.raises(NotEnoughLearningStepsError):
-        LapsesConfig(relearning_steps=[], min_interval=1)
+def test_accepts_empty_relearning_steps() -> None:
+    sut = LapsesConfig(relearning_steps=[], min_interval=1)
+
+    assert sut.relearning_steps == []
 
 
 def test_rejects_too_small_min_interval() -> None:

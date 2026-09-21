@@ -2,7 +2,7 @@ import pytest
 
 from trafficmaster.domain.card_progress.errors.card_progress import TooLowEaseFactorError
 from trafficmaster.domain.deck.errors.deck_config import (
-    HardIntervalNotLessThanEaseFactorError,
+    InvalidHardIntervalError,
     InvalidIntervalModifierError,
     InvalidNewIntervalError,
     TooLowEasyFactorError,
@@ -49,8 +49,8 @@ def test_rejects_non_positive_interval_modifier() -> None:
         AdvancedConfig(**{**_valid_kwargs(), "interval_modifier": 0.0})
 
 
-def test_rejects_hard_interval_not_less_than_ease() -> None:
-    with pytest.raises(HardIntervalNotLessThanEaseFactorError):
+def test_rejects_hard_interval_out_of_range() -> None:
+    with pytest.raises(InvalidHardIntervalError):
         AdvancedConfig(**{**_valid_kwargs(), "hard_interval": 3.0})
 
 
