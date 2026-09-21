@@ -8,8 +8,8 @@ def test_asgi_uses_defaults_when_empty() -> None:
     # Assert
     assert sut.host == "0.0.0.0"  # noqa: S104
     assert sut.port == 8000
-    assert sut.fastapi_debug is True
-    assert sut.allow_credentials is True
+    assert sut.fastapi_debug is False
+    assert sut.allow_credentials is False
 
 
 def test_asgi_overrides_port_from_alias() -> None:
@@ -25,6 +25,6 @@ def test_asgi_has_default_cors_lists() -> None:
     sut = ASGIConfig.model_validate({})
 
     # Assert
-    assert sut.allow_origins == ["http://localhost:3000"]
+    assert sut.allow_origins == []
     assert sut.allow_methods == ["GET", "POST", "PUT", "PATCH", "DELETE"]
     assert sut.allow_headers == ["Content-Type"]

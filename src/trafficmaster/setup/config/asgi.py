@@ -18,20 +18,19 @@ class ASGIConfig(BaseModel):
 
     fastapi_debug: bool = Field(
         alias="FASTAPI_DEBUG",
-        default=True,
+        default=False,
     )
 
     allow_credentials: bool = Field(
         alias="FASTAPI_ALLOW_CREDENTIALS",
         description="Allow credentials in cross-origin browser requests",
-        default=True,
+        default=False,
     )
 
     allow_origins: list[str] = Field(
         alias="CORS_ALLOWED_ORIGINS",
         description="Comma-separated frontend origins allowed to access the API",
-        default_factory=lambda: ["http://localhost:3000"],
-        min_length=1,
+        default_factory=list,
     )
 
     allow_methods: list[str] = Field(
