@@ -54,6 +54,7 @@ from trafficmaster.application.common.ports.clock import Clock
 from trafficmaster.application.common.ports.deck.deck_config_gateway import DeckConfigGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.identity_provider import IdentityProvider
+from trafficmaster.application.common.ports.system_health import SystemHealthChecker
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.auth_session import AuthSessionService
@@ -102,6 +103,7 @@ from trafficmaster.infrastructure.adapters.auth.timer_utc import (
 )
 from trafficmaster.infrastructure.adapters.common.clock_utc import UtcClock
 from trafficmaster.infrastructure.adapters.common.password_hasher_bcrypt import BcryptPasswordHasher, PasswordPepper
+from trafficmaster.infrastructure.adapters.common.system_health_checker import InfrastructureSystemHealthChecker
 from trafficmaster.infrastructure.adapters.common.uuid4_card_id_generator import UUID4CardIdGenerator
 from trafficmaster.infrastructure.adapters.common.uuid4_card_progress_id_generator import UUID4CardProgressIdGenerator
 from trafficmaster.infrastructure.adapters.common.uuid4_deck_config_id_generator import UUID4DeckConfigIdGenerator
@@ -151,6 +153,12 @@ def cache_provider() -> Provider:
     provider.provide(source=get_redis_pool, scope=Scope.APP)
     provider.provide(source=get_redis)
     provider.provide(source=RedisCacheStore, provides=CacheStore)
+    return provider
+
+
+def system_health_provider() -> Provider:
+    provider = Provider(scope=Scope.REQUEST)
+    provider.provide(source=InfrastructureSystemHealthChecker, provides=SystemHealthChecker)
     return provider
 
 
@@ -339,6 +347,7 @@ def setup_providers() -> Iterable[Provider]:
         auth_ports_provider(),
         gateway_ports_provider(),
         cache_provider(),
+        system_health_provider(),
         auth_handlers_provider(),
         user_command_handlers_provider(),
         deck_command_handlers_provider(),

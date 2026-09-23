@@ -39,6 +39,13 @@ class ASGIConfig(BaseModel):
 
     allow_headers: list[str] = Field(default_factory=lambda: ["Content-Type"])
 
+    healthcheck_timeout_seconds: float = Field(
+        alias="HEALTHCHECK_TIMEOUT_SECONDS",
+        description="Maximum time to wait for each readiness dependency check",
+        default=2.0,
+        gt=0,
+    )
+
     @field_validator("allow_origins", mode="before")
     @classmethod
     def parse_allow_origins(cls, value: str | list[str]) -> list[str]:

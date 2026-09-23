@@ -3,6 +3,7 @@ from typing import Any, Final, Literal, NewType, TypedDict, cast
 import jwt
 
 from trafficmaster.application.auth.auth_model import AuthSession
+from trafficmaster.application.common.ports.auth.token_processor import AuthSessionTokenProcessor
 
 JwtSecret = NewType("JwtSecret", str)
 
@@ -14,7 +15,7 @@ class JwtPayload(TypedDict):
     exp: int
 
 
-class JwtAccessTokenProcessor:
+class JwtAccessTokenProcessor(AuthSessionTokenProcessor):
     def __init__(self, jwt_secret: JwtSecret, jwt_algorithm: JwtAlgorithm) -> None:
         self._jwt_secret: Final[JwtSecret] = jwt_secret
         self._jwt_algorithm: Final[JwtAlgorithm] = jwt_algorithm
