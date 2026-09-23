@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any, Final
@@ -85,6 +86,8 @@ from trafficmaster.infrastructure.errors.transaction_manager import (
     EntityAddError,
     RollbackError,
 )
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -176,8 +179,18 @@ class ExceptionHandler:
         self._app: Final[FastAPI] = app
         self._internal_server_error: Final[int] = 500
 
-    async def _handle(self, _: Request, exc: Exception) -> JSONResponse:
+    async def _handle(self, request: Request, exc: Exception) -> JSONResponse:
         status_code: int = self._ERROR_MAPPING.get(type(exc), status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if status_code >= status.HTTP_500_INTERNAL_SERVER_ERROR:
+            logger.log(
+                logging.ERROR if status_code == status.HTTP_500_INTERNAL_SERVER_ERROR else logging.WARNING,
+                "Request failed: method=%s path=%s status_code=%d",
+                request.method,
+                request.url.path,
+                status_code,
+                exc_info=(type(exc), exc, exc.__traceback__),
+            )
 
         response: ExceptionSchema | ExceptionSchemaRich
         if isinstance(exc, pydantic.ValidationError):
