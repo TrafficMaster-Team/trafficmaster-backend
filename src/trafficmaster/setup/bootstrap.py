@@ -2,6 +2,7 @@ from functools import lru_cache
 
 from fastapi import APIRouter, FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from trafficmaster.infrastructure.persistence.models.auth_sessions import map_auth_session_table
 from trafficmaster.infrastructure.persistence.models.card_progress import map_card_progress_table
@@ -60,6 +61,7 @@ def setup_exc_handlers(app: FastAPI) -> None:
 
 
 def setup_http_middlewares(app: FastAPI, api_config: ASGIConfig, cookie_params: AuthCookieParams) -> None:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=api_config.trusted_hosts)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=api_config.allow_origins,

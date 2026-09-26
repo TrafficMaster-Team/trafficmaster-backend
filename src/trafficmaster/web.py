@@ -42,11 +42,14 @@ def create_fastapi_app() -> FastAPI:
 
     app: FastAPI = FastAPI(
         lifespan=lifespan,
-        version="1.0.0",
+        version="0.1.0",
         debug=configs.asgi.fastapi_debug,
         title="TrafficMaster API",
         description="API for learning traffic rules using Anki-method",
         contact={"name": "Dzianis Pametska", "email": "denispometko8@gmail.com"},
+        docs_url="/docs" if configs.asgi.expose_api_docs else None,
+        redoc_url="/redoc" if configs.asgi.expose_api_docs else None,
+        openapi_url="/openapi.json" if configs.asgi.expose_api_docs else None,
     )
 
     cookie_params = AuthCookieParams(
