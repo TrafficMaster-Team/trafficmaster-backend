@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          enable-cache: true
+
+      - name: Install locked dependencies
+        run: uv sync --locked --group dev
+
+      - name: Lint
+        run: uv run --locked ruff check --no-fix .
+
+      - name: Check formatting
+        run: uv run --locked ruff format --check .
+
+      - name: Type check
+        run: uv run --locked mypy --config-file pyproject.toml
+
+      - name: Test
+        run: uv run --locked pytest tests/ -q
+
+      - name: Verify package build
+        run: uv build
+
+      - name: Verify container build
+        run: docker build --tag trafficmaster:ci .
