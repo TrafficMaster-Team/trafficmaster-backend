@@ -14,7 +14,8 @@ from trafficmaster.application.errors.user import (
     UserNotFoundByIdError,
 )
 from trafficmaster.domain.card.services.card_service import CardService
-from trafficmaster.domain.card.values.card_answer import CardAnswer
+from trafficmaster.domain.card.values.answer_option import AnswerOption
+from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_question import CardQuestion
 from trafficmaster.domain.card.values.card_tag import CardTag
 from trafficmaster.domain.deck.values.deck_id import DeckID
@@ -28,10 +29,18 @@ if TYPE_CHECKING:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class AnswerOptionData:
+    text: str
+    is_correct: bool
+    rationale: str
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class CreateCardCommand:
     deck_id: UUID
     question: str
-    answer: str
+    answer_options: list[AnswerOptionData]
+    hint: str
     tags: list[str] | None = None
 
 
@@ -77,7 +86,11 @@ class CreateCardCommandHandler:
         created_card: Card = self._card_service.create_card(
             deck_id=DeckID(data.deck_id),
             question=CardQuestion(data.question),
-            answer=CardAnswer(data.answer),
+            answer_options=[
+                AnswerOption(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+                for option in data.answer_options
+            ],
+            hint=CardHint(data.hint),
             tags=[CardTag(tag) for tag in data.tags] if data.tags is not None else [],
         )
 

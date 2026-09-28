@@ -10,6 +10,7 @@ from trafficmaster.application.common.ports.deck.deck_config_gateway import Deck
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.common.views.card.answer_option import AnswerOptionView
 from trafficmaster.application.common.views.card_progress.review_queue_item import (
     ReviewQueueItemView,
     ReviewReason,
@@ -140,7 +141,15 @@ class ReadReviewQueueQueryHandler:
         return ReviewQueueItemView(
             card_id=row.card.id,
             question=str(row.card.question),
-            answer=str(row.card.answer),
+            answer_options=[
+                AnswerOptionView(
+                    text=option.text,
+                    is_correct=option.is_correct,
+                    rationale=option.rationale,
+                )
+                for option in row.card.answer_options
+            ],
+            hint=str(row.card.hint),
             image_path=row.card.image_path,
             tags=[str(tag) for tag in row.card.tags],
             state=progress.state if progress is not None else None,

@@ -7,6 +7,7 @@ from tests.unit.factories.card_entity import create_card
 from tests.unit.factories.deck_entity import create_deck
 from tests.unit.factories.user_entity import create_user
 from trafficmaster.application.commands.card.create_card import (
+    AnswerOptionData,
     CreateCardCommand,
     CreateCardCommandHandler,
 )
@@ -39,7 +40,13 @@ def _handler(
 
 
 def _command() -> CreateCardCommand:
-    return CreateCardCommand(deck_id=uuid4(), question="Q?", answer="A", tags=["tag"])
+    return CreateCardCommand(
+        deck_id=uuid4(),
+        question="Q?",
+        answer_options=[AnswerOptionData(text="A", is_correct=True, rationale="A is correct")],
+        hint="A useful hint",
+        tags=["tag"],
+    )
 
 
 async def test_creates_card_successfully(

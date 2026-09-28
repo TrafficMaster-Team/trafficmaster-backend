@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Final
 from uuid import UUID
 
+from trafficmaster.application.commands.card.create_card import AnswerOptionData
 from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.transaction_manager import TransactionManager
@@ -10,7 +11,8 @@ from trafficmaster.application.common.services.current_user import CurrentUserSe
 from trafficmaster.application.errors.card import CardNotFoundError
 from trafficmaster.application.errors.deck import DeckNotFoundError
 from trafficmaster.application.errors.user import NoPermissionToManageUserError, UserNotFoundByIdError
-from trafficmaster.domain.card.values.card_answer import CardAnswer
+from trafficmaster.domain.card.values.answer_option import AnswerOption
+from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.deck.values.deck_id import DeckID
 from trafficmaster.domain.user.services.access_service import AccessService
@@ -23,13 +25,15 @@ if TYPE_CHECKING:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class ChangeAnswerCommand:
+class ChangeCardContentCommand:
     card_id: UUID
+    answer_options: list[AnswerOptionData]
+    hint: str
 
-    answer: str
 
+class ChangeCardContentCommandHandler:
+    """Replace a card's answer options and hint."""
 
-class ChangeAnswerCommandHandler:
     def __init__(
         self,
         card_gateway: CardGateway,
@@ -46,7 +50,7 @@ class ChangeAnswerCommandHandler:
         self._deck_gateway: Final[DeckGateway] = deck_gateway
         self._user_gateway: Final[UserGateway] = user_gateway
 
-    async def __call__(self, data: ChangeAnswerCommand) -> None:
+    async def __call__(self, data: ChangeCardContentCommand) -> None:
 
         current_user: User = await self._current_user_service.get_current_user()
         card: Card | None = await self._card_gateway.read_by_id(CardID(data.card_id))
@@ -71,6 +75,12 @@ class ChangeAnswerCommandHandler:
             msg = "You are not allowed to manage this card"
             raise NoPermissionToManageUserError(msg)
 
-        card.change_answer(answer=CardAnswer(data.answer))
+        card.change_answer_options(
+            [
+                AnswerOption(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+                for option in data.answer_options
+            ]
+        )
+        card.change_hint(CardHint(data.hint))
 
         await self._transaction_manager.commit()

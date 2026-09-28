@@ -6,7 +6,7 @@ import pytest
 from tests.unit.factories.card_entity import create_card
 from tests.unit.factories.deck_entity import create_deck
 from tests.unit.factories.user_entity import create_user
-from tests.unit.factories.values import create_card_answer, create_card_question, create_card_tag
+from tests.unit.factories.values import create_answer_option, create_card_hint, create_card_question, create_card_tag
 from trafficmaster.application.common.views.card.read_by_id import ReadCardByIDView
 from trafficmaster.application.errors.card import CardNotFoundError
 from trafficmaster.application.errors.user import NoPermissionToManageUserError
@@ -38,7 +38,8 @@ async def test_reads_card_successfully(
     # Arrange
     card = create_card(
         question=create_card_question("What?"),
-        answer=create_card_answer("That"),
+        answer_options=[create_answer_option(text="That", rationale="That is correct")],
+        hint=create_card_hint("Think carefully"),
         tags=[create_card_tag("tag")],
     )
     fake_card_gateway.read_by_id.return_value = card
@@ -55,7 +56,9 @@ async def test_reads_card_successfully(
     assert isinstance(result, ReadCardByIDView)
     assert result.id == card.id
     assert result.question == "What?"
-    assert result.answer == "That"
+    assert result.answer_options[0].text == "That"
+    assert result.answer_options[0].is_correct is True
+    assert result.hint == "Think carefully"
     assert result.tags == ["tag"]
 
 

@@ -30,7 +30,6 @@ from trafficmaster.application.errors.user import (
     UserNotFoundByIdError,
 )
 from trafficmaster.domain.card.errors.card import (
-    CardAnswerEmptyError,
     CardQuestionEmptyError,
     CardTagNotFoundError,
     DuplicateCardTagError,
@@ -117,7 +116,6 @@ class ExceptionHandler:
             CardQuestionEmptyError: status.HTTP_400_BAD_REQUEST,
             TooShortQuestionError: status.HTTP_400_BAD_REQUEST,
             TooLongQuestionError: status.HTTP_400_BAD_REQUEST,
-            CardAnswerEmptyError: status.HTTP_400_BAD_REQUEST,
             TooLongAnswerError: status.HTTP_400_BAD_REQUEST,
             TooShortAnswerError: status.HTTP_400_BAD_REQUEST,
             EmptyCardTagError: status.HTTP_400_BAD_REQUEST,

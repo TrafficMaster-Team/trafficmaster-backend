@@ -6,12 +6,16 @@ from dishka import FromDishka
 from dishka.integrations.fastapi import DishkaRoute
 from fastapi import APIRouter, Path, Security, status
 
-from trafficmaster.application.commands.card.change_answer import ChangeAnswerCommand, ChangeAnswerCommandHandler
+from trafficmaster.application.commands.card.change_content import (
+    ChangeCardContentCommand,
+    ChangeCardContentCommandHandler,
+)
+from trafficmaster.application.commands.card.create_card import AnswerOptionData
 from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionSchema, ExceptionSchemaRich
 from trafficmaster.presentation.http.v1.common.fastapi_openapi_marker import cookie_scheme
-from trafficmaster.presentation.http.v1.routes.card.change_answer.schemas import ChangeAnswerRequestSchema
+from trafficmaster.presentation.http.v1.routes.card.change_content.schemas import ChangeCardContentRequestSchema
 
-change_answer_route: Final[APIRouter] = APIRouter(tags=["Card"], route_class=DishkaRoute)
+change_content_route: Final[APIRouter] = APIRouter(tags=["Card"], route_class=DishkaRoute)
 
 
 CardIDPathParameter = Path(
@@ -21,11 +25,11 @@ CardIDPathParameter = Path(
 )
 
 
-@change_answer_route.patch(
-    "/{card_id}/answer",
+@change_content_route.patch(
+    "/{card_id}/content",
     status_code=status.HTTP_204_NO_CONTENT,
-    summary="Change card answer",
-    description=getdoc(ChangeAnswerCommandHandler),
+    summary="Change card content",
+    description=getdoc(ChangeCardContentCommandHandler),
     dependencies=[Security(cookie_scheme)],
     responses={
         status.HTTP_400_BAD_REQUEST: {"model": ExceptionSchema},
@@ -36,11 +40,18 @@ CardIDPathParameter = Path(
         status.HTTP_422_UNPROCESSABLE_CONTENT: {"model": ExceptionSchemaRich},
     },
 )
-async def change_card_answer(
+async def change_card_content(
     card_id: Annotated[UUID, CardIDPathParameter],
-    request: ChangeAnswerRequestSchema,
-    interactor: FromDishka[ChangeAnswerCommandHandler],
+    request: ChangeCardContentRequestSchema,
+    interactor: FromDishka[ChangeCardContentCommandHandler],
 ) -> None:
-    command: ChangeAnswerCommand = ChangeAnswerCommand(card_id=card_id, answer=request.answer)
+    command = ChangeCardContentCommand(
+        card_id=card_id,
+        answer_options=[
+            AnswerOptionData(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+            for option in request.answer_options
+        ],
+        hint=request.hint,
+    )
 
     await interactor(data=command)

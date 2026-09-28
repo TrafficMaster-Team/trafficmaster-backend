@@ -3,6 +3,7 @@ from datetime import datetime
 from enum import StrEnum
 from uuid import UUID
 
+from trafficmaster.application.common.views.card.answer_option import AnswerOptionView
 from trafficmaster.domain.card_progress.values.card_state import CardState
 
 
@@ -16,7 +17,8 @@ class ReviewReason(StrEnum):
 class ReviewQueueItemView:
     card_id: UUID
     question: str
-    answer: str
+    answer_options: list[AnswerOptionView]
+    hint: str
     image_path: str | None
     tags: list[str]
     state: CardState | None

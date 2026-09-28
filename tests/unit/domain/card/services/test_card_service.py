@@ -2,7 +2,8 @@ from unittest.mock import Mock
 
 from tests.unit.factories.card_entity import create_card
 from tests.unit.factories.values import (
-    create_card_answer,
+    create_answer_option,
+    create_card_hint,
     create_card_id,
     create_card_question,
     create_card_tag,
@@ -19,7 +20,8 @@ def test_creates_card_with_generated_id(card_id_generator: Mock) -> None:
 
     deck_id = create_deck_id()
     question = create_card_question("Q?")
-    answer = create_card_answer("A")
+    answer_options = [create_answer_option(text="A", rationale="A is correct")]
+    hint = create_card_hint("A useful hint")
     tag = create_card_tag("tag")
     sut = CardService(id_generator=card_id_generator)
 
@@ -27,7 +29,8 @@ def test_creates_card_with_generated_id(card_id_generator: Mock) -> None:
     result = sut.create_card(
         deck_id=deck_id,
         question=question,
-        answer=answer,
+        answer_options=answer_options,
+        hint=hint,
         tags=[tag],
         image_path="/img.png",
     )
@@ -37,7 +40,8 @@ def test_creates_card_with_generated_id(card_id_generator: Mock) -> None:
     assert result.id == expected_id
     assert result.deck_id == deck_id
     assert result.question == question
-    assert result.answer == answer
+    assert result.answer_options == answer_options
+    assert result.hint == hint
     assert result.tags == [tag]
     assert result.image_path == "/img.png"
 
@@ -51,7 +55,8 @@ def test_creates_card_with_empty_tags_by_default(card_id_generator: Mock) -> Non
     result = sut.create_card(
         deck_id=create_deck_id(),
         question=create_card_question(),
-        answer=create_card_answer(),
+        answer_options=[create_answer_option()],
+        hint=create_card_hint(),
     )
 
     # Assert
@@ -74,7 +79,9 @@ def test_copies_card_into_another_deck(card_id_generator: Mock) -> None:
     assert result.id == new_id
     assert result.deck_id == new_deck_id
     assert result.question == original.question
-    assert result.answer == original.answer
+    assert result.answer_options == original.answer_options
+    assert result.answer_options is not original.answer_options
+    assert result.hint == original.hint
     assert result.image_path == original.image_path
     assert result.tags == original.tags
     assert result.tags is not original.tags

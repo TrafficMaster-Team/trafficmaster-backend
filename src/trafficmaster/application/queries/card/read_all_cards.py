@@ -9,6 +9,7 @@ from trafficmaster.application.common.query_params.card_filters import CardParam
 from trafficmaster.application.common.query_params.pagination import Pagination
 from trafficmaster.application.common.query_params.sorting import SortingOrder
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.common.views.card.answer_option import AnswerOptionView
 from trafficmaster.application.common.views.card.read_by_id import ReadCardByIDView
 from trafficmaster.application.errors.deck import DeckNotFoundError
 from trafficmaster.application.errors.user import NoPermissionToManageUserError, UserNotFoundByIdError
@@ -88,7 +89,15 @@ class ReadAllCardsQueryHandler:
             ReadCardByIDView(
                 id=card.id,
                 question=str(card.question),
-                answer=str(card.answer),
+                answer_options=[
+                    AnswerOptionView(
+                        text=option.text,
+                        is_correct=option.is_correct,
+                        rationale=option.rationale,
+                    )
+                    for option in card.answer_options
+                ],
+                hint=str(card.hint),
                 deck_id=card.deck_id,
                 tags=list(map(str, card.tags)),
                 image_path=card.image_path,

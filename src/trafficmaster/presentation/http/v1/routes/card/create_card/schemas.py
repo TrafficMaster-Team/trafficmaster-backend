@@ -4,6 +4,14 @@ from uuid import UUID
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
 
+class AnswerOptionSchema(BaseModel):
+    model_config = ConfigDict(frozen=True, populate_by_name=True)
+
+    text: Annotated[str, BeforeValidator(lambda x: x.strip()), Field(min_length=1, max_length=5000)]
+    is_correct: bool = Field(alias="isCorrect", title="Is correct")
+    rationale: Annotated[str, BeforeValidator(lambda x: x.strip()), Field(min_length=1, max_length=5000)]
+
+
 class CreateCardRequestSchema(BaseModel):
     model_config = ConfigDict(frozen=True)
 
@@ -19,10 +27,16 @@ class CreateCardRequestSchema(BaseModel):
             title="Question", description="The card question", examples=["¿Cómo estás?"], min_length=1, max_length=500
         ),
     ]
-    answer: Annotated[
+    answer_options: list[AnswerOptionSchema] = Field(
+        alias="answerOptions",
+        title="Answer options",
+        description="Possible answers with correctness and rationale",
+        min_length=1,
+    )
+    hint: Annotated[
         str,
         BeforeValidator(lambda x: x.strip()),
-        Field(title="Answer", description="The card answer", examples=["How are you?"], min_length=1, max_length=5000),
+        Field(title="Hint", description="The card hint", min_length=1, max_length=5000),
     ]
     tags: Annotated[
         list[str] | None,

@@ -6,6 +6,7 @@ from trafficmaster.application.common.ports.card.card_gateway import CardGateway
 from trafficmaster.application.common.ports.deck.deck_gateway import DeckGateway
 from trafficmaster.application.common.ports.user.user_gateway import UserGateway
 from trafficmaster.application.common.services.current_user import CurrentUserService
+from trafficmaster.application.common.views.card.answer_option import AnswerOptionView
 from trafficmaster.application.common.views.card.read_by_id import ReadCardByIDView
 from trafficmaster.application.errors.card import CardNotFoundError
 from trafficmaster.application.errors.deck import DeckNotFoundError
@@ -72,6 +73,14 @@ class ReadCardByIdQueryHandler:
             deck_id=card.deck_id,
             question=str(card.question),
             image_path=card.image_path,
-            answer=str(card.answer),
+            answer_options=[
+                AnswerOptionView(
+                    text=option.text,
+                    is_correct=option.is_correct,
+                    rationale=option.rationale,
+                )
+                for option in card.answer_options
+            ],
+            hint=str(card.hint),
             tags=list(map(str, card.tags)),
         )

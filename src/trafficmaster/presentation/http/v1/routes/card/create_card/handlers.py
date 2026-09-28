@@ -5,7 +5,11 @@ from dishka import FromDishka
 from dishka.integrations.fastapi import DishkaRoute
 from fastapi import APIRouter, Security, status
 
-from trafficmaster.application.commands.card.create_card import CreateCardCommand, CreateCardCommandHandler
+from trafficmaster.application.commands.card.create_card import (
+    AnswerOptionData,
+    CreateCardCommand,
+    CreateCardCommandHandler,
+)
 from trafficmaster.presentation.http.v1.common.exception_handler import ExceptionSchema, ExceptionSchemaRich
 from trafficmaster.presentation.http.v1.common.fastapi_openapi_marker import cookie_scheme
 from trafficmaster.presentation.http.v1.routes.card.create_card.schemas import (
@@ -42,7 +46,11 @@ async def create_card(
     command: CreateCardCommand = CreateCardCommand(
         deck_id=request.deck_id,
         question=request.question,
-        answer=request.answer,
+        answer_options=[
+            AnswerOptionData(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+            for option in request.answer_options
+        ],
+        hint=request.hint,
         tags=request.tags,
     )
 

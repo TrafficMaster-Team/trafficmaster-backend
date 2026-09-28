@@ -10,7 +10,7 @@ from trafficmaster.application.auth.log_out import LogOutHandler
 from trafficmaster.application.auth.read_current_user import ReadCurrentUserHandler
 from trafficmaster.application.auth.sign_up import SignUpHandler
 from trafficmaster.application.commands.card.add_tag import AddTagCommandHandler
-from trafficmaster.application.commands.card.change_answer import ChangeAnswerCommandHandler
+from trafficmaster.application.commands.card.change_content import ChangeCardContentCommandHandler
 from trafficmaster.application.commands.card.change_deck import ChangeDeckCommandHandler
 from trafficmaster.application.commands.card.change_image_path import ChangeImagePathCommandHandler
 from trafficmaster.application.commands.card.change_question import ChangeQuestionCommandHandler
@@ -270,7 +270,7 @@ def card_command_handlers_provider() -> Provider:
         CreateCardCommandHandler,
         DeleteCardCommandHandler,
         ChangeQuestionCommandHandler,
-        ChangeAnswerCommandHandler,
+        ChangeCardContentCommandHandler,
         ChangeImagePathCommandHandler,
         ChangeDeckCommandHandler,
         AddTagCommandHandler,

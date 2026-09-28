@@ -4,13 +4,14 @@ from uuid import uuid4
 from tests.unit.factories.card_entity import create_card
 from tests.unit.factories.deck_entity import create_deck
 from tests.unit.factories.user_entity import create_user
-from trafficmaster.application.commands.card.change_answer import (
-    ChangeAnswerCommand,
-    ChangeAnswerCommandHandler,
+from trafficmaster.application.commands.card.change_content import (
+    ChangeCardContentCommand,
+    ChangeCardContentCommandHandler,
 )
+from trafficmaster.application.commands.card.create_card import AnswerOptionData
 
 
-async def test_changes_answer_successfully(
+async def test_changes_card_content_successfully(
     fake_card_gateway: Mock,
     fake_transaction_manager: Mock,
     fake_current_user_service: Mock,
@@ -23,7 +24,7 @@ async def test_changes_answer_successfully(
     fake_card_gateway.read_by_id.return_value = card
     fake_deck_gateway.read_by_id.return_value = create_deck()
     fake_user_gateway.read_by_id.return_value = create_user()
-    handler = ChangeAnswerCommandHandler(
+    handler = ChangeCardContentCommandHandler(
         card_gateway=fake_card_gateway,
         transaction_manager=fake_transaction_manager,
         current_user_service=fake_current_user_service,
@@ -33,8 +34,15 @@ async def test_changes_answer_successfully(
     )
 
     # Act
-    await handler(ChangeAnswerCommand(card_id=uuid4(), answer="Updated answer"))
+    await handler(
+        ChangeCardContentCommand(
+            card_id=uuid4(),
+            answer_options=[AnswerOptionData(text="Updated answer", is_correct=True, rationale="Correct")],
+            hint="Updated hint",
+        )
+    )
 
     # Assert
-    assert str(card.answer) == "Updated answer"
+    assert card.answer_options[0].text == "Updated answer"
+    assert str(card.hint) == "Updated hint"
     fake_transaction_manager.commit.assert_awaited_once()

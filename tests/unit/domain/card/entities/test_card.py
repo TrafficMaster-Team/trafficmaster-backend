@@ -2,13 +2,19 @@ import pytest
 
 from tests.unit.factories.card_entity import create_card
 from tests.unit.factories.values import (
-    create_card_answer,
+    create_answer_option,
+    create_card_hint,
     create_card_id,
     create_card_question,
     create_card_tag,
     create_deck_id,
 )
-from trafficmaster.domain.card.errors.card import CardTagNotFoundError, DuplicateCardTagError
+from trafficmaster.domain.card.errors.card import (
+    CardTagNotFoundError,
+    DuplicateCardTagError,
+    EmptyAnswerOptionsError,
+    InvalidCorrectAnswerCountError,
+)
 from trafficmaster.domain.common.errors import DomainError
 
 
@@ -16,16 +22,25 @@ def test_creates_card_with_given_values() -> None:
     # Arrange
     deck_id = create_deck_id()
     question = create_card_question("Q?")
-    answer = create_card_answer("A")
+    answer_options = [create_answer_option(text="A", rationale="Because A is correct.")]
+    hint = create_card_hint("A useful hint")
     tag = create_card_tag("tag")
 
     # Act
-    sut = create_card(deck_id=deck_id, question=question, answer=answer, tags=[tag], image_path="/img.png")
+    sut = create_card(
+        deck_id=deck_id,
+        question=question,
+        answer_options=answer_options,
+        hint=hint,
+        tags=[tag],
+        image_path="/img.png",
+    )
 
     # Assert
     assert sut.deck_id == deck_id
     assert sut.question == question
-    assert sut.answer == answer
+    assert sut.answer_options == answer_options
+    assert sut.hint == hint
     assert sut.tags == [tag]
     assert sut.image_path == "/img.png"
 
@@ -66,13 +81,42 @@ def test_change_question() -> None:
     assert sut.question == new_question
 
 
-def test_change_answer() -> None:
+def test_change_answer_options() -> None:
     sut = create_card()
-    new_answer = create_card_answer("New answer")
+    new_answer_options = [create_answer_option(text="New answer", rationale="New rationale")]
 
-    sut.change_answer(new_answer)
+    sut.change_answer_options(new_answer_options)
 
-    assert sut.answer == new_answer
+    assert sut.answer_options == new_answer_options
+
+
+def test_change_hint() -> None:
+    sut = create_card()
+    new_hint = create_card_hint("New hint")
+
+    sut.change_hint(new_hint)
+
+    assert sut.hint == new_hint
+
+
+def test_card_requires_answer_options() -> None:
+    with pytest.raises(EmptyAnswerOptionsError):
+        create_card(answer_options=[])
+
+
+@pytest.mark.parametrize("correct_count", [0, 2])
+def test_card_requires_exactly_one_correct_answer(correct_count: int) -> None:
+    options = [
+        create_answer_option(
+            text=f"Option {index}",
+            is_correct=index < correct_count,
+            rationale=f"Rationale {index}",
+        )
+        for index in range(2)
+    ]
+
+    with pytest.raises(InvalidCorrectAnswerCountError):
+        create_card(answer_options=options)
 
 
 @pytest.mark.parametrize("image_path", [pytest.param("/path.png", id="set"), pytest.param(None, id="cleared")])
