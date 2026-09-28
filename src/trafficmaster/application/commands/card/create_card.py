@@ -14,7 +14,6 @@ from trafficmaster.application.errors.user import (
     UserNotFoundByIdError,
 )
 from trafficmaster.domain.card.services.card_service import CardService
-from trafficmaster.domain.card.values.answer_option import AnswerOption
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_question import CardQuestion
 from trafficmaster.domain.card.values.card_tag import CardTag
@@ -87,7 +86,11 @@ class CreateCardCommandHandler:
             deck_id=DeckID(data.deck_id),
             question=CardQuestion(data.question),
             answer_options=[
-                AnswerOption(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+                self._card_service.create_answer_option(
+                    text=option.text,
+                    is_correct=option.is_correct,
+                    rationale=option.rationale,
+                )
                 for option in data.answer_options
             ],
             hint=CardHint(data.hint),

@@ -9,7 +9,11 @@ class AnswerOptionSchema(BaseModel):
 
     text: Annotated[str, BeforeValidator(lambda x: x.strip()), Field(min_length=1, max_length=5000)]
     is_correct: bool = Field(alias="isCorrect", title="Is correct")
-    rationale: Annotated[str, BeforeValidator(lambda x: x.strip()), Field(min_length=1, max_length=5000)]
+    rationale: Annotated[str, BeforeValidator(lambda x: x.strip()), Field(max_length=5000)]
+
+
+class AnswerOptionResponseSchema(AnswerOptionSchema):
+    id: UUID = Field(title="Answer option ID", description="Stable answer option identifier")
 
 
 class CreateCardRequestSchema(BaseModel):
@@ -36,7 +40,7 @@ class CreateCardRequestSchema(BaseModel):
     hint: Annotated[
         str,
         BeforeValidator(lambda x: x.strip()),
-        Field(title="Hint", description="The card hint", min_length=1, max_length=5000),
+        Field(title="Hint", description="The card hint", max_length=5000),
     ]
     tags: Annotated[
         list[str] | None,

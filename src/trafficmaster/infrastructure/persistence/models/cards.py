@@ -1,12 +1,15 @@
+from datetime import datetime
 from typing import Any
+from uuid import UUID
 
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import composite
 
+from trafficmaster.domain.card.entities.answer_option import AnswerOption
 from trafficmaster.domain.card.entities.card import Card
-from trafficmaster.domain.card.values.answer_option import AnswerOption
+from trafficmaster.domain.card.values.answer_option_id import AnswerOptionID
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_question import CardQuestion
 from trafficmaster.domain.card.values.card_tag import CardTag
@@ -38,13 +41,31 @@ class AnswerOptionsType(sa.types.TypeDecorator[list[AnswerOption]]):
         if value is None:
             return None
         return [
-            {"text": option.text, "is_correct": option.is_correct, "rationale": option.rationale} for option in value
+            {
+                "id": str(option.id),
+                "text": option.text,
+                "is_correct": option.is_correct,
+                "rationale": option.rationale,
+                "created_at": option.created_at.isoformat(),
+                "updated_at": option.updated_at.isoformat(),
+            }
+            for option in value
         ]
 
     def process_result_value(self, value: Any, dialect: Any) -> list[AnswerOption] | None:  # noqa: ANN401, ARG002
         if value is None:
             return None
-        return [AnswerOption(**option) for option in value]
+        return [
+            AnswerOption(
+                id=AnswerOptionID(UUID(option["id"])),
+                text=option["text"],
+                is_correct=option["is_correct"],
+                rationale=option["rationale"],
+                created_at=datetime.fromisoformat(option["created_at"]),
+                updated_at=datetime.fromisoformat(option["updated_at"]),
+            )
+            for option in value
+        ]
 
 
 cards_table = sa.Table(

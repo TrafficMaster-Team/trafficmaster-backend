@@ -75,6 +75,7 @@ class ReadCardByIdQueryHandler:
             image_path=card.image_path,
             answer_options=[
                 AnswerOptionView(
+                    id=option.id,
                     text=option.text,
                     is_correct=option.is_correct,
                     rationale=option.rationale,

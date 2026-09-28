@@ -2,7 +2,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from trafficmaster.presentation.http.v1.routes.card.create_card.schemas import AnswerOptionSchema
+from trafficmaster.presentation.http.v1.routes.card.create_card.schemas import AnswerOptionResponseSchema
 
 
 class ReadCardResponseSchema(BaseModel):
@@ -11,7 +11,7 @@ class ReadCardResponseSchema(BaseModel):
     id: UUID = Field(title="Card ID", description="Unique card ID in system")
     deck_id: UUID = Field(title="Deck ID", description="The ID of the deck the card belongs to")
     question: str = Field(title="Question", description="The card question", examples=["¿Cómo estás?"])
-    answer_options: list[AnswerOptionSchema] = Field(
+    answer_options: list[AnswerOptionResponseSchema] = Field(
         alias="answerOptions", title="Answer options", description="Possible card answers"
     )
     hint: str = Field(title="Hint", description="The card hint")

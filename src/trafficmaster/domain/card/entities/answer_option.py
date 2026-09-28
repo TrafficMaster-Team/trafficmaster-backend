@@ -6,20 +6,24 @@ from trafficmaster.domain.card.errors.card import (
     TooLongAnswerOptionRationaleError,
     TooShortAnswerError,
 )
-from trafficmaster.domain.common.values.base_value import BaseValueObject
+from trafficmaster.domain.card.values.answer_option_id import AnswerOptionID
+from trafficmaster.domain.common.entities.base_entity import BaseEntity
 
 MIN_ANSWER_OPTION_TEXT: Final[int] = 1
 MAX_ANSWER_OPTION_TEXT: Final[int] = 5000
 MAX_ANSWER_OPTION_RATIONALE: Final[int] = 5000
 
 
-@dataclass(frozen=True, eq=True)
-class AnswerOption(BaseValueObject):
+@dataclass(eq=False)
+class AnswerOption(BaseEntity[AnswerOptionID]):
     text: str
     is_correct: bool
     rationale: str
 
-    @override
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        self._validate()
+
     def _validate(self) -> None:
         if len(self.text) < MIN_ANSWER_OPTION_TEXT or self.text.isspace():
             msg = "Answer option text must be non-empty."

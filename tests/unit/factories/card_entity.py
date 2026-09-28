@@ -5,8 +5,8 @@ from tests.unit.factories.values import (
     create_card_question,
     create_deck_id,
 )
+from trafficmaster.domain.card.entities.answer_option import AnswerOption
 from trafficmaster.domain.card.entities.card import Card
-from trafficmaster.domain.card.values.answer_option import AnswerOption
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.card.values.card_question import CardQuestion

@@ -75,6 +75,7 @@ from trafficmaster.application.queries.deck_config.read_by_user_id import ReadDe
 from trafficmaster.application.queries.user.read_aggregate_stats import ReadUserAggregateStatsQueryHandler
 from trafficmaster.application.queries.user.read_all_users import ReadAllUsersQueryHandler
 from trafficmaster.application.queries.user.read_by_id import ReadUserByIdQueryHandler
+from trafficmaster.domain.card.ports.answer_option_id_generator import AnswerOptionIDGenerator
 from trafficmaster.domain.card.ports.card_id_generator import CardIDGenerator
 from trafficmaster.domain.card.services.card_service import CardService
 from trafficmaster.domain.card_progress.ports.card_progress_id_generator import CardProgressIDGenerator
@@ -104,6 +105,7 @@ from trafficmaster.infrastructure.adapters.auth.timer_utc import (
 from trafficmaster.infrastructure.adapters.common.clock_utc import UtcClock
 from trafficmaster.infrastructure.adapters.common.password_hasher_bcrypt import BcryptPasswordHasher, PasswordPepper
 from trafficmaster.infrastructure.adapters.common.system_health_checker import InfrastructureSystemHealthChecker
+from trafficmaster.infrastructure.adapters.common.uuid4_answer_option_id_generator import UUID4AnswerOptionIDGenerator
 from trafficmaster.infrastructure.adapters.common.uuid4_card_id_generator import UUID4CardIdGenerator
 from trafficmaster.infrastructure.adapters.common.uuid4_card_progress_id_generator import UUID4CardProgressIdGenerator
 from trafficmaster.infrastructure.adapters.common.uuid4_deck_config_id_generator import UUID4DeckConfigIdGenerator
@@ -170,6 +172,7 @@ def domain_ports_provider() -> Provider:
     provider.provide(source=UUID4DeckIdGenerator, provides=DeckIDGenerator)
     provider.provide(source=UUID4DeckConfigIdGenerator, provides=DeckConfigIDGenerator)
     provider.provide(source=UUID4CardIdGenerator, provides=CardIDGenerator)
+    provider.provide(source=UUID4AnswerOptionIDGenerator, provides=AnswerOptionIDGenerator)
     provider.provide(source=UUID4CardProgressIdGenerator, provides=CardProgressIDGenerator)
     provider.provide(source=UUID4ReviewIdGenerator, provides=ReviewIDGenerator)
     provider.provide_all(

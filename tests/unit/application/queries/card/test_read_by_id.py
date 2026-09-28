@@ -56,6 +56,7 @@ async def test_reads_card_successfully(
     assert isinstance(result, ReadCardByIDView)
     assert result.id == card.id
     assert result.question == "What?"
+    assert result.answer_options[0].id == card.answer_options[0].id
     assert result.answer_options[0].text == "That"
     assert result.answer_options[0].is_correct is True
     assert result.hint == "Think carefully"

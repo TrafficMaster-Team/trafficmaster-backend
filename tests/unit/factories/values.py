@@ -1,7 +1,8 @@
 import uuid
 from uuid import UUID
 
-from trafficmaster.domain.card.values.answer_option import AnswerOption
+from trafficmaster.domain.card.entities.answer_option import AnswerOption
+from trafficmaster.domain.card.values.answer_option_id import AnswerOptionID
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.card.values.card_question import CardQuestion
@@ -58,17 +59,27 @@ def create_card_id(value: UUID | None = None) -> CardID:
     return CardID(value or uuid.uuid4())
 
 
+def create_answer_option_id(value: UUID | None = None) -> AnswerOptionID:
+    return AnswerOptionID(value or uuid.uuid4())
+
+
 def create_card_question(value: str = "What is the capital of France?") -> CardQuestion:
     return CardQuestion(value=value)
 
 
 def create_answer_option(
     *,
+    option_id: AnswerOptionID | None = None,
     text: str = "Paris",
     is_correct: bool = True,
     rationale: str = "Paris is the capital of France.",
 ) -> AnswerOption:
-    return AnswerOption(text=text, is_correct=is_correct, rationale=rationale)
+    return AnswerOption(
+        id=option_id or create_answer_option_id(),
+        text=text,
+        is_correct=is_correct,
+        rationale=rationale,
+    )
 
 
 def create_card_hint(value: str = "Think of France's largest city.") -> CardHint:

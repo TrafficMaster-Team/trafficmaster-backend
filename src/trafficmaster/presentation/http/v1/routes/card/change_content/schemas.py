@@ -15,7 +15,6 @@ class ChangeCardContentRequestSchema(BaseModel):
         Field(
             title="Hint",
             description="The new card hint",
-            min_length=1,
             max_length=5000,
         ),
     ]

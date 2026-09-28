@@ -91,6 +91,7 @@ class ReadAllCardsQueryHandler:
                 question=str(card.question),
                 answer_options=[
                     AnswerOptionView(
+                        id=option.id,
                         text=option.text,
                         is_correct=option.is_correct,
                         rationale=option.rationale,

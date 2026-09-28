@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 
+from trafficmaster.domain.card.entities.answer_option import AnswerOption
 from trafficmaster.domain.card.errors.card import (
     CardTagNotFoundError,
     DuplicateCardTagError,
     EmptyAnswerOptionsError,
     InvalidCorrectAnswerCountError,
 )
-from trafficmaster.domain.card.values.answer_option import AnswerOption
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.card.values.card_question import CardQuestion

@@ -11,7 +11,7 @@ from trafficmaster.application.common.services.current_user import CurrentUserSe
 from trafficmaster.application.errors.card import CardNotFoundError
 from trafficmaster.application.errors.deck import DeckNotFoundError
 from trafficmaster.application.errors.user import NoPermissionToManageUserError, UserNotFoundByIdError
-from trafficmaster.domain.card.values.answer_option import AnswerOption
+from trafficmaster.domain.card.services.card_service import CardService
 from trafficmaster.domain.card.values.card_hint import CardHint
 from trafficmaster.domain.card.values.card_id import CardID
 from trafficmaster.domain.deck.values.deck_id import DeckID
@@ -42,6 +42,7 @@ class ChangeCardContentCommandHandler:
         access_service: AccessService,
         deck_gateway: DeckGateway,
         user_gateway: UserGateway,
+        card_service: CardService,
     ) -> None:
         self._card_gateway: Final[CardGateway] = card_gateway
         self._transaction_manager: Final[TransactionManager] = transaction_manager
@@ -49,6 +50,7 @@ class ChangeCardContentCommandHandler:
         self._access_service: Final[AccessService] = access_service
         self._deck_gateway: Final[DeckGateway] = deck_gateway
         self._user_gateway: Final[UserGateway] = user_gateway
+        self._card_service: Final[CardService] = card_service
 
     async def __call__(self, data: ChangeCardContentCommand) -> None:
 
@@ -77,7 +79,11 @@ class ChangeCardContentCommandHandler:
 
         card.change_answer_options(
             [
-                AnswerOption(text=option.text, is_correct=option.is_correct, rationale=option.rationale)
+                self._card_service.create_answer_option(
+                    text=option.text,
+                    is_correct=option.is_correct,
+                    rationale=option.rationale,
+                )
                 for option in data.answer_options
             ]
         )
