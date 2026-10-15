@@ -22,6 +22,10 @@ x-redis-environment: &x-redis-environment
   REDIS_CACHE_DB: $REDIS_CACHE_DB
   REDIS_MAX_CONNECTIONS: $REDIS_MAX_CONNECTIONS
 
+x-keycloak-environment: &x-keycloak-env
+  KC_BOOTSTRAP_ADMIN_USERNAME: $KC_BOOTSTRAP_ADMIN_USERNAME
+  KC_BOOTSTRAP_ADMIN_PASSWORD: $KC_BOOTSTRAP_ADMIN_PASSWORD
+
 services:
   postgres:
     <<: *default
@@ -50,8 +54,17 @@ services:
       - "127.0.0.1:$REDIS_PORT:$REDIS_PORT"
     volumes:
       - trafficmaster.redis.data:/data
-
-
+  keycloak:
+    <<: *default
+    environment:
+      <<: *x-keycloak-env
+    image: quay.io/keycloak/keycloak:26.0
+    command: start-dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   trafficmaster.db.data: {}
