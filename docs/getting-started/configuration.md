@@ -40,7 +40,7 @@ SQLAlchemy pool behavior is controlled with:
 
 Redis uses `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`, `REDIS_CACHE_DB`, and `REDIS_MAX_CONNECTIONS`.
 
-Redis is an optional cache. Cache failures fall back to PostgreSQL, while the readiness response reports the degraded state.
+Redis connectivity is optional for readiness. The readiness response reports a degraded state when Redis is unavailable. Domain gateways currently access PostgreSQL directly; cache-aside behavior is not implemented. Use REDIS_HOST=localhost for an API running on the host, and redis only inside the Compose network.
 
 ## Authentication
 

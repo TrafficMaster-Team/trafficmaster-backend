@@ -57,4 +57,4 @@ The setup package is the composition root. It registers routes, exception handle
 
 ## Data Flow
 
-PostgreSQL is the source of truth. Redis is an optional cache-aside layer: read failures fall back to PostgreSQL, and mutations invalidate cached representations that may become stale.
+PostgreSQL is the source of truth. Business gateways currently read and write PostgreSQL directly. Redis has a registered storage adapter and a readiness probe, but cache-aside gateway decorators and invalidation are not implemented. HTTP Cache-Control headers are independent of Redis.

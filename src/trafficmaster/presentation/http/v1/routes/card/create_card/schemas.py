@@ -13,6 +13,8 @@ class AnswerOptionSchema(BaseModel):
 
 
 class AnswerOptionResponseSchema(AnswerOptionSchema):
+    model_config = ConfigDict(frozen=True, populate_by_name=True, from_attributes=True)
+
     id: UUID = Field(title="Answer option ID", description="Stable answer option identifier")
 
 

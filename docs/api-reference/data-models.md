@@ -48,8 +48,13 @@ User 1 ── * Deck 1 ── * Card
   │           └── 1 DeckConfig
   │
   └── * CardProgress * ── 1 Card
-             │
-             └── * ReviewLog
+
+User 1 ── * ReviewLog * ── 1 Card
 ```
+
+These lines show database foreign-key relationships. `ReviewLog` has no foreign key to
+`CardProgress`: they are logically associated by `(user_id, card_id)`. Resetting progress
+deletes the progress record but preserves review history. Deleting the user or card
+cascades to both progress and review logs.
 
 Exact request and response representations are available in the generated [API documentation](endpoints.md).

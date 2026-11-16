@@ -17,7 +17,7 @@ The project follows Clean Architecture principles with dependency inversion, exp
 - **RESTful API** powered by FastAPI and documented with OpenAPI.
 - **Clean Architecture** with separate domain, application, infrastructure, and presentation layers.
 - **Persistence** with PostgreSQL, SQLAlchemy, and Alembic.
-- **Caching** through an optional Redis cache-aside layer.
+- **Redis infrastructure** with a storage adapter and readiness diagnostics; business gateways use PostgreSQL directly.
 - **Dependency Injection** using Dishka.
 - **Comprehensive Testing** with Pytest and Testcontainers.
 
@@ -33,3 +33,9 @@ To run TrafficMaster locally, follow the [Installation](getting-started/installa
 ---
 
 Explore the documentation to learn about the [Architecture](architecture/backend/overview.md), [API](api-reference/endpoints.md), and [Development](development/backend.md) workflow.
+
+## Лабораторная работа № 1
+
+[Требования и use case](requirements.md), [верификация](verification.md),
+[жизненный цикл прогресса](card-progress-lifecycle.md), [исторический аудит](lab1-audit.md).
+Реестр дефектов находится в `ISSUES.md` в корне репозитория.

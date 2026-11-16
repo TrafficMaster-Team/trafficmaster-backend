@@ -38,7 +38,7 @@ Do not rewrite an existing migration that may already have been applied.
 
 ## Cache Behavior
 
-Redis decorators implement cache-aside behavior. Reads must fall back to the wrapped PostgreSQL gateway when Redis fails. Mutations must invalidate all affected by-ID, list, count, existence, owner, and public-list keys.
+Business gateways currently use PostgreSQL directly. The Redis adapter is registered but is not used to cache domain queries. If cache-aside decorators are introduced later, specify fallback and invalidation requirements and test them before describing that behavior as implemented.
 
 ## Documentation
 

@@ -101,7 +101,11 @@ class CopyDeckCommandHandler:
         source_cards: list[Card] = await self._card_gateway.read_all_by_deck(source_deck.id)
 
         await self._deck_config_gateway.add(new_config)
+        # Mappings have no ORM relationships to order dependent inserts.
+        # Flush parents first while keeping the whole copy in one transaction.
+        await self._transaction_manager.flush()
         await self._deck_gateway.add(new_deck)
+        await self._transaction_manager.flush()
 
         for card in source_cards:
             new_card: Card = self._card_service.copy_card(card=card, new_deck_id=new_deck.id)

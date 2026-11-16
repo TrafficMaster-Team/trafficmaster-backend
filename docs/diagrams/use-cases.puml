@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+skinparam shadowing false
+actor "Гость" as Guest
+actor "Пользователь" as User
+rectangle "TrafficMaster REST API" {
+  usecase "UR-01\nЗарегистрироваться и войти" as UC1
+  usecase "UR-02\nПодготовить учебный материал" as UC2
+  usecase "UR-03\nИзменить / удалить материал" as UC3
+  usecase "UR-04\nНайти и скопировать колоду" as UC4
+  usecase "UR-05\nПовторять карточки" as UC5
+  usecase "UR-06\nПросмотреть / сбросить прогресс" as UC6
+  usecase "UR-07\nЗавершить доступ" as UC7
+}
+Guest -- UC1
+Guest -- UC4 : только каталог
+User -- UC2
+User -- UC3
+User -- UC4
+User -- UC5
+User -- UC6
+User -- UC7
+note bottom of UC4
+Копирование требует сессии.
+end note
+@enduml

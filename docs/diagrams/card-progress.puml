@@ -1,0 +1,20 @@
+@startuml
+hide empty description
+skinparam shadowing false
+state "Прогресс существует" as Active {
+  [*] --> NEW : create_card_progress
+  NEW --> LEARNING : T01 / AGAIN; T02 / HARD; T03 / GOOD [r+1<n]
+  NEW --> REVIEW : T04 / EASY или GOOD [r+1>=n]
+  LEARNING --> LEARNING : T01, T02, T03
+  LEARNING --> REVIEW : T04 / EASY или GOOD [r+1>=n]
+  REVIEW --> REVIEW : T05 / HARD, GOOD, EASY; T07 / AGAIN [m=0]
+  REVIEW --> RELEARNING : T06 / AGAIN [m>0]
+  RELEARNING --> RELEARNING : T08 / AGAIN, HARD, GOOD [r+1<m], при m>0
+  RELEARNING --> REVIEW : T09 / EASY или GOOD [r+1>=m], при m>0\nлюбая оценка [m=0]
+}
+Active --> [*] : T10 / reset; delete card; delete user
+legend bottom
+T01...T10: полные условия и действия в card-progress-lifecycle.md
+Конечный узел — удаление объекта; REVIEW не является конечным состоянием.
+endlegend
+@enduml

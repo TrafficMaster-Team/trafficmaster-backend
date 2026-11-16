@@ -10,7 +10,6 @@ default:
 #Prepare venv and repo for developing
 @bootstrap:
 	cp .env.dist .env
-	python3 -m pip install uv
 	uv sync --group dev
 	pre-commit install
 	export $(grep -v '^#' .env | xargs)
@@ -47,4 +46,4 @@ default:
 	pytest tests/ --cov-report=html
 #Run API server (uvicorn)
 @uvicorn:
-	PYTHONPATH=src uvicorn trafficmaster.web:create_fastapi_app --factory
+	.venv/bin/uvicorn trafficmaster.web:create_fastapi_app --factory --env-file .env

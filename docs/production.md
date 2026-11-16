@@ -20,7 +20,7 @@ TRUSTED_HOSTS=api.example.com
 EXPOSE_API_DOCS=false
 ```
 
-Also provide PostgreSQL and Redis connection settings from `.env.dist`. Size `DB_POOL_SIZE` and `DB_POOL_MAX_OVERFLOW` against the database connection limit across every worker and replica. Redis is treated as optional cache infrastructure: its failure degrades readiness metadata but does not make the application unready.
+Also provide PostgreSQL and Redis connection settings from `.env.dist`. Size `DB_POOL_SIZE` and `DB_POOL_MAX_OVERFLOW` against the database connection limit across every worker and replica. Redis is treated as optional infrastructure: its failure degrades readiness metadata but does not make the application unready.
 
 TLS termination, HSTS and request-size limits belong at the trusted ingress. Configure proxy-header trust only for known proxy addresses. Rate-limit login and signup at the ingress until distributed application-level limits are implemented.
 
@@ -38,7 +38,7 @@ TLS termination, HSTS and request-size limits belong at the trusted ingress. Con
 
 Roll back the application image first. Do not automatically downgrade the database. Alembic downgrade is allowed only after confirming that the downgrade is data-safe and that no newer application instance remains active.
 
-If PostgreSQL is unavailable, remove instances from service and restore/fail over according to the database provider runbook. If Redis is unavailable, keep serving from PostgreSQL, investigate the cache separately, and monitor database load.
+If PostgreSQL is unavailable, remove instances from service and restore/fail over according to the database provider runbook. If Redis is unavailable, keep serving from PostgreSQL and investigate Redis separately. Business gateways currently do not use Redis caching.
 
 ## Operational checks
 

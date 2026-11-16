@@ -402,3 +402,52 @@ def test_review_log_carries_user_and_card_ids(
     assert log.user_id == progress.user_id
     assert log.card_id == progress.card_id
     assert log.card_state == CardState.REVIEW
+
+
+@pytest.mark.parametrize(
+    ("state", "expected_states"),
+    [
+        (CardState.NEW, [CardState.LEARNING, CardState.LEARNING, CardState.LEARNING, CardState.REVIEW]),
+        (CardState.LEARNING, [CardState.LEARNING, CardState.LEARNING, CardState.LEARNING, CardState.REVIEW]),
+        (CardState.REVIEW, [CardState.RELEARNING, CardState.REVIEW, CardState.REVIEW, CardState.REVIEW]),
+        (CardState.RELEARNING, [CardState.RELEARNING, CardState.RELEARNING, CardState.RELEARNING, CardState.REVIEW]),
+    ],
+)
+@pytest.mark.parametrize("rating", list(ReviewRating))
+def test_schedule_state_rating_matrix(
+    service: CardProgressService, state: CardState, expected_states: list[CardState], rating: ReviewRating
+) -> None:
+    progress = create_card_progress(state=state, repetitions=0, next_review_at=NOW)
+    config = create_deck_config(
+        new_cards=create_new_cards_config(learning_steps=[1, 10]),
+        lapses=create_lapses_config(relearning_steps=[1, 10]),
+    )
+
+    log = service.schedule(progress=progress, rating=rating, deck_config=config, now=NOW)
+
+    assert progress.state == expected_states[rating.value - 1]
+    assert progress.next_review_at is not None
+    assert progress.next_review_at > NOW
+    assert log.card_state == state
+    assert log.rating == rating
+
+
+@pytest.mark.parametrize("rating", list(ReviewRating))
+def test_relearning_without_steps_returns_to_review(service: CardProgressService, rating: ReviewRating) -> None:
+    progress = create_card_progress(state=CardState.RELEARNING, interval=create_interval(5), repetitions=0)
+    config = create_deck_config(lapses=create_lapses_config(relearning_steps=[]))
+
+    service.schedule(progress=progress, rating=rating, deck_config=config, now=NOW)
+
+    assert progress.state == CardState.REVIEW
+    assert progress.next_review_at == NOW + timedelta(days=5)
+
+
+def test_review_again_without_relearning_steps_keeps_review(service: CardProgressService) -> None:
+    progress = create_card_progress(state=CardState.REVIEW, interval=create_interval(5), next_review_at=NOW)
+    config = create_deck_config(lapses=create_lapses_config(relearning_steps=[]))
+
+    service.schedule(progress=progress, rating=ReviewRating.AGAIN, deck_config=config, now=NOW)
+
+    assert progress.state == CardState.REVIEW
+    assert progress.next_review_at == NOW + timedelta(days=1)

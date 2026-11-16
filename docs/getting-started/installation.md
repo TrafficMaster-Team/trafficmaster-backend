@@ -39,6 +39,8 @@ uv sync --group dev
 ```
 
 Replace the development values of `JWT_SECRET` and `PEPPER` in `.env`. Never commit this file.
+Use `REDIS_HOST=localhost` when the API runs on the host. The name `redis` is only
+resolvable by applications inside the Compose network.
 
 ## Start Infrastructure
 
@@ -51,7 +53,7 @@ just up
 Apply database migrations:
 
 ```bash
-uv run alembic upgrade head
+uv run --env-file .env alembic upgrade head
 ```
 
 ## Run the API
@@ -59,6 +61,11 @@ uv run alembic upgrade head
 ```bash
 just uvicorn
 ```
+
+The recipe uses `.venv/bin/uvicorn --env-file .env`, so activating the virtual
+environment is unnecessary. Without just, run `docker compose --env-file .env -f
+docker-compose-local.yaml up -d` and `.venv/bin/uvicorn
+trafficmaster.web:create_fastapi_app --factory --env-file .env --host 127.0.0.1 --port 8080`.
 
 The API is available at `http://localhost:8080`. Interactive API documentation is available at `http://localhost:8080/docs`.
 

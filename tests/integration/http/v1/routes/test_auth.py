@@ -36,8 +36,11 @@ async def test_signup_login_me_logout_flow(client: AsyncClient) -> None:
     assert body["name"] == name
 
     # Log out
+    stale_cookie = dict(client.cookies)
     logout = await client.post("/v1/auth/logout")
     assert logout.status_code == status.HTTP_204_NO_CONTENT
+    client.cookies.update(stale_cookie)
+    assert (await client.get("/v1/auth/me")).status_code == status.HTTP_401_UNAUTHORIZED
 
 
 async def test_login_with_unknown_email_fails(client: AsyncClient) -> None:
@@ -75,6 +78,7 @@ async def test_changing_password_revokes_existing_session(client: AsyncClient) -
     )
     user_id = signup.json()["id"]
     await client.post("/v1/auth/login", json={"email": email, "password": old_password})
+    stale_cookie = dict(client.cookies)
 
     change_password = await client.patch(
         f"/v1/user/{user_id}/password",
@@ -82,6 +86,7 @@ async def test_changing_password_revokes_existing_session(client: AsyncClient) -
     )
 
     assert change_password.status_code == status.HTTP_204_NO_CONTENT
+    client.cookies.update(stale_cookie)
     assert (await client.get("/v1/auth/me")).status_code == status.HTTP_401_UNAUTHORIZED
     assert (
         await client.post("/v1/auth/login", json={"email": email, "password": old_password})

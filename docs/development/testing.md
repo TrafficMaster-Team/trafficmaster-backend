@@ -7,14 +7,14 @@ TrafficMaster uses Pytest for domain, application, infrastructure, presentation,
 Run the narrowest relevant test module first:
 
 ```bash
-uv run pytest tests/unit/domain/card -q
-uv run pytest tests/unit/application/commands/card -q
+uv run pytest tests/unit/domain/card -q --no-cov
+uv run pytest tests/unit/application/commands/card -q --no-cov
 ```
 
 Run the complete unit suite:
 
 ```bash
-uv run pytest tests/unit -q
+uv run pytest tests/unit -q --no-cov
 ```
 
 Tests reuse valid entities and value objects from `tests/unit/factories/`. Application tests use shared mocks from `tests/unit/application/conftest.py`.
@@ -24,7 +24,7 @@ Tests reuse valid entities and value objects from `tests/unit/factories/`. Appli
 Integration tests exercise the assembled ASGI application and use Testcontainers for PostgreSQL and Redis:
 
 ```bash
-uv run pytest tests/integration -q
+uv run pytest tests/integration -q --no-cov
 ```
 
 A working Docker daemon is required.

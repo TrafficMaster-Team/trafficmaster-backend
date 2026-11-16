@@ -39,14 +39,22 @@ nav:
       - Testing: development/testing.md
       - Production: production.md
   - Contributing: contributing.md
-
+  - Лабораторная работа № 1:
+      - Требования: requirements.md
+      - Верификация: verification.md
+      - Жизненный цикл: card-progress-lifecycle.md
+      - Первоначальный аудит: lab1-audit.md
 plugins:
   - search
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed
   - pymdownx.inlinehilite
   - attr_list

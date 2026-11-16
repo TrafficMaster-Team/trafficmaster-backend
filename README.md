@@ -1,43 +1,139 @@
 # TrafficMaster
 
-TrafficMaster is an asynchronous FastAPI backend for learning traffic rules with an Anki-style spaced-repetition system. It uses PostgreSQL as the source of truth, Redis as an optional cache, SQLAlchemy, Alembic, and cookie-backed authentication sessions.
+TrafficMaster — веб-бэкенд для изучения правил дорожного движения с интервальным повторением карточек по принципу Anki. Система помогает организовать учебный материал, планировать повторения и отслеживать индивидуальный прогресс.
 
-## Local development
+Целевые пользователи: учащиеся автошкол, кандидаты в водители и водители, повторяющие ПДД. Пользователь создаёт собственные материалы или копирует публичные колоды. Администратор управляет пользователями в пределах своей роли.
 
-Requirements: Python 3.12+, uv 0.9.26, Docker, and Docker Compose.
+В текущую версию входят REST API и Swagger UI. Отдельный frontend, готовая база экзаменационных вопросов, проведение официального экзамена и загрузка изображений не входят в объём версии. Для изображения хранится только необязательная строка `image_path`.
+
+## Пользовательские функции
+
+- Регистрация, вход, выход и управление профилем.
+- Создание и редактирование конфигураций обучения и дневных лимитов.
+- Создание, редактирование и удаление колод и карточек.
+- Публикация колод, просмотр каталога и копирование материалов.
+- Работа с вариантами ответов, пояснениями, подсказками и тегами.
+- Получение очереди повторений и предварительных интервалов.
+- Оценка повторения: AGAIN, HARD, GOOD, EASY.
+- Просмотр прогресса, истории и статистики, сброс прогресса.
+
+## Стек технологий
+
+| Назначение | Технологии |
+| --- | --- |
+| Язык | Python 3.12+ |
+| HTTP API и схемы | FastAPI, Uvicorn, Pydantic |
+| СУБД и доступ к данным | PostgreSQL 16, SQLAlchemy 2, asyncpg, Alembic |
+| Инфраструктура Redis | Redis, redis-py; адаптер хранилища и диагностика доступности |
+| Аутентификация | JWT в HttpOnly cookie, серверные сессии PostgreSQL, bcrypt с pepper |
+| Внедрение зависимостей | Dishka |
+| Инструменты | uv 0.9.26, just, Docker Compose, pytest, Testcontainers, Ruff, mypy, MkDocs |
+
+Redis сейчас не подключён как кэш предметных gateway: бизнес-запросы обращаются к PostgreSQL напрямую. HTTP-заголовки `Cache-Control` управляют клиентским кэшированием отдельно от Redis.
+
+## Архитектура
+
+```mermaid
+flowchart TD
+    Client[Клиент / Swagger UI] --> HTTP[Presentation: FastAPI, схемы, middleware]
+    HTTP --> App[Application: команды и запросы]
+    App --> Domain[Domain: сущности и бизнес-правила]
+    App --> Ports[Порты gateway и транзакций]
+    Ports --> SQL[Infrastructure: SQLAlchemy]
+    SQL --> PG[(PostgreSQL)]
+    HTTP --> Health[Проверка готовности]
+    Health --> PG
+    Health --> Redis[(Redis)]
+    Setup[Setup: настройки и Dishka] -. связывает зависимости .-> HTTP
+    Setup -.-> App
+    Setup -.-> SQL
+```
+
+Зависимости направлены к ядру: domain не зависит от HTTP и СУБД; infrastructure реализует порты application. Подробности: [архитектура](docs/architecture/backend/overview.md).
+
+## Модули и ответственность
+
+| Модуль | Ответственность |
+| --- | --- |
+| `domain/user`, `application/auth`, команды/запросы user | Пользователи, роли, профиль, вход и отзыв сессий |
+| `domain/deck`, команды/запросы deck | Колоды, публичность, копирование и назначение конфигурации |
+| Сущность DeckConfig, команды/запросы deck_config | Дневные лимиты, шаги обучения и параметры интервалов |
+| `domain/card`, команды/запросы card | Вопросы, варианты ответа, подсказки, теги и путь изображения |
+| `domain/card_progress`, команды/запросы card_progress | Индивидуальный прогресс, планировщик, очередь, история и статистика |
+| `infrastructure` | ORM, миграции, транзакции, хеширование, JWT, часы, Redis-адаптер |
+| `presentation` | HTTP-маршруты, валидация запросов, cookie, ошибки и служебные endpoints |
+| `setup` | Конфигурация, сборка приложения и контейнер зависимостей |
+
+## Точки интеграции
+
+- PostgreSQL — источник данных: пользователи, сессии, колоды, конфигурации, карточки, прогресс и история.
+- Redis — отдельный сервис с проверкой доступности; отказ Redis отражается как degraded, не блокируя готовность при исправной БД.
+- Файловая система — `.env`, миграции и Docker volumes PostgreSQL/Redis. Сервер не загружает и не выдаёт файлы изображений.
+- HTTP — клиентский доступ к REST API `/v1`; внешних бизнес-сервисов в текущей версии нет. Keycloak из локального состава удалён; аутентификация собственная.
+
+## Локальная сборка и запуск
+
+Нужны Python 3.12+, **uv 0.9.26**, **just**, Docker Engine и Docker Compose. Проверьте `python3 --version`, `uv --version`, `just --version`, `docker compose version`.
 
 ```bash
 cp .env.dist .env
-uv sync --group dev
+uv sync --locked --group dev
+```
+
+В `.env` замените `JWT_SECRET` и `PEPPER` своими значениями. При запуске API на хосте оставьте `POSTGRES_HOST=localhost` и `REDIS_HOST=localhost`. Убедитесь, что порты 5432, 6379 и 8080 свободны. Существующий `.env` не перезаписывайте.
+
+```bash
 just up
-.venv/bin/alembic upgrade head
+```
+
+Для миграций загрузите `.env` через uv, затем запустите API:
+
+```bash
+uv run --env-file .env alembic upgrade head
 just uvicorn
 ```
 
-The API is available on `http://localhost:8080`. Health endpoints:
-
-- `GET /healthcheck/live` — process liveness;
-- `GET /healthcheck/ready` — PostgreSQL readiness and Redis degradation state.
-
-## Verification
+Рецепт использует `.venv/bin/uvicorn --env-file .env`; активировать окружение не требуется. Если just недоступен, эквивалентные команды:
 
 ```bash
-.venv/bin/pytest tests/unit -q
-.venv/bin/pytest tests/integration -q
+docker compose --env-file .env -f docker-compose-local.yaml up -d
+.venv/bin/uvicorn trafficmaster.web:create_fastapi_app --factory --env-file .env --host 127.0.0.1 --port 8080
+```
+
+- Swagger UI: http://localhost:8080/docs
+- `GET /healthcheck/live` — доступность процесса.
+- `GET /healthcheck/ready` — готовность БД и состояние Redis.
+
+```bash
+curl http://localhost:8080/healthcheck/live
+curl http://localhost:8080/healthcheck/ready
+```
+
+Остановка инфраструктуры: `just stop`. Сборка образа: `docker build -t trafficmaster .`. Миграции для контейнерного развёртывания выполняются отдельным шагом:
+
+```bash
+docker run --rm --env-file /secure/path/trafficmaster.env trafficmaster alembic upgrade head
+```
+
+Адрес БД должен быть доступен из контейнера. Настройки и ограничения: [production](docs/production.md).
+
+## Проверки
+
+```bash
+.venv/bin/pytest tests/ -q
+.venv/bin/pytest tests/unit -q --no-cov
+.venv/bin/pytest tests/integration -q --no-cov
 .venv/bin/ruff check --no-fix .
 .venv/bin/ruff format --check .
 .venv/bin/mypy --config-file pyproject.toml
 ```
 
-Integration tests use testcontainers and require access to a Docker daemon.
+Интеграционные тесты создают временные PostgreSQL и Redis через Testcontainers; нужен доступ к Docker daemon. Результаты лабораторной: [верификация](docs/verification.md).
 
-## Production
+## Лабораторная работа № 1
 
-Build the image with `docker build -t trafficmaster .`. Apply migrations as a separate release step before rolling out the application:
-
-```bash
-docker run --rm --env-file /secure/path/trafficmaster.env trafficmaster \
-  alembic upgrade head
-```
-
-See [docs/production.md](docs/production.md) for required configuration and the rollout/rollback checklist. Never use `.env.dist` as production configuration.
+- [Спецификация требований и use case диаграмма](docs/requirements.md).
+- [Матрица и протокол верификации](docs/verification.md).
+- [Жизненный цикл прогресса карточки](docs/card-progress-lifecycle.md).
+- [Реестр дефектов](ISSUES.md).
+- [Первоначальный аудит и выполненные доработки](docs/lab1-audit.md).

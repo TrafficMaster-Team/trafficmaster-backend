@@ -17,7 +17,7 @@ container = make_async_container(*setup_providers(), context=context)
 setup_dishka(container, app)
 ```
 
-Configuration values are placed in the container context. Providers create database sessions, gateways, cache decorators, authentication services, and application handlers.
+Configuration values are placed in the container context. Providers create database sessions, gateways, a Redis storage adapter, authentication services, and application handlers.
 
 ## Handler Injection
 

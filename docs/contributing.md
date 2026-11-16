@@ -18,7 +18,7 @@ Contributions should preserve the existing dependency direction and the conventi
 - Application code accesses infrastructure through protocols.
 - Persistent mutations must commit through `TransactionManager`.
 - Domain entities remain independent of ORM mappings.
-- Cache failures fall back to the wrapped gateway.
+- Business gateways currently use PostgreSQL directly; future Redis caching requires explicit fallback and invalidation tests.
 - Secrets and local `.env` files must never be committed.
 
 ## Before Opening a Pull Request
