@@ -1,0 +1,1034 @@
+[
+  {
+    "name": "R001 | Index",
+    "method": "GET",
+    "route": "/",
+    "expected": 200,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R002 | Liveness",
+    "method": "GET",
+    "route": "/healthcheck/live",
+    "expected": 200,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R003 | Readiness",
+    "method": "GET",
+    "route": "/healthcheck/ready",
+    "expected": 200,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R004 | Signup a",
+    "method": "POST",
+    "route": "/v1/auth/signup",
+    "expected": 201,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R005 | Login a",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 204,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R006 | Current identity",
+    "method": "GET",
+    "route": "/v1/auth/me",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R007 | Wrong password",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R008 | Duplicate email",
+    "method": "POST",
+    "route": "/v1/auth/signup",
+    "expected": 409,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R009 | Invalid identity",
+    "method": "POST",
+    "route": "/v1/auth/signup",
+    "expected": 422,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R010 | Create config a",
+    "method": "POST",
+    "route": "/v1/deck-config/",
+    "expected": 201,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R011 | Create config alt",
+    "method": "POST",
+    "route": "/v1/deck-config/",
+    "expected": 201,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R012 | Read config",
+    "method": "GET",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R013 | List own configs",
+    "method": "GET",
+    "route": "/v1/deck-config/",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R014 | Change name",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/name",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R015 | Change daily-limits",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/daily-limits",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R016 | Change new-cards",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/new-cards",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R017 | Change advanced",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/advanced",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R018 | Change lapses",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/lapses",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R019 | Verify config changes",
+    "method": "GET",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R020 | Invalid limit",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/daily-limits",
+    "expected": 400,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R021 | Create deck a",
+    "method": "POST",
+    "route": "/v1/deck/",
+    "expected": 201,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R022 | Create deck alt",
+    "method": "POST",
+    "route": "/v1/deck/",
+    "expected": 201,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R023 | Read private deck",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R024 | Own decks",
+    "method": "GET",
+    "route": "/v1/deck/",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R025 | Change title",
+    "method": "PATCH",
+    "route": "/v1/deck/{deck_id}/title",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R026 | Change description",
+    "method": "PATCH",
+    "route": "/v1/deck/{deck_id}/description",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R027 | Assign config",
+    "method": "PATCH",
+    "route": "/v1/deck/{deck_id}/config",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R028 | Verify changes",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R029 | Invalid UUID",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 422,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R030 | Missing entity",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 404,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R031 | Create card",
+    "method": "POST",
+    "route": "/v1/card/",
+    "expected": 201,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R032 | Read card",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R033 | List cards",
+    "method": "GET",
+    "route": "/v1/card/",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R034 | Change question",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/question",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R035 | Change content",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/content",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R036 | Set image metadata",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/image",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R037 | Add tag",
+    "method": "POST",
+    "route": "/v1/card/{card_id}/tags",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R038 | Verify card changes",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R039 | Remove tag",
+    "method": "DELETE",
+    "route": "/v1/card/{card_id}/tags/{tag}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R040 | Clear image",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/image",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R041 | Move card to deck_alt",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/deck",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R042 | Move card to deck_a",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/deck",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R043 | Verify move and clears",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R044 | Empty question",
+    "method": "POST",
+    "route": "/v1/card/",
+    "expected": 422,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R045 | Review queue",
+    "method": "GET",
+    "route": "/v1/review/queue",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R046 | Preview",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/preview",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R047 | No progress after preview",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/progress",
+    "expected": 404,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R048 | Transition learning",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R049 | Transition learning",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R050 | Transition review",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R051 | Transition relearning",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R052 | Transition review",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R053 | Read persisted progress",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/progress",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R054 | Five history rows",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/logs",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R055 | Five history rows",
+    "method": "GET",
+    "route": "/v1/review/logs",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R056 | Statistics",
+    "method": "GET",
+    "route": "/v1/review/deck/{deck_id}/stats",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R057 | Reset progress",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}/reset",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R058 | Reset removes progress",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/progress",
+    "expected": 404,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R059 | Reset keeps history",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/logs",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R060 | Invalid rating",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 422,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R061 | Signup b",
+    "method": "POST",
+    "route": "/v1/auth/signup",
+    "expected": 201,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R062 | Login b",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 204,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R063 | Other user config",
+    "method": "POST",
+    "route": "/v1/deck-config/",
+    "expected": 201,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R064 | Other user deck",
+    "method": "POST",
+    "route": "/v1/deck/",
+    "expected": 201,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R065 | Other user card",
+    "method": "POST",
+    "route": "/v1/card/",
+    "expected": 201,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R066 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/auth/me",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R067 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R068 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R069 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R070 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R071 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/review/queue",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R072 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/progress",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R073 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/preview",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R074 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/logs",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R075 | Anonymous direct URL",
+    "method": "GET",
+    "route": "/v1/review/deck/{deck_id}/stats",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R076 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R077 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R078 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R079 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R080 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/review/queue",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R081 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/preview",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R082 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/review/card/{card_id}/logs",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R083 | IDOR read denied",
+    "method": "GET",
+    "route": "/v1/review/deck/{deck_id}/stats",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R084 | IDOR mutation denied",
+    "method": "PATCH",
+    "route": "/v1/deck/{deck_id}/title",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R085 | IDOR mutation denied",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/question",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R086 | IDOR mutation denied",
+    "method": "PATCH",
+    "route": "/v1/deck-config/{deck_config_id}/name",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R087 | IDOR mutation denied",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/password",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R088 | IDOR mutation denied",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R089 | IDOR mutation denied",
+    "method": "POST",
+    "route": "/v1/review/card/{card_id}/reset",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R090 | IDOR mutation denied",
+    "method": "PATCH",
+    "route": "/v1/card/{card_id}/deck",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R091 | IDOR mutation denied",
+    "method": "POST",
+    "route": "/v1/deck-config/",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R092 | IDOR mutation denied",
+    "method": "POST",
+    "route": "/v1/card/",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R093 | Missing route",
+    "method": "GET",
+    "route": "/v1/route-that-does-not-exist",
+    "expected": 404,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R094 | Original data unchanged",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R095 | Foreign private deck is not polluted",
+    "method": "GET",
+    "route": "/v1/card/",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R096 | Publish own deck",
+    "method": "PATCH",
+    "route": "/v1/deck/{deck_id}/privacy",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R097 | Public catalogue",
+    "method": "GET",
+    "route": "/v1/deck/public",
+    "expected": 200,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R098 | Copy public deck",
+    "method": "POST",
+    "route": "/v1/deck/{deck_id}/copy",
+    "expected": 201,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R099 | Read copy",
+    "method": "GET",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 200,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R100 | Login admin",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 204,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R101 | Create managed user",
+    "method": "POST",
+    "route": "/v1/user/",
+    "expected": 201,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R102 | List users",
+    "method": "GET",
+    "route": "/v1/user/",
+    "expected": 200,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R103 | Read managed user",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 200,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R104 | Grant admin",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/admin",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R105 | Verify admin",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 200,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R106 | Revoke admin",
+    "method": "DELETE",
+    "route": "/v1/user/{user_id}/admin",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R107 | Activate user",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/activate",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R108 | Change username",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/username",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R109 | Change email",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/email",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R110 | Verify managed changes",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 200,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R111 | Own aggregate stats",
+    "method": "GET",
+    "route": "/v1/user/stats",
+    "expected": 200,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R112 | Delete managed user",
+    "method": "DELETE",
+    "route": "/v1/user/{user_id}",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  },
+  {
+    "name": "R113 | Verify deletion",
+    "method": "GET",
+    "route": "/v1/user/{user_id}",
+    "expected": 404,
+    "actor": "admin",
+    "positive": false
+  },
+  {
+    "name": "R114 | Change own password",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/password",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R115 | Old cookie revoked",
+    "method": "GET",
+    "route": "/v1/auth/me",
+    "expected": 401,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R116 | Old password rejected",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 401,
+    "actor": "guest",
+    "positive": false
+  },
+  {
+    "name": "R117 | Login a",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 204,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R118 | Logout",
+    "method": "POST",
+    "route": "/v1/auth/logout",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R119 | Logout revokes old cookie",
+    "method": "GET",
+    "route": "/v1/auth/me",
+    "expected": 401,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R120 | Login a",
+    "method": "POST",
+    "route": "/v1/auth/login",
+    "expected": 204,
+    "actor": "guest",
+    "positive": true
+  },
+  {
+    "name": "R121 | Delete card",
+    "method": "DELETE",
+    "route": "/v1/card/{card_id}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R122 | Deleted card",
+    "method": "GET",
+    "route": "/v1/card/{card_id}",
+    "expected": 404,
+    "actor": "a",
+    "positive": false
+  },
+  {
+    "name": "R123 | Delete deck a",
+    "method": "DELETE",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R124 | Delete deck alt",
+    "method": "DELETE",
+    "route": "/v1/deck/{deck_id}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R125 | Delete config a",
+    "method": "DELETE",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R126 | Delete config alt",
+    "method": "DELETE",
+    "route": "/v1/deck-config/{deck_config_id}",
+    "expected": 204,
+    "actor": "a",
+    "positive": true
+  },
+  {
+    "name": "R127 | User cannot grant own admin role",
+    "method": "PATCH",
+    "route": "/v1/user/{user_id}/admin",
+    "expected": 403,
+    "actor": "b",
+    "positive": false
+  },
+  {
+    "name": "R128 | Role must remain user",
+    "method": "GET",
+    "route": "/v1/auth/me",
+    "expected": 200,
+    "actor": "b",
+    "positive": true
+  },
+  {
+    "name": "R129 | Restore disposable user role",
+    "method": "DELETE",
+    "route": "/v1/user/{user_id}/admin",
+    "expected": 204,
+    "actor": "admin",
+    "positive": true
+  }
+]

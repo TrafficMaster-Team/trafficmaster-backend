@@ -1,0 +1,138 @@
+{
+  "started": "2026-11-16T18:32:44.701137+03:00",
+  "frontend": "API only; layout/mobile/cross-browser checks not applicable",
+  "runner": "Newman + Playwright Chromium",
+  "commands": {
+    "newman": 1,
+    "playwright": 0,
+    "screenshot_probe": 1,
+    "error_security_unit": 0
+  },
+  "api_stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 258,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 352,
+      "pending": 0,
+      "failed": 18
+    },
+    "testScripts": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 129,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "api_failures": [
+    {
+      "name": "R009 | Invalid identity",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R029 | Invalid UUID",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R044 | Empty question",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R060 | Invalid rating",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R066 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R067 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R068 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R069 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R070 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R071 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R072 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R073 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R074 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R075 | Anonymous direct URL",
+      "error": "expected data to satisfy schema but found following errors: \ndata should have required property 'description'"
+    },
+    {
+      "name": "R090 | IDOR mutation denied",
+      "error": "expected response to have status code 403 but got 204"
+    },
+    {
+      "name": "R095 | Foreign private deck is not polluted",
+      "error": "expected 2 to deeply equal 1"
+    },
+    {
+      "name": "R127 | User cannot grant own admin role",
+      "error": "expected response to have status code 403 but got 204"
+    },
+    {
+      "name": "R128 | Role must remain user",
+      "error": "expected 'admin' to deeply equal 'user'"
+    }
+  ],
+  "failure_capture_verified": true,
+  "finished": "2026-11-16T18:33:41.200523+03:00",
+  "versions": {
+    "python": "3.13.5 (main, Jun 12 2025, 12:40:22) [Clang 20.1.4 ]",
+    "node": "v24.22.1"
+  }
+}

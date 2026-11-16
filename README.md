@@ -145,3 +145,11 @@ docker run --rm --env-file /secure/path/trafficmaster.env trafficmaster alembic 
 - [42 тест-кейса с данными, шагами и результатами](docs/lab3/test-cases.md).
 - [Протокол выполнения, метрики, трассы и скриншоты](docs/lab3/execution.md).
 - [Реестр дефектов с важностью, срочностью и обходами](ISSUES.md).
+
+## Лабораторная работа № 4
+
+- [Объём и воспроизведение](docs/lab4/README.md): API без отдельного frontend, проверки вёрстки неприменимы.
+- [Postman: коллекция и покрытие всех операций](docs/lab4/api.md).
+- [Базовая безопасность и найденные дефекты](docs/lab4/security.md).
+- [Playwright через Swagger UI](docs/lab4/swagger-ui.md).
+- [Результаты и доказательства](docs/lab4/results.md).

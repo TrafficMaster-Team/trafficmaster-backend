@@ -1,0 +1,8 @@
+{
+  "access_records": 176,
+  "registration_logged": true,
+  "login_logged": true,
+  "review_logged": true,
+  "mutation_logged": true,
+  "denial_4xx_logged": true
+}

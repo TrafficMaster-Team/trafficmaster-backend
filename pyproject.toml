@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [tool.uv]
-required-version = "==0.9.26"
+required-version = "==0.13.5"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -38,6 +38,7 @@ dev = [
     "pytest-cov>=7.1.0",
     "pytest-asyncio>=1.4.0",
     "testcontainers[postgres,redis]>=4.14.2",
+    "pytest-playwright>=0.10.0",
 ]
 docs = [
     "mkdocs-material>=9.7.7",

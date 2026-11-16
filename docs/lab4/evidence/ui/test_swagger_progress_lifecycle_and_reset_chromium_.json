@@ -1,0 +1,9 @@
+{
+  "test": "test_swagger_progress_lifecycle_and_reset[chromium]",
+  "status": "passed",
+  "screenshot": "test_swagger_progress_lifecycle_and_reset_chromium_.png",
+  "console_errors": [],
+  "network_failures": [],
+  "error": null,
+  "failure_screenshot": false
+}

@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="TrafficMaster — Lab 4 API and security" tests="129" time="7.765">
+  <testsuite name="00 Service / R001 | Index" id="a525a27a-2b4a-4eda-b81b-bca3bb5773ca" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.039">
+    <testcase name="HTTP 200" time="0.039" classname="00ServiceR001Index"/>
+    <testcase name="Response JSON schema" time="0.039" classname="00ServiceR001Index"/>
+    <testcase name="Field values and scenario invariants" time="0.039" classname="00ServiceR001Index"/>
+  </testsuite>
+  <testsuite name="00 Service / R002 | Liveness" id="36a7bde3-c9b4-453e-8f9d-540d2b991a73" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.010">
+    <testcase name="HTTP 200" time="0.010" classname="00ServiceR002Liveness"/>
+    <testcase name="Response JSON schema" time="0.010" classname="00ServiceR002Liveness"/>
+    <testcase name="Field values and scenario invariants" time="0.010" classname="00ServiceR002Liveness"/>
+  </testsuite>
+  <testsuite name="00 Service / R003 | Readiness" id="f87443f5-96e0-4dae-94bd-6ce483b9f014" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 200" time="0.012" classname="00ServiceR003Readiness"/>
+    <testcase name="Response JSON schema" time="0.012" classname="00ServiceR003Readiness"/>
+    <testcase name="Field values and scenario invariants" time="0.012" classname="00ServiceR003Readiness"/>
+  </testsuite>
+  <testsuite name="01 Auth / R004 | Signup a" id="40820940-55b6-4786-a302-a819f139540e" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.498">
+    <testcase name="HTTP 201" time="0.498" classname="01AuthR004SignupA"/>
+    <testcase name="Response JSON schema" time="0.498" classname="01AuthR004SignupA"/>
+    <testcase name="Field values and scenario invariants" time="0.498" classname="01AuthR004SignupA"/>
+  </testsuite>
+  <testsuite name="01 Auth / R005 | Login a" id="f316f1f4-fe86-4273-a09b-958b443b7142" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.510">
+    <testcase name="HTTP 204" time="0.510" classname="01AuthR005LoginA"/>
+    <testcase name="Empty 204 body" time="0.510" classname="01AuthR005LoginA"/>
+    <testcase name="Field values and scenario invariants" time="0.510" classname="01AuthR005LoginA"/>
+  </testsuite>
+  <testsuite name="01 Auth / R006 | Current identity" id="99b5f130-2a05-4566-be7f-4d6022882b63" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="01AuthR006CurrentIdentity"/>
+    <testcase name="Response JSON schema" time="0.014" classname="01AuthR006CurrentIdentity"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="01AuthR006CurrentIdentity"/>
+  </testsuite>
+  <testsuite name="01 Auth / R007 | Wrong password" id="bb4ff651-bcd4-4eb2-b5cf-11a1419eff50" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.450">
+    <testcase name="HTTP 401" time="0.450" classname="01AuthR007WrongPassword"/>
+    <testcase name="Response JSON schema" time="0.450" classname="01AuthR007WrongPassword"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.450" classname="01AuthR007WrongPassword"/>
+  </testsuite>
+  <testsuite name="01 Auth / R008 | Duplicate email" id="0b57c065-a2fa-4abe-b31e-20afc2ba519b" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.432">
+    <testcase name="HTTP 409" time="0.432" classname="01AuthR008DuplicateEmail"/>
+    <testcase name="Response JSON schema" time="0.432" classname="01AuthR008DuplicateEmail"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.432" classname="01AuthR008DuplicateEmail"/>
+  </testsuite>
+  <testsuite name="01 Auth / R009 | Invalid identity" id="ddbe1b75-6cd5-42f8-8cc1-7f3d13e2e995" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.005">
+    <testcase name="HTTP 422" time="0.005" classname="01AuthR009InvalidIdentity"/>
+    <testcase name="Response JSON schema" time="0.005" classname="01AuthR009InvalidIdentity">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 01 Auth / R009 | Invalid identity.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:9).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.005" classname="01AuthR009InvalidIdentity"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R010 | Create config a" id="072035b2-0d01-4c9d-8d53-7163954eb3b5" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.035">
+    <testcase name="HTTP 201" time="0.035" classname="02ConfigurationR010CreateConfigA"/>
+    <testcase name="Response JSON schema" time="0.035" classname="02ConfigurationR010CreateConfigA"/>
+    <testcase name="Field values and scenario invariants" time="0.035" classname="02ConfigurationR010CreateConfigA"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R011 | Create config alt" id="ec0af5fc-096d-4156-970a-d80ce02bd2dc" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 201" time="0.014" classname="02ConfigurationR011CreateConfigAlt"/>
+    <testcase name="Response JSON schema" time="0.014" classname="02ConfigurationR011CreateConfigAlt"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="02ConfigurationR011CreateConfigAlt"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R012 | Read config" id="2c4308d3-73cd-4b1d-a689-d7bfcb3c1fcb" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 200" time="0.016" classname="02ConfigurationR012ReadConfig"/>
+    <testcase name="Response JSON schema" time="0.016" classname="02ConfigurationR012ReadConfig"/>
+    <testcase name="Field values and scenario invariants" time="0.016" classname="02ConfigurationR012ReadConfig"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R013 | List own configs" id="9517d060-fc5d-468f-99cf-e4950283ea09" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 200" time="0.015" classname="02ConfigurationR013ListOwnConfigs"/>
+    <testcase name="Response JSON schema" time="0.015" classname="02ConfigurationR013ListOwnConfigs"/>
+    <testcase name="Field values and scenario invariants" time="0.015" classname="02ConfigurationR013ListOwnConfigs"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R014 | Change name" id="1028b325-23db-42bd-8fde-e3f236363074" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 204" time="0.024" classname="02ConfigurationR014ChangeName"/>
+    <testcase name="Empty 204 body" time="0.024" classname="02ConfigurationR014ChangeName"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R015 | Change daily-limits" id="03e6b397-8220-4d33-9f90-7ce2c6a197e1" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 204" time="0.017" classname="02ConfigurationR015ChangeDailyLimits"/>
+    <testcase name="Empty 204 body" time="0.017" classname="02ConfigurationR015ChangeDailyLimits"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R016 | Change new-cards" id="c7011783-ab89-415c-bc5d-b85224badfcc" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 204" time="0.016" classname="02ConfigurationR016ChangeNewCards"/>
+    <testcase name="Empty 204 body" time="0.016" classname="02ConfigurationR016ChangeNewCards"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R017 | Change advanced" id="34a6debd-43fa-4c99-9bb1-bb077c3c7255" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 204" time="0.016" classname="02ConfigurationR017ChangeAdvanced"/>
+    <testcase name="Empty 204 body" time="0.016" classname="02ConfigurationR017ChangeAdvanced"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R018 | Change lapses" id="1992aec2-2e39-43d5-b521-90822ef35c2b" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="02ConfigurationR018ChangeLapses"/>
+    <testcase name="Empty 204 body" time="0.014" classname="02ConfigurationR018ChangeLapses"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R019 | Verify config changes" id="df1287d5-f487-4f10-ba27-73bd89785b40" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.011">
+    <testcase name="HTTP 200" time="0.011" classname="02ConfigurationR019VerifyConfigChanges"/>
+    <testcase name="Response JSON schema" time="0.011" classname="02ConfigurationR019VerifyConfigChanges"/>
+    <testcase name="Field values and scenario invariants" time="0.011" classname="02ConfigurationR019VerifyConfigChanges"/>
+  </testsuite>
+  <testsuite name="02 Configuration / R020 | Invalid limit" id="ed0d3ca3-f4ca-443a-b29a-cfb0c7209770" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 400" time="0.005" classname="02ConfigurationR020InvalidLimit"/>
+    <testcase name="Response JSON schema" time="0.005" classname="02ConfigurationR020InvalidLimit"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.005" classname="02ConfigurationR020InvalidLimit"/>
+  </testsuite>
+  <testsuite name="03 Decks / R021 | Create deck a" id="c66e3a16-18ff-4668-aaea-3c9130f67b88" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.026">
+    <testcase name="HTTP 201" time="0.026" classname="03DecksR021CreateDeckA"/>
+    <testcase name="Response JSON schema" time="0.026" classname="03DecksR021CreateDeckA"/>
+    <testcase name="Field values and scenario invariants" time="0.026" classname="03DecksR021CreateDeckA"/>
+  </testsuite>
+  <testsuite name="03 Decks / R022 | Create deck alt" id="05e851b4-6527-42d9-bfcf-1a67f763dc90" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 201" time="0.015" classname="03DecksR022CreateDeckAlt"/>
+    <testcase name="Response JSON schema" time="0.015" classname="03DecksR022CreateDeckAlt"/>
+    <testcase name="Field values and scenario invariants" time="0.015" classname="03DecksR022CreateDeckAlt"/>
+  </testsuite>
+  <testsuite name="03 Decks / R023 | Read private deck" id="ad7efdef-581e-4b2e-842f-42d5d2ad37e4" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 200" time="0.013" classname="03DecksR023ReadPrivateDeck"/>
+    <testcase name="Response JSON schema" time="0.013" classname="03DecksR023ReadPrivateDeck"/>
+    <testcase name="Field values and scenario invariants" time="0.013" classname="03DecksR023ReadPrivateDeck"/>
+  </testsuite>
+  <testsuite name="03 Decks / R024 | Own decks" id="7f573aa8-41f5-4f58-a207-de01eb2c9ab3" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 200" time="0.016" classname="03DecksR024OwnDecks"/>
+    <testcase name="Response JSON schema" time="0.016" classname="03DecksR024OwnDecks"/>
+    <testcase name="Field values and scenario invariants" time="0.016" classname="03DecksR024OwnDecks"/>
+  </testsuite>
+  <testsuite name="03 Decks / R025 | Change title" id="c9cb595b-338b-4587-af12-c2f2ddd80c5a" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.025">
+    <testcase name="HTTP 204" time="0.025" classname="03DecksR025ChangeTitle"/>
+    <testcase name="Empty 204 body" time="0.025" classname="03DecksR025ChangeTitle"/>
+  </testsuite>
+  <testsuite name="03 Decks / R026 | Change description" id="f91a8ba8-e342-4115-a329-2e511c8f0c52" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 204" time="0.018" classname="03DecksR026ChangeDescription"/>
+    <testcase name="Empty 204 body" time="0.018" classname="03DecksR026ChangeDescription"/>
+  </testsuite>
+  <testsuite name="03 Decks / R027 | Assign config" id="ca7c5b66-fe3b-495f-b9a7-0055956d9873" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 204" time="0.020" classname="03DecksR027AssignConfig"/>
+    <testcase name="Empty 204 body" time="0.020" classname="03DecksR027AssignConfig"/>
+  </testsuite>
+  <testsuite name="03 Decks / R028 | Verify changes" id="97d137e3-bee6-406f-8e79-284a835e096b" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="03DecksR028VerifyChanges"/>
+    <testcase name="Response JSON schema" time="0.014" classname="03DecksR028VerifyChanges"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="03DecksR028VerifyChanges"/>
+  </testsuite>
+  <testsuite name="03 Decks / R029 | Invalid UUID" id="91cc86c1-3e45-4f72-adfd-1ea8bd26b2d1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 422" time="0.003" classname="03DecksR029InvalidUuid"/>
+    <testcase name="Response JSON schema" time="0.003" classname="03DecksR029InvalidUuid">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 03 Decks / R029 | Invalid UUID.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:29).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="03DecksR029InvalidUuid"/>
+  </testsuite>
+  <testsuite name="03 Decks / R030 | Missing entity" id="ed6e6057-0637-4cb8-bf25-d3a24ae4974a" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 404" time="0.014" classname="03DecksR030MissingEntity"/>
+    <testcase name="Response JSON schema" time="0.014" classname="03DecksR030MissingEntity"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.014" classname="03DecksR030MissingEntity"/>
+  </testsuite>
+  <testsuite name="04 Cards / R031 | Create card" id="42da3520-d7ad-4899-8ce7-e60f59dd4cc2" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.034">
+    <testcase name="HTTP 201" time="0.034" classname="04CardsR031CreateCard"/>
+    <testcase name="Response JSON schema" time="0.034" classname="04CardsR031CreateCard"/>
+    <testcase name="Field values and scenario invariants" time="0.034" classname="04CardsR031CreateCard"/>
+  </testsuite>
+  <testsuite name="04 Cards / R032 | Read card" id="f4d30ade-e6f2-42b9-9d5e-83201c697f05" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 200" time="0.017" classname="04CardsR032ReadCard"/>
+    <testcase name="Response JSON schema" time="0.017" classname="04CardsR032ReadCard"/>
+    <testcase name="Field values and scenario invariants" time="0.017" classname="04CardsR032ReadCard"/>
+  </testsuite>
+  <testsuite name="04 Cards / R033 | List cards" id="f5cd4af3-ffb8-41aa-b339-7ff6ffbe0ba2" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 200" time="0.017" classname="04CardsR033ListCards"/>
+    <testcase name="Response JSON schema" time="0.017" classname="04CardsR033ListCards"/>
+    <testcase name="Field values and scenario invariants" time="0.017" classname="04CardsR033ListCards"/>
+  </testsuite>
+  <testsuite name="04 Cards / R034 | Change question" id="ea61d52b-01e4-41dd-9cb1-4195b37429e4" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.023">
+    <testcase name="HTTP 204" time="0.023" classname="04CardsR034ChangeQuestion"/>
+    <testcase name="Empty 204 body" time="0.023" classname="04CardsR034ChangeQuestion"/>
+  </testsuite>
+  <testsuite name="04 Cards / R035 | Change content" id="f065ba25-d646-483c-bad9-1ae2b5b1d071" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 204" time="0.017" classname="04CardsR035ChangeContent"/>
+    <testcase name="Empty 204 body" time="0.017" classname="04CardsR035ChangeContent"/>
+  </testsuite>
+  <testsuite name="04 Cards / R036 | Set image metadata" id="3e2e86da-69ac-43a5-8dd4-640bb7477619" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 204" time="0.018" classname="04CardsR036SetImageMetadata"/>
+    <testcase name="Empty 204 body" time="0.018" classname="04CardsR036SetImageMetadata"/>
+  </testsuite>
+  <testsuite name="04 Cards / R037 | Add tag" id="07a75b6d-0301-455c-a43d-42f9d8e584a0" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.022">
+    <testcase name="HTTP 204" time="0.022" classname="04CardsR037AddTag"/>
+    <testcase name="Empty 204 body" time="0.022" classname="04CardsR037AddTag"/>
+  </testsuite>
+  <testsuite name="04 Cards / R038 | Verify card changes" id="659c7b76-ab08-42da-abff-3bfbf6f44304" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="04CardsR038VerifyCardChanges"/>
+    <testcase name="Response JSON schema" time="0.014" classname="04CardsR038VerifyCardChanges"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="04CardsR038VerifyCardChanges"/>
+  </testsuite>
+  <testsuite name="04 Cards / R039 | Remove tag" id="c54d441a-4577-4114-9e5b-4f23614e6fac" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.019">
+    <testcase name="HTTP 204" time="0.019" classname="04CardsR039RemoveTag"/>
+    <testcase name="Empty 204 body" time="0.019" classname="04CardsR039RemoveTag"/>
+  </testsuite>
+  <testsuite name="04 Cards / R040 | Clear image" id="3da0ed36-9f4f-41ea-8f6e-68b7bd7c9f85" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 204" time="0.018" classname="04CardsR040ClearImage"/>
+    <testcase name="Empty 204 body" time="0.018" classname="04CardsR040ClearImage"/>
+  </testsuite>
+  <testsuite name="04 Cards / R041 | Move card to deck_alt" id="56efbb7e-55ab-4033-9baf-d346d89d85e1" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 204" time="0.017" classname="04CardsR041MoveCardToDeckAlt"/>
+    <testcase name="Empty 204 body" time="0.017" classname="04CardsR041MoveCardToDeckAlt"/>
+  </testsuite>
+  <testsuite name="04 Cards / R042 | Move card to deck_a" id="ada32a02-839a-4ef5-815b-752c289c958e" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 204" time="0.015" classname="04CardsR042MoveCardToDeckA"/>
+    <testcase name="Empty 204 body" time="0.015" classname="04CardsR042MoveCardToDeckA"/>
+  </testsuite>
+  <testsuite name="04 Cards / R043 | Verify move and clears" id="3910860a-f93f-4895-bb89-ced4664f9f38" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="04CardsR043VerifyMoveAndClears"/>
+    <testcase name="Response JSON schema" time="0.014" classname="04CardsR043VerifyMoveAndClears"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="04CardsR043VerifyMoveAndClears"/>
+  </testsuite>
+  <testsuite name="04 Cards / R044 | Empty question" id="8c24ab17-c82f-4e38-8b7a-1415187af86b" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 422" time="0.004" classname="04CardsR044EmptyQuestion"/>
+    <testcase name="Response JSON schema" time="0.004" classname="04CardsR044EmptyQuestion">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 04 Cards / R044 | Empty question.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:44).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="04CardsR044EmptyQuestion"/>
+  </testsuite>
+  <testsuite name="05 Learning / R045 | Review queue" id="cc4f61b7-bbad-47da-9ba7-981df6f3892e" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.056">
+    <testcase name="HTTP 200" time="0.056" classname="05LearningR045ReviewQueue"/>
+    <testcase name="Response JSON schema" time="0.056" classname="05LearningR045ReviewQueue"/>
+    <testcase name="Field values and scenario invariants" time="0.056" classname="05LearningR045ReviewQueue"/>
+  </testsuite>
+  <testsuite name="05 Learning / R046 | Preview" id="143b36e1-3246-4cfc-bf35-4f23ce1cefb1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.023">
+    <testcase name="HTTP 200" time="0.023" classname="05LearningR046Preview"/>
+    <testcase name="Response JSON schema" time="0.023" classname="05LearningR046Preview"/>
+    <testcase name="Field values and scenario invariants" time="0.023" classname="05LearningR046Preview"/>
+  </testsuite>
+  <testsuite name="05 Learning / R047 | No progress after preview" id="80a61370-f670-4755-b173-93c929c46f8d" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 404" time="0.016" classname="05LearningR047NoProgressAfterPreview"/>
+    <testcase name="Response JSON schema" time="0.016" classname="05LearningR047NoProgressAfterPreview"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.016" classname="05LearningR047NoProgressAfterPreview"/>
+  </testsuite>
+  <testsuite name="05 Learning / R048 | Transition learning" id="c6a75302-0f5e-47cf-b47e-b48543daa573" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.040">
+    <testcase name="HTTP 200" time="0.040" classname="05LearningR048TransitionLearning"/>
+    <testcase name="Response JSON schema" time="0.040" classname="05LearningR048TransitionLearning"/>
+    <testcase name="Field values and scenario invariants" time="0.040" classname="05LearningR048TransitionLearning"/>
+  </testsuite>
+  <testsuite name="05 Learning / R049 | Transition learning" id="61ddc0e3-cd32-408b-9191-486d9d3de462" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.021">
+    <testcase name="HTTP 200" time="0.021" classname="05LearningR049TransitionLearning"/>
+    <testcase name="Response JSON schema" time="0.021" classname="05LearningR049TransitionLearning"/>
+    <testcase name="Field values and scenario invariants" time="0.021" classname="05LearningR049TransitionLearning"/>
+  </testsuite>
+  <testsuite name="05 Learning / R050 | Transition review" id="cfe48345-8810-45ad-af5a-59e772e69697" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 200" time="0.024" classname="05LearningR050TransitionReview"/>
+    <testcase name="Response JSON schema" time="0.024" classname="05LearningR050TransitionReview"/>
+    <testcase name="Field values and scenario invariants" time="0.024" classname="05LearningR050TransitionReview"/>
+  </testsuite>
+  <testsuite name="05 Learning / R051 | Transition relearning" id="bc765ef3-7962-411b-90d9-955e8801020d" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.022">
+    <testcase name="HTTP 200" time="0.022" classname="05LearningR051TransitionRelearning"/>
+    <testcase name="Response JSON schema" time="0.022" classname="05LearningR051TransitionRelearning"/>
+    <testcase name="Field values and scenario invariants" time="0.022" classname="05LearningR051TransitionRelearning"/>
+  </testsuite>
+  <testsuite name="05 Learning / R052 | Transition review" id="e3715d48-499b-4184-9fa5-2f7dd11853da" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 200" time="0.024" classname="05LearningR052TransitionReview"/>
+    <testcase name="Response JSON schema" time="0.024" classname="05LearningR052TransitionReview"/>
+    <testcase name="Field values and scenario invariants" time="0.024" classname="05LearningR052TransitionReview"/>
+  </testsuite>
+  <testsuite name="05 Learning / R053 | Read persisted progress" id="b805ad40-f1fa-45a3-bdc7-bd328180eaa9" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="05LearningR053ReadPersistedProgress"/>
+    <testcase name="Response JSON schema" time="0.014" classname="05LearningR053ReadPersistedProgress"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="05LearningR053ReadPersistedProgress"/>
+  </testsuite>
+  <testsuite name="05 Learning / R054 | Five history rows" id="4a771af2-c92f-4c01-af60-a49cec50edef" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.021">
+    <testcase name="HTTP 200" time="0.021" classname="05LearningR054FiveHistoryRows"/>
+    <testcase name="Response JSON schema" time="0.021" classname="05LearningR054FiveHistoryRows"/>
+    <testcase name="Field values and scenario invariants" time="0.021" classname="05LearningR054FiveHistoryRows"/>
+  </testsuite>
+  <testsuite name="05 Learning / R055 | Five history rows" id="eeea03cf-c57a-48c1-9b68-69901b9f8e2b" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 200" time="0.016" classname="05LearningR055FiveHistoryRows"/>
+    <testcase name="Response JSON schema" time="0.016" classname="05LearningR055FiveHistoryRows"/>
+    <testcase name="Field values and scenario invariants" time="0.016" classname="05LearningR055FiveHistoryRows"/>
+  </testsuite>
+  <testsuite name="05 Learning / R056 | Statistics" id="21d3fa97-41dd-4d9e-9c62-ee1cd677d243" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.034">
+    <testcase name="HTTP 200" time="0.034" classname="05LearningR056Statistics"/>
+    <testcase name="Response JSON schema" time="0.034" classname="05LearningR056Statistics"/>
+    <testcase name="Field values and scenario invariants" time="0.034" classname="05LearningR056Statistics"/>
+  </testsuite>
+  <testsuite name="05 Learning / R057 | Reset progress" id="7ef43e12-eb96-4567-af45-513eac01297f" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.030">
+    <testcase name="HTTP 204" time="0.030" classname="05LearningR057ResetProgress"/>
+    <testcase name="Empty 204 body" time="0.030" classname="05LearningR057ResetProgress"/>
+  </testsuite>
+  <testsuite name="05 Learning / R058 | Reset removes progress" id="af41d78d-a89b-476f-b1a7-dbbe50ba7773" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 404" time="0.016" classname="05LearningR058ResetRemovesProgress"/>
+    <testcase name="Response JSON schema" time="0.016" classname="05LearningR058ResetRemovesProgress"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.016" classname="05LearningR058ResetRemovesProgress"/>
+  </testsuite>
+  <testsuite name="05 Learning / R059 | Reset keeps history" id="d7147990-2b15-45a6-a663-56de3a4982e5" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 200" time="0.018" classname="05LearningR059ResetKeepsHistory"/>
+    <testcase name="Response JSON schema" time="0.018" classname="05LearningR059ResetKeepsHistory"/>
+    <testcase name="Field values and scenario invariants" time="0.018" classname="05LearningR059ResetKeepsHistory"/>
+  </testsuite>
+  <testsuite name="05 Learning / R060 | Invalid rating" id="4bb1f2cc-ccf5-4355-a8ae-108d5eebc9b0" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.005">
+    <testcase name="HTTP 422" time="0.005" classname="05LearningR060InvalidRating"/>
+    <testcase name="Response JSON schema" time="0.005" classname="05LearningR060InvalidRating">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 05 Learning / R060 | Invalid rating.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:60).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.005" classname="05LearningR060InvalidRating"/>
+  </testsuite>
+  <testsuite name="01 Auth / R061 | Signup b" id="7605f3df-345a-4b75-afb3-10d3a086f383" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.520">
+    <testcase name="HTTP 201" time="0.520" classname="01AuthR061SignupB"/>
+    <testcase name="Response JSON schema" time="0.520" classname="01AuthR061SignupB"/>
+    <testcase name="Field values and scenario invariants" time="0.520" classname="01AuthR061SignupB"/>
+  </testsuite>
+  <testsuite name="01 Auth / R062 | Login b" id="8ea3c634-b87c-40ea-8c0a-f48979c0c179" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.513">
+    <testcase name="HTTP 204" time="0.513" classname="01AuthR062LoginB"/>
+    <testcase name="Empty 204 body" time="0.513" classname="01AuthR062LoginB"/>
+    <testcase name="Field values and scenario invariants" time="0.513" classname="01AuthR062LoginB"/>
+  </testsuite>
+  <testsuite name="06 Security / R063 | Other user config" id="b063516b-b51b-4591-b1fd-bbfd28e03619" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 201" time="0.015" classname="06SecurityR063OtherUserConfig"/>
+    <testcase name="Response JSON schema" time="0.015" classname="06SecurityR063OtherUserConfig"/>
+    <testcase name="Field values and scenario invariants" time="0.015" classname="06SecurityR063OtherUserConfig"/>
+  </testsuite>
+  <testsuite name="06 Security / R064 | Other user deck" id="baf6afd1-4024-4755-bd74-84ac5aa27ece" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 201" time="0.015" classname="06SecurityR064OtherUserDeck"/>
+    <testcase name="Response JSON schema" time="0.015" classname="06SecurityR064OtherUserDeck"/>
+    <testcase name="Field values and scenario invariants" time="0.015" classname="06SecurityR064OtherUserDeck"/>
+  </testsuite>
+  <testsuite name="06 Security / R065 | Other user card" id="8fe1d379-6b71-4a70-af23-63f38a688403" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.019">
+    <testcase name="HTTP 201" time="0.019" classname="06SecurityR065OtherUserCard"/>
+    <testcase name="Response JSON schema" time="0.019" classname="06SecurityR065OtherUserCard"/>
+    <testcase name="Field values and scenario invariants" time="0.019" classname="06SecurityR065OtherUserCard"/>
+  </testsuite>
+  <testsuite name="06 Security / R066 | Anonymous direct URL" id="9263dff0-c127-43c7-a718-158ef22fa2dd" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="06SecurityR066AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.003" classname="06SecurityR066AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R066 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:66).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR066AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R067 | Anonymous direct URL" id="185a9e44-742d-4de6-9f89-a3b6ee856bb4" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 401" time="0.004" classname="06SecurityR067AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.004" classname="06SecurityR067AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R067 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:67).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="06SecurityR067AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R068 | Anonymous direct URL" id="42277b1e-f255-45ca-b63e-861778458489" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 401" time="0.004" classname="06SecurityR068AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.004" classname="06SecurityR068AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R068 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:68).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="06SecurityR068AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R069 | Anonymous direct URL" id="c7c5cc28-8b1e-4fe7-bfc8-42ce85c66b48" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="06SecurityR069AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.003" classname="06SecurityR069AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R069 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:69).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR069AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R070 | Anonymous direct URL" id="73f8b3d0-091a-4d80-b58c-2a03697335e7" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 401" time="0.004" classname="06SecurityR070AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.004" classname="06SecurityR070AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R070 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:70).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="06SecurityR070AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R071 | Anonymous direct URL" id="ede12046-4952-4283-851e-137e3c2c0c67" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="06SecurityR071AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.003" classname="06SecurityR071AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R071 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:71).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR071AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R072 | Anonymous direct URL" id="916bde23-5757-41f3-a109-037ac8f1591b" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 401" time="0.004" classname="06SecurityR072AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.004" classname="06SecurityR072AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R072 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:72).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="06SecurityR072AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R073 | Anonymous direct URL" id="11d653dc-f944-4d6c-809b-f3ad7f72c0bc" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="06SecurityR073AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.003" classname="06SecurityR073AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R073 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:73).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR073AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R074 | Anonymous direct URL" id="708f5a2e-a328-4ef5-a1eb-539d38612bf8" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.004">
+    <testcase name="HTTP 401" time="0.004" classname="06SecurityR074AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.004" classname="06SecurityR074AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R074 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:74).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.004" classname="06SecurityR074AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R075 | Anonymous direct URL" id="65e716ef-9e3d-4031-859e-fbef5bb53d8d" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="06SecurityR075AnonymousDirectUrl"/>
+    <testcase name="Response JSON schema" time="0.003" classname="06SecurityR075AnonymousDirectUrl">
+      <failure type="AssertionFailure" message="expected data to satisfy schema but found following errors: &#xA;data should have required property 'description'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R075 | Anonymous direct URL.]]>
+        <![CDATA[Test description: Response JSON schema.]]>
+        <![CDATA[Error message: expected data to satisfy schema but found following errors: 
+data should have required property 'description'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected data to satisfy schema but found following errors: 
+data should have required property 'description'
+   at Object.eval sandbox-script.js:2:75).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR075AnonymousDirectUrl"/>
+  </testsuite>
+  <testsuite name="06 Security / R076 | IDOR read denied" id="44b1bc2b-fceb-4824-9b94-968c457beea1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.011">
+    <testcase name="HTTP 403" time="0.011" classname="06SecurityR076IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.011" classname="06SecurityR076IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.011" classname="06SecurityR076IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R077 | IDOR read denied" id="464c617b-63a2-4fe7-aa62-5aebf38cc3fb" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.010">
+    <testcase name="HTTP 403" time="0.010" classname="06SecurityR077IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.010" classname="06SecurityR077IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.010" classname="06SecurityR077IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R078 | IDOR read denied" id="75c53228-6f6c-47e0-9913-6d85ae54a6fc" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.011">
+    <testcase name="HTTP 403" time="0.011" classname="06SecurityR078IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.011" classname="06SecurityR078IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.011" classname="06SecurityR078IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R079 | IDOR read denied" id="f49a3178-1ade-4e76-8e4b-14a56d7b7098" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR079IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR079IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR079IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R080 | IDOR read denied" id="1c0880fc-8464-40d1-af66-45c13ccaab06" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR080IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR080IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR080IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R081 | IDOR read denied" id="bec8974a-836c-458a-8fa4-a405d443f9ba" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 403" time="0.015" classname="06SecurityR081IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.015" classname="06SecurityR081IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.015" classname="06SecurityR081IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R082 | IDOR read denied" id="72ff416d-e00b-4bf1-a92b-f7de25d63e83" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 403" time="0.015" classname="06SecurityR082IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.015" classname="06SecurityR082IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.015" classname="06SecurityR082IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R083 | IDOR read denied" id="f468c619-c0dd-4df9-8cd9-9fd1c8b5b2de" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR083IdorReadDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR083IdorReadDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR083IdorReadDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R084 | IDOR mutation denied" id="56c535a2-3134-4247-beb9-310e4b763262" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 403" time="0.012" classname="06SecurityR084IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.012" classname="06SecurityR084IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.012" classname="06SecurityR084IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R085 | IDOR mutation denied" id="b9def0e6-3bbb-435b-b6e6-9de8f742af60" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR085IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR085IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR085IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R086 | IDOR mutation denied" id="874a28e8-f334-4e85-9a7d-23de6a0ca687" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR086IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR086IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR086IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R087 | IDOR mutation denied" id="f3e99210-6873-49cb-bfbe-e12edb71831e" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 403" time="0.012" classname="06SecurityR087IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.012" classname="06SecurityR087IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.012" classname="06SecurityR087IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R088 | IDOR mutation denied" id="e4c22e4d-1543-4647-bd8b-84808339e9d6" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 403" time="0.017" classname="06SecurityR088IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.017" classname="06SecurityR088IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.017" classname="06SecurityR088IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R089 | IDOR mutation denied" id="8a7e7ac4-fb4f-4fa7-b1b4-0ddd219ab3c4" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 403" time="0.013" classname="06SecurityR089IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR089IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.013" classname="06SecurityR089IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R090 | IDOR mutation denied" id="7e852dd3-64d8-4874-9127-21a0ac1c8bec" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="1" errors="0" time="0.025">
+    <testcase name="HTTP 403" time="0.025" classname="06SecurityR090IdorMutationDenied">
+      <failure type="AssertionFailure" message="expected response to have status code 403 but got 204">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R090 | IDOR mutation denied.]]>
+        <![CDATA[Test description: HTTP 403.]]>
+        <![CDATA[Error message: expected response to have status code 403 but got 204.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 403 but got 204
+   at Object.eval sandbox-script.js:1:90).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.025" classname="06SecurityR090IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R091 | IDOR mutation denied" id="1f303803-3e42-41cd-a5c2-ae7a37effa09" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 403" time="0.012" classname="06SecurityR091IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.012" classname="06SecurityR091IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.012" classname="06SecurityR091IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R092 | IDOR mutation denied" id="2f06cf2d-364a-4815-ac13-bcff3f3b1ad3" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 403" time="0.012" classname="06SecurityR092IdorMutationDenied"/>
+    <testcase name="Response JSON schema" time="0.012" classname="06SecurityR092IdorMutationDenied"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.012" classname="06SecurityR092IdorMutationDenied"/>
+  </testsuite>
+  <testsuite name="06 Security / R093 | Missing route" id="cb8d6088-e0dc-488f-9471-c216d20b32c0" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 404" time="0.003" classname="06SecurityR093MissingRoute"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.003" classname="06SecurityR093MissingRoute"/>
+  </testsuite>
+  <testsuite name="06 Security / R094 | Original data unchanged" id="9f5c8c67-8e58-4b21-a722-8ca235c74023" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 200" time="0.015" classname="06SecurityR094OriginalDataUnchanged"/>
+    <testcase name="Response JSON schema" time="0.015" classname="06SecurityR094OriginalDataUnchanged"/>
+    <testcase name="Field values and scenario invariants" time="0.015" classname="06SecurityR094OriginalDataUnchanged"/>
+  </testsuite>
+  <testsuite name="06 Security / R095 | Foreign private deck is not polluted" id="474dfae2-82f8-4620-9025-4bbb0f59fbc7" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="06SecurityR095ForeignPrivateDeckIsNotPolluted"/>
+    <testcase name="Response JSON schema" time="0.014" classname="06SecurityR095ForeignPrivateDeckIsNotPolluted"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="06SecurityR095ForeignPrivateDeckIsNotPolluted">
+      <failure type="AssertionFailure" message="expected 2 to deeply equal 1">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 06 Security / R095 | Foreign private deck is not polluted.]]>
+        <![CDATA[Test description: Field values and scenario invariants.]]>
+        <![CDATA[Error message: expected 2 to deeply equal 1.]]>
+        <![CDATA[Stacktrace: AssertionError: expected 2 to deeply equal 1
+   at Object.eval sandbox-script.js:3:95).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="06 Security / R096 | Publish own deck" id="5b87602d-444d-44b9-8a35-562fb05f36da" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.028">
+    <testcase name="HTTP 204" time="0.028" classname="06SecurityR096PublishOwnDeck"/>
+    <testcase name="Empty 204 body" time="0.028" classname="06SecurityR096PublishOwnDeck"/>
+  </testsuite>
+  <testsuite name="06 Security / R097 | Public catalogue" id="0986c6ad-847d-4331-a593-235782914105" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 200" time="0.013" classname="06SecurityR097PublicCatalogue"/>
+    <testcase name="Response JSON schema" time="0.013" classname="06SecurityR097PublicCatalogue"/>
+    <testcase name="Field values and scenario invariants" time="0.013" classname="06SecurityR097PublicCatalogue"/>
+  </testsuite>
+  <testsuite name="06 Security / R098 | Copy public deck" id="9a4dfda3-646d-4c1e-9320-fa2c7ef49780" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 201" time="0.024" classname="06SecurityR098CopyPublicDeck"/>
+    <testcase name="Response JSON schema" time="0.024" classname="06SecurityR098CopyPublicDeck"/>
+    <testcase name="Field values and scenario invariants" time="0.024" classname="06SecurityR098CopyPublicDeck"/>
+  </testsuite>
+  <testsuite name="06 Security / R099 | Read copy" id="a6bce0d4-5043-417f-8fd5-4d9ce87b59e4" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 200" time="0.012" classname="06SecurityR099ReadCopy"/>
+    <testcase name="Response JSON schema" time="0.012" classname="06SecurityR099ReadCopy"/>
+    <testcase name="Field values and scenario invariants" time="0.012" classname="06SecurityR099ReadCopy"/>
+  </testsuite>
+  <testsuite name="07 Administration / R100 | Login admin" id="58f01264-f351-4f45-af4a-b26da24b8bf7" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.557">
+    <testcase name="HTTP 204" time="0.557" classname="07AdministrationR100LoginAdmin"/>
+    <testcase name="Empty 204 body" time="0.557" classname="07AdministrationR100LoginAdmin"/>
+    <testcase name="Field values and scenario invariants" time="0.557" classname="07AdministrationR100LoginAdmin"/>
+  </testsuite>
+  <testsuite name="07 Administration / R101 | Create managed user" id="9c04021a-538b-478a-acd2-c1b59ef40d78" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.462">
+    <testcase name="HTTP 201" time="0.462" classname="07AdministrationR101CreateManagedUser"/>
+    <testcase name="Response JSON schema" time="0.462" classname="07AdministrationR101CreateManagedUser"/>
+    <testcase name="Field values and scenario invariants" time="0.462" classname="07AdministrationR101CreateManagedUser"/>
+  </testsuite>
+  <testsuite name="07 Administration / R102 | List users" id="989f3640-c0b1-49dd-8816-bc9ba00cadfc" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 200" time="0.014" classname="07AdministrationR102ListUsers"/>
+    <testcase name="Response JSON schema" time="0.014" classname="07AdministrationR102ListUsers"/>
+    <testcase name="Field values and scenario invariants" time="0.014" classname="07AdministrationR102ListUsers"/>
+  </testsuite>
+  <testsuite name="07 Administration / R103 | Read managed user" id="0a1d276d-4e18-4a08-884b-e10f9c323286" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 200" time="0.012" classname="07AdministrationR103ReadManagedUser"/>
+    <testcase name="Response JSON schema" time="0.012" classname="07AdministrationR103ReadManagedUser"/>
+    <testcase name="Field values and scenario invariants" time="0.012" classname="07AdministrationR103ReadManagedUser"/>
+  </testsuite>
+  <testsuite name="07 Administration / R104 | Grant admin" id="ed381a18-dcd5-4aa7-b24d-137418833858" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 204" time="0.020" classname="07AdministrationR104GrantAdmin"/>
+    <testcase name="Empty 204 body" time="0.020" classname="07AdministrationR104GrantAdmin"/>
+  </testsuite>
+  <testsuite name="07 Administration / R105 | Verify admin" id="73fe2792-73fb-4234-9197-15aa08468ca4" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.010">
+    <testcase name="HTTP 200" time="0.010" classname="07AdministrationR105VerifyAdmin"/>
+    <testcase name="Response JSON schema" time="0.010" classname="07AdministrationR105VerifyAdmin"/>
+    <testcase name="Field values and scenario invariants" time="0.010" classname="07AdministrationR105VerifyAdmin"/>
+  </testsuite>
+  <testsuite name="07 Administration / R106 | Revoke admin" id="43864085-85bb-4d00-b11c-a4aac66d2eb2" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="07AdministrationR106RevokeAdmin"/>
+    <testcase name="Empty 204 body" time="0.014" classname="07AdministrationR106RevokeAdmin"/>
+  </testsuite>
+  <testsuite name="07 Administration / R107 | Activate user" id="de2db43b-a234-46b8-9f1a-be93dc26480a" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="07AdministrationR107ActivateUser"/>
+    <testcase name="Empty 204 body" time="0.014" classname="07AdministrationR107ActivateUser"/>
+  </testsuite>
+  <testsuite name="07 Administration / R108 | Change username" id="77aaf753-41e5-4068-a2d5-274ad3e0dcb2" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 204" time="0.016" classname="07AdministrationR108ChangeUsername"/>
+    <testcase name="Empty 204 body" time="0.016" classname="07AdministrationR108ChangeUsername"/>
+  </testsuite>
+  <testsuite name="07 Administration / R109 | Change email" id="92d65f64-56bf-418b-a110-9e39b31cae0e" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.016">
+    <testcase name="HTTP 204" time="0.016" classname="07AdministrationR109ChangeEmail"/>
+    <testcase name="Empty 204 body" time="0.016" classname="07AdministrationR109ChangeEmail"/>
+  </testsuite>
+  <testsuite name="07 Administration / R110 | Verify managed changes" id="03f8a5d5-d4a9-4398-8218-af923025e3e0" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.010">
+    <testcase name="HTTP 200" time="0.010" classname="07AdministrationR110VerifyManagedChanges"/>
+    <testcase name="Response JSON schema" time="0.010" classname="07AdministrationR110VerifyManagedChanges"/>
+    <testcase name="Field values and scenario invariants" time="0.010" classname="07AdministrationR110VerifyManagedChanges"/>
+  </testsuite>
+  <testsuite name="07 Administration / R111 | Own aggregate stats" id="7a9fb9f7-05d5-4706-ac9f-027e6e881388" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.027">
+    <testcase name="HTTP 200" time="0.027" classname="07AdministrationR111OwnAggregateStats"/>
+    <testcase name="Response JSON schema" time="0.027" classname="07AdministrationR111OwnAggregateStats"/>
+    <testcase name="Field values and scenario invariants" time="0.027" classname="07AdministrationR111OwnAggregateStats"/>
+  </testsuite>
+  <testsuite name="07 Administration / R112 | Delete managed user" id="1258bc60-d9f9-4cd2-b454-5f9172332832" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 204" time="0.020" classname="07AdministrationR112DeleteManagedUser"/>
+    <testcase name="Empty 204 body" time="0.020" classname="07AdministrationR112DeleteManagedUser"/>
+  </testsuite>
+  <testsuite name="07 Administration / R113 | Verify deletion" id="3fe9cef9-b660-44e3-86b6-7aac773b47f1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 404" time="0.012" classname="07AdministrationR113VerifyDeletion"/>
+    <testcase name="Response JSON schema" time="0.012" classname="07AdministrationR113VerifyDeletion"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.012" classname="07AdministrationR113VerifyDeletion"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R114 | Change own password" id="b0413e7d-c1a2-4ab9-9b24-2a6d4b90636d" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.500">
+    <testcase name="HTTP 204" time="0.500" classname="08FinalizationR114ChangeOwnPassword"/>
+    <testcase name="Empty 204 body" time="0.500" classname="08FinalizationR114ChangeOwnPassword"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R115 | Old cookie revoked" id="5c9f0dc7-5f67-4765-b903-b3401c4483b8" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 401" time="0.008" classname="08FinalizationR115OldCookieRevoked"/>
+    <testcase name="Response JSON schema" time="0.008" classname="08FinalizationR115OldCookieRevoked"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.008" classname="08FinalizationR115OldCookieRevoked"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R116 | Old password rejected" id="1252ee9e-42c4-4359-9528-1b104d09860d" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.517">
+    <testcase name="HTTP 401" time="0.517" classname="08FinalizationR116OldPasswordRejected"/>
+    <testcase name="Response JSON schema" time="0.517" classname="08FinalizationR116OldPasswordRejected"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.517" classname="08FinalizationR116OldPasswordRejected"/>
+  </testsuite>
+  <testsuite name="01 Auth / R117 | Login a" id="c0ed2514-cd19-448b-aa85-70c18eee8ad1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.504">
+    <testcase name="HTTP 204" time="0.504" classname="01AuthR117LoginA"/>
+    <testcase name="Empty 204 body" time="0.504" classname="01AuthR117LoginA"/>
+    <testcase name="Field values and scenario invariants" time="0.504" classname="01AuthR117LoginA"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R118 | Logout" id="ea375c6a-a0c1-4c26-8501-9fc4fe07bb71" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 204" time="0.013" classname="08FinalizationR118Logout"/>
+    <testcase name="Empty 204 body" time="0.013" classname="08FinalizationR118Logout"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R119 | Logout revokes old cookie" id="0e1ff63b-9ac6-4f02-a153-ccf6e8582bb1" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 401" time="0.008" classname="08FinalizationR119LogoutRevokesOldCookie"/>
+    <testcase name="Response JSON schema" time="0.008" classname="08FinalizationR119LogoutRevokesOldCookie"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.008" classname="08FinalizationR119LogoutRevokesOldCookie"/>
+  </testsuite>
+  <testsuite name="01 Auth / R120 | Login a" id="ea662a4d-4e7e-4a84-9da6-7cb771f12a70" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.491">
+    <testcase name="HTTP 204" time="0.491" classname="01AuthR120LoginA"/>
+    <testcase name="Empty 204 body" time="0.491" classname="01AuthR120LoginA"/>
+    <testcase name="Field values and scenario invariants" time="0.491" classname="01AuthR120LoginA"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R121 | Delete card" id="2b261ebf-1471-4eb0-9226-412f5ad6c31a" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="08FinalizationR121DeleteCard"/>
+    <testcase name="Empty 204 body" time="0.014" classname="08FinalizationR121DeleteCard"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R122 | Deleted card" id="dc3c3bc4-15b0-4690-8e57-99b48ae4f049" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 404" time="0.008" classname="08FinalizationR122DeletedCard"/>
+    <testcase name="Response JSON schema" time="0.008" classname="08FinalizationR122DeletedCard"/>
+    <testcase name="No stack, paths or SQL in client error" time="0.008" classname="08FinalizationR122DeletedCard"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R123 | Delete deck a" id="8edbd345-333b-4b44-b4b9-3762a46f6d41" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 204" time="0.015" classname="08FinalizationR123DeleteDeckA"/>
+    <testcase name="Empty 204 body" time="0.015" classname="08FinalizationR123DeleteDeckA"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R124 | Delete deck alt" id="c6d0bbea-3103-4892-99dc-67afe73513d7" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="08FinalizationR124DeleteDeckAlt"/>
+    <testcase name="Empty 204 body" time="0.014" classname="08FinalizationR124DeleteDeckAlt"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R125 | Delete config a" id="c989a525-b8d7-4c77-9c9a-07c3a9e671fa" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 204" time="0.020" classname="08FinalizationR125DeleteConfigA"/>
+    <testcase name="Empty 204 body" time="0.020" classname="08FinalizationR125DeleteConfigA"/>
+  </testsuite>
+  <testsuite name="08 Finalization / R126 | Delete config alt" id="d53e50b7-6aae-44fe-abb7-20bdb994b440" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.014">
+    <testcase name="HTTP 204" time="0.014" classname="08FinalizationR126DeleteConfigAlt"/>
+    <testcase name="Empty 204 body" time="0.014" classname="08FinalizationR126DeleteConfigAlt"/>
+  </testsuite>
+  <testsuite name="09 Security role escalation / R127 | User cannot grant own admin role" id="bb537b46-f298-4004-adf7-f01755d2bc5f" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="1" errors="0" time="0.011">
+    <testcase name="HTTP 403" time="0.011" classname="09SecurityRoleEscalationR127UserCannotGrantOwnAdminRole">
+      <failure type="AssertionFailure" message="expected response to have status code 403 but got 204">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 09 Security role escalation / R127 | User cannot grant own admin role.]]>
+        <![CDATA[Test description: HTTP 403.]]>
+        <![CDATA[Error message: expected response to have status code 403 but got 204.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 403 but got 204
+   at Object.eval sandbox-script.js:1:127).]]>
+      </failure>
+    </testcase>
+    <testcase name="No stack, paths or SQL in client error" time="0.011" classname="09SecurityRoleEscalationR127UserCannotGrantOwnAdminRole"/>
+  </testsuite>
+  <testsuite name="09 Security role escalation / R128 | Role must remain user" id="79363dfc-4222-47dc-9293-e5e31bd6ea6c" timestamp="2026-11-16T15:32:55.136Z" tests="3" failures="1" errors="0" time="0.009">
+    <testcase name="HTTP 200" time="0.009" classname="09SecurityRoleEscalationR128RoleMustRemainUser"/>
+    <testcase name="Response JSON schema" time="0.009" classname="09SecurityRoleEscalationR128RoleMustRemainUser"/>
+    <testcase name="Field values and scenario invariants" time="0.009" classname="09SecurityRoleEscalationR128RoleMustRemainUser">
+      <failure type="AssertionFailure" message="expected 'admin' to deeply equal 'user'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 7315e999-294f-461a-ad27-fbf75852b78e.]]>
+        <![CDATA[Collection name: TrafficMaster — Lab 4 API and security.]]>
+        <![CDATA[Request name: 09 Security role escalation / R128 | Role must remain user.]]>
+        <![CDATA[Test description: Field values and scenario invariants.]]>
+        <![CDATA[Error message: expected 'admin' to deeply equal 'user'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected 'admin' to deeply equal 'user'
+   at Object.eval sandbox-script.js:3:128).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="09 Security role escalation / R129 | Restore disposable user role" id="cc6a77bc-003a-4e5a-96cb-4a24915c839e" timestamp="2026-11-16T15:32:55.136Z" tests="2" failures="0" errors="0" time="0.013">
+    <testcase name="HTTP 204" time="0.013" classname="09SecurityRoleEscalationR129RestoreDisposableUserRole"/>
+    <testcase name="Empty 204 body" time="0.013" classname="09SecurityRoleEscalationR129RestoreDisposableUserRole"/>
+  </testsuite>
+</testsuites>

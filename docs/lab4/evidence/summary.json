@@ -1,0 +1,22 @@
+{
+  "requests": 129,
+  "requests_with_all_assertions_passed": 111,
+  "assertions": {
+    "total": 352,
+    "pending": 0,
+    "failed": 18
+  },
+  "operations_total": 55,
+  "operations_positive_verified": 55,
+  "ui_passed": 4,
+  "ui_total": 4,
+  "failure_capture_verified": true,
+  "new_defects": [
+    "APP-05",
+    "APP-06",
+    "APP-07"
+  ],
+  "frontend_scope": "Not applicable: API only",
+  "started": "2026-11-16T18:32:44.701137+03:00",
+  "finished": "2026-11-16T18:33:41.200523+03:00"
+}

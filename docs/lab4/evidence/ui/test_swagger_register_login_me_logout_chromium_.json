@@ -1,0 +1,9 @@
+{
+  "test": "test_swagger_register_login_me_logout[chromium]",
+  "status": "passed",
+  "screenshot": "test_swagger_register_login_me_logout_chromium_.png",
+  "console_errors": [],
+  "network_failures": [],
+  "error": null,
+  "failure_screenshot": false
+}

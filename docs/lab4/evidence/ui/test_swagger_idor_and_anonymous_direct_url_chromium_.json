@@ -1,0 +1,9 @@
+{
+  "test": "test_swagger_idor_and_anonymous_direct_url[chromium]",
+  "status": "passed",
+  "screenshot": "test_swagger_idor_and_anonymous_direct_url_chromium_.png",
+  "console_errors": [],
+  "network_failures": [],
+  "error": null,
+  "failure_screenshot": false
+}

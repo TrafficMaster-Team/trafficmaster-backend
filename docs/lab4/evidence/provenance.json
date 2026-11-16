@@ -1,0 +1,22 @@
+{
+  "started": "2026-11-16T18:32:44.701137+03:00",
+  "finished": "2026-11-16T18:33:41.200523+03:00",
+  "versions": {
+    "pytest": "9.0.2",
+    "pytest-playwright": "0.10.0",
+    "playwright": "1.65.2",
+    "httpx": "0.28.1",
+    "fastapi": "0.135.2"
+  },
+  "node": "v24.22.1",
+  "newman": "6.2.1",
+  "files": {
+    "postman/TrafficMaster.postman_collection.json": "83b7d75482aadbcb7b4d2f228b15fb421ea626047bed96a7c1f82ce22e5ec560",
+    "postman/openapi.json": "e5e8c03e523c2250e6f5a6ebc36c29a8cfadafbaf44720f978c55a7c4bc4b671",
+    "postman/package-lock.json": "1be871c5baa96b365c062a4a68813e4926d5c4bc2b3a9a79b2c3a573f8ec07ad",
+    "tests/e2e/pages.py": "ce78ef59d20e0875c3db4b92dadc12ac91470487d666193b827d98c1197dd18b",
+    "tests/e2e/conftest.py": "1224f70e1e5ca4c3dac627fbfac776219ebad8f2a4986fcacf0a4d418a5932b5",
+    "tests/e2e/test_swagger.py": "43715946d35c091fcd615171e5bd70b7eda96c6c17aa98889e4ed2a2d548c7b0",
+    "scripts/run_lab4.py": "0bc074b0140f636b00155799d3f0bc6cf424a5189a699d49a38503c2016a4c89"
+  }
+}

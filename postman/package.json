@@ -1,0 +1,6 @@
+{
+  "name": "trafficmaster-api-tests",
+  "private": true,
+  "scripts": {"test": "newman run TrafficMaster.postman_collection.json -e local.postman_environment.json -r cli,json,junit --reporter-json-export ../docs/lab4/evidence/newman.json --reporter-junit-export ../docs/lab4/evidence/newman.xml"},
+  "devDependencies": {"newman": "6.2.1"}
+}

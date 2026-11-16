@@ -50,6 +50,12 @@ nav:
       - Чек-лист: lab3/checklist.md
       - Тест-кейсы: lab3/test-cases.md
       - Выполнение и метрики: lab3/execution.md
+  - Лабораторная работа № 4:
+      - Объём и запуск: lab4/README.md
+      - Postman и покрытие API: lab4/api.md
+      - Безопасность: lab4/security.md
+      - Swagger UI и Playwright: lab4/swagger-ui.md
+      - Итоговый протокол: lab4/results.md
 plugins:
   - search
 

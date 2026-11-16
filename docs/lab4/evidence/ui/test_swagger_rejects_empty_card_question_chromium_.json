@@ -1,0 +1,9 @@
+{
+  "test": "test_swagger_rejects_empty_card_question[chromium]",
+  "status": "passed",
+  "screenshot": "test_swagger_rejects_empty_card_question_chromium_.png",
+  "console_errors": [],
+  "network_failures": [],
+  "error": null,
+  "failure_screenshot": false
+}

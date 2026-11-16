@@ -1,0 +1,9 @@
+{
+  "test": "test_failure_screenshot_probe[chromium]",
+  "status": "failed",
+  "screenshot": "test_failure_screenshot_probe_chromium_.png",
+  "console_errors": [],
+  "network_failures": [],
+  "error": "tests/e2e/test_swagger.py:98: in test_failure_screenshot_probe\n    pytest.fail(\"Intentional failure: verifying that the screenshot hook saves evidence\")\nE   Failed: Intentional failure: verifying that the screenshot hook saves evidence",
+  "failure_screenshot": true
+}
