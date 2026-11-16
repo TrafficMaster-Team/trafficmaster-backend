@@ -1,0 +1,259 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>TC-014 — результат выполнения</title><style>body{font:16px system-ui;margin:28px auto;max-width:1100px;background:#f4f6fa;color:#142039;padding:0 20px}h1{font-size:27px;margin-bottom:8px}h2{font-size:18px}header{border-left:7px solid #224cd8;padding-left:18px;margin:22px 0}section{background:white;padding:16px 22px;margin:15px 0;border:1px solid #dce2ee;border-radius:12px}pre{font:13px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;margin:10px 0}.Passed{color:#087448}.Failed{color:#b42136}small{color:#526079}a{color:#214cc7}td,th{padding:9px 14px;text-align:left;border-bottom:1px solid #dde3ee}table{border-collapse:collapse;width:100%}.badge{font-size:21px;font-weight:bold}details{margin-top:15px}</style>
+    <header><small>TrafficMaster · ЛР3 · реальный HTTP / PostgreSQL / Redis</small><h1>TC-014 — Несуществующая конфигурация</h1><b>FR-07 · High · Колоды / создание</b></header>
+    <section><span class="badge Passed">Passed</span> · 8 проверок · дефект не обнаружен<br><small>2026-11-16T16:34:25.314771+03:00 — 2026-11-16T16:34:26.798312+03:00 · Europe/Minsk</small><p><b>Ожидание:</b> 404; колода с ошибочной конфигурацией не создана.</p><p><b>Факт:</b> Все проверки кейса успешны; ответы приведены ниже.</p></section>
+    <section><b>POST /v1/deck/ → HTTP 404</b><pre>{
+  &quot;description&quot;: &quot;Deck config not found&quot;
+}</pre></section><section><b>GET /v1/deck/ → HTTP 200</b><pre>{
+  &quot;decks&quot;: [
+    {
+      &quot;id&quot;: &quot;f7a9568a-5e63-4df7-b875-bbd31fed3238&quot;,
+      &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+      &quot;deck_config_id&quot;: &quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5&quot;,
+      &quot;title&quot;: &quot;Traffic rules&quot;,
+      &quot;description&quot;: null,
+      &quot;is_public&quot;: false
+    }
+  ]
+}</pre></section><details><summary>Полная трасса и проверки</summary><pre>{
+  &quot;id&quot;: &quot;TC-014&quot;,
+  &quot;requirement&quot;: &quot;FR-07&quot;,
+  &quot;started&quot;: &quot;2026-11-16T16:34:25.314771+03:00&quot;,
+  &quot;status&quot;: &quot;Passed&quot;,
+  &quot;defect&quot;: null,
+  &quot;error&quot;: null,
+  &quot;finished&quot;: &quot;2026-11-16T16:34:26.798312+03:00&quot;,
+  &quot;events&quot;: [
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/auth/signup&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;email&quot;: &quot;lab3_bba742ac39cc@example.com&quot;,
+        &quot;name&quot;: &quot;Lab-User&quot;,
+        &quot;password&quot;: &quot;&lt;test-password-redacted&gt;&quot;
+      },
+      &quot;status&quot;: 201,
+      &quot;response&quot;: {
+        &quot;id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/auth/login&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;email&quot;: &quot;lab3_bba742ac39cc@example.com&quot;,
+        &quot;password&quot;: &quot;&lt;test-password-redacted&gt;&quot;
+      },
+      &quot;status&quot;: 204,
+      &quot;response&quot;: null,
+      &quot;cookie_set&quot;: true,
+      &quot;httponly&quot;: true
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/deck-config/&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+        &quot;name&quot;: &quot;Lab config&quot;,
+        &quot;daily_limits&quot;: {
+          &quot;new_cards_per_day&quot;: 1,
+          &quot;max_reviews_per_day&quot;: 20
+        },
+        &quot;new_cards&quot;: {
+          &quot;learning_steps&quot;: [
+            1,
+            10
+          ],
+          &quot;graduating_interval&quot;: 1,
+          &quot;easy_interval&quot;: 4,
+          &quot;new_card_order&quot;: &quot;sequential&quot;
+        },
+        &quot;lapses&quot;: {
+          &quot;relearning_steps&quot;: [
+            10
+          ],
+          &quot;min_interval&quot;: 1
+        },
+        &quot;advanced&quot;: {
+          &quot;max_interval&quot;: 36500,
+          &quot;ease_factor&quot;: 2.5,
+          &quot;easy_factor&quot;: 1.3,
+          &quot;interval_modifier&quot;: 1.0,
+          &quot;hard_interval&quot;: 1.2,
+          &quot;new_interval&quot;: 0.0
+        }
+      },
+      &quot;status&quot;: 201,
+      &quot;response&quot;: {
+        &quot;id&quot;: &quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/deck/&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+        &quot;deck_config_id&quot;: &quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5&quot;,
+        &quot;title&quot;: &quot;Traffic rules&quot;,
+        &quot;is_public&quot;: false
+      },
+      &quot;status&quot;: 201,
+      &quot;response&quot;: {
+        &quot;id&quot;: &quot;f7a9568a-5e63-4df7-b875-bbd31fed3238&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/card/&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;deck_id&quot;: &quot;f7a9568a-5e63-4df7-b875-bbd31fed3238&quot;,
+        &quot;question&quot;: &quot;What does a red traffic light mean?&quot;,
+        &quot;answerOptions&quot;: [
+          {
+            &quot;text&quot;: &quot;Stop&quot;,
+            &quot;isCorrect&quot;: true,
+            &quot;rationale&quot;: &quot;Red prohibits movement&quot;
+          }
+        ],
+        &quot;hint&quot;: &quot;Think about safety&quot;,
+        &quot;tags&quot;: [
+          &quot;signals&quot;
+        ]
+      },
+      &quot;status&quot;: 201,
+      &quot;response&quot;: {
+        &quot;id&quot;: &quot;46b615fc-4863-4b89-9174-f694543ecc60&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/deck/&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+        &quot;deck_config_id&quot;: &quot;6650153d-95db-44b0-8d77-30a506016f34&quot;,
+        &quot;title&quot;: &quot;Should not exist&quot;
+      },
+      &quot;status&quot;: 404,
+      &quot;response&quot;: {
+        &quot;description&quot;: &quot;Deck config not found&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;GET&quot;,
+      &quot;path&quot;: &quot;/v1/deck/&quot;,
+      &quot;params&quot;: {
+        &quot;user_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;
+      },
+      &quot;request&quot;: {},
+      &quot;status&quot;: 200,
+      &quot;response&quot;: {
+        &quot;decks&quot;: [
+          {
+            &quot;id&quot;: &quot;f7a9568a-5e63-4df7-b875-bbd31fed3238&quot;,
+            &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+            &quot;deck_config_id&quot;: &quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5&quot;,
+            &quot;title&quot;: &quot;Traffic rules&quot;,
+            &quot;description&quot;: null,
+            &quot;is_public&quot;: false
+          }
+        ]
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    }
+  ],
+  &quot;checks&quot;: [
+    {
+      &quot;expectation&quot;: &quot;POST /v1/auth/signup: HTTP 201&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 201,
+        &quot;body&quot;: &quot;{\&quot;id\&quot;:\&quot;8f08bb37-5634-49f9-9304-e65d261bb180\&quot;}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;POST /v1/auth/login: HTTP 204&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 204,
+        &quot;body&quot;: &quot;&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;POST /v1/deck-config/: HTTP 201&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 201,
+        &quot;body&quot;: &quot;{\&quot;id\&quot;:\&quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5\&quot;}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;POST /v1/deck/: HTTP 201&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 201,
+        &quot;body&quot;: &quot;{\&quot;id\&quot;:\&quot;f7a9568a-5e63-4df7-b875-bbd31fed3238\&quot;}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;POST /v1/card/: HTTP 201&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 201,
+        &quot;body&quot;: &quot;{\&quot;id\&quot;:\&quot;46b615fc-4863-4b89-9174-f694543ecc60\&quot;}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;POST /v1/deck/: HTTP 404&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 404,
+        &quot;body&quot;: &quot;{\&quot;description\&quot;:\&quot;Deck config not found\&quot;}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;GET /v1/deck/: HTTP 200&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 200,
+        &quot;body&quot;: &quot;{\&quot;decks\&quot;:[{\&quot;id\&quot;:\&quot;f7a9568a-5e63-4df7-b875-bbd31fed3238\&quot;,\&quot;owner_id\&quot;:\&quot;8f08bb37-5634-49f9-9304-e65d261bb180\&quot;,\&quot;deck_config_id\&quot;:\&quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5\&quot;,\&quot;title\&quot;:\&quot;Traffic rules\&quot;,\&quot;description\&quot;:null,\&quot;is_public\&quot;:false}]}&quot;
+      }
+    },
+    {
+      &quot;expectation&quot;: &quot;No deck created on failure&quot;,
+      &quot;passed&quot;: true,
+      &quot;actual&quot;: [
+        {
+          &quot;id&quot;: &quot;f7a9568a-5e63-4df7-b875-bbd31fed3238&quot;,
+          &quot;owner_id&quot;: &quot;8f08bb37-5634-49f9-9304-e65d261bb180&quot;,
+          &quot;deck_config_id&quot;: &quot;974f045e-44a9-4444-bc38-f63e5fbe8ef5&quot;,
+          &quot;title&quot;: &quot;Traffic rules&quot;,
+          &quot;description&quot;: null,
+          &quot;is_public&quot;: false
+        }
+      ]
+    }
+  ]
+}</pre></details><p><a href="TC-014.json">Первичные данные JSON</a> · <a href="index.html">Все результаты</a></p></html>

@@ -1,0 +1,85 @@
+{
+  "id": "TC-002",
+  "requirement": "FR-01",
+  "started": "2026-11-16T16:34:00.225606+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:02.317955+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_faf8b3000e32@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "56ac3208-981e-4433-9358-11ced0b840af"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_faf8b3000e32@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_faf8b3000e32@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 409,
+      "response": {
+        "description": "User with this email already exists"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"56ac3208-981e-4433-9358-11ced0b840af\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 409",
+      "passed": true,
+      "actual": {
+        "status": 409,
+        "body": "{\"description\":\"User with this email already exists\"}"
+      }
+    }
+  ]
+}

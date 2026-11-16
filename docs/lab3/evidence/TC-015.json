@@ -1,0 +1,252 @@
+{
+  "id": "TC-015",
+  "requirement": "FR-08",
+  "started": "2026-11-16T16:34:26.847419+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:28.262687+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_a61e4e0cba12@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_a61e4e0cba12@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "6412738f-65f4-4139-84c8-04dfb6d4498d"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+        "deck_config_id": "6412738f-65f4-4139-84c8-04dfb6d4498d",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "66be0a5b-317e-4aee-9e37-2c95cb0f630f"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3/title",
+      "params": null,
+      "request": {
+        "title": "Updated title"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3/privacy",
+      "params": null,
+      "request": {
+        "is_public": true
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+        "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+        "deck_config_id": "6412738f-65f4-4139-84c8-04dfb6d4498d",
+        "title": "Updated title",
+        "description": null,
+        "is_public": true
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"6412738f-65f4-4139-84c8-04dfb6d4498d\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"c5cd81c0-5290-43d9-b647-ca19a99d0ef3\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"66be0a5b-317e-4aee-9e37-2c95cb0f630f\"}"
+      }
+    },
+    {
+      "expectation": "PATCH /v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3/title: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "PATCH /v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3/privacy: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/c5cd81c0-5290-43d9-b647-ca19a99d0ef3: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"c5cd81c0-5290-43d9-b647-ca19a99d0ef3\",\"owner_id\":\"5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87\",\"deck_config_id\":\"6412738f-65f4-4139-84c8-04dfb6d4498d\",\"title\":\"Updated title\",\"description\":null,\"is_public\":true}"
+      }
+    },
+    {
+      "expectation": "Deck matches permitted changes",
+      "passed": true,
+      "actual": {
+        "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+        "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+        "deck_config_id": "6412738f-65f4-4139-84c8-04dfb6d4498d",
+        "title": "Updated title",
+        "description": null,
+        "is_public": true
+      }
+    }
+  ]
+}

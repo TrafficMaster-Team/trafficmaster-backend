@@ -1,0 +1,627 @@
+[
+  {
+    "id": "TC-001",
+    "requirement": "FR-01",
+    "priority": "High",
+    "module": "Доступ / регистрация",
+    "kind": "positive",
+    "title": "Регистрация корректного пользователя",
+    "data": "Гость без cookie; email=lab3_<uuid>@example.com, name=Lab-User, password=LearningSecure123.",
+    "steps": [
+      "POST /v1/auth/signup с указанными данными",
+      "сохранить UUID",
+      "войти и прочитать GET /v1/auth/me."
+    ],
+    "expected": "201 и UUID; после входа профиль содержит тот же UUID, имя и email."
+  },
+  {
+    "id": "TC-002",
+    "requirement": "FR-01",
+    "priority": "High",
+    "module": "Доступ / регистрация",
+    "kind": "negative",
+    "title": "Повторная регистрация email",
+    "data": "Гость без cookie; email=lab3_<uuid>@example.com, name=Lab-User, password=LearningSecure123.",
+    "steps": [
+      "Зарегистрировать пользователя",
+      "очистить cookie",
+      "повторить POST /v1/auth/signup с тем же email."
+    ],
+    "expected": "409; повторная учётная запись не создана."
+  },
+  {
+    "id": "TC-003",
+    "requirement": "FR-02",
+    "priority": "High",
+    "module": "Доступ / сессии",
+    "kind": "positive",
+    "title": "Вход и чтение своего профиля",
+    "data": "Зарегистрированный пользователь; верный пароль LearningSecure123; неверный WrongSecure123.",
+    "steps": [
+      "POST /v1/auth/login",
+      "проверить cookie",
+      "GET /v1/auth/me."
+    ],
+    "expected": "204; access_token с HttpOnly; GET 200 с ID и email пользователя."
+  },
+  {
+    "id": "TC-004",
+    "requirement": "FR-02",
+    "priority": "High",
+    "module": "Доступ / сессии",
+    "kind": "negative",
+    "title": "Вход с неверным паролем",
+    "data": "Зарегистрированный пользователь; верный пароль LearningSecure123; неверный WrongSecure123.",
+    "steps": [
+      "Очистить cookie",
+      "POST /v1/auth/login с неверным паролем",
+      "GET /v1/auth/me."
+    ],
+    "expected": "401 на оба запроса; сессия не установлена."
+  },
+  {
+    "id": "TC-005",
+    "requirement": "FR-03",
+    "priority": "High",
+    "module": "Доступ / сессии",
+    "kind": "positive",
+    "title": "Выход отзывает сохранённую сессию",
+    "data": "Авторизованный пользователь; сохранённая cookie; поддельное значение invalid-token.",
+    "steps": [
+      "Сохранить cookie",
+      "POST /v1/auth/logout",
+      "восстановить cookie",
+      "GET /v1/auth/me."
+    ],
+    "expected": "204 на выход; 401 при повторном использовании старой cookie."
+  },
+  {
+    "id": "TC-006",
+    "requirement": "FR-03",
+    "priority": "High",
+    "module": "Доступ / сессии",
+    "kind": "negative",
+    "title": "Поддельная cookie не авторизует",
+    "data": "Авторизованный пользователь; сохранённая cookie; поддельное значение invalid-token.",
+    "steps": [
+      "POST /v1/auth/logout",
+      "установить access_token=invalid-token",
+      "GET /v1/auth/me."
+    ],
+    "expected": "Выход 204; поддельная cookie отклонена с 401."
+  },
+  {
+    "id": "TC-007",
+    "requirement": "FR-04",
+    "priority": "High",
+    "module": "Доступ / пароль",
+    "kind": "positive",
+    "title": "Смена пароля отзывает прежний доступ",
+    "data": "Пользователь A; старый пароль LearningSecure123, новый ChangedSecure456; для негативного кейса пользователь B.",
+    "steps": [
+      "PATCH /v1/user/{A}/password",
+      "восстановить старую cookie",
+      "GET /v1/auth/me",
+      "очистить cookie",
+      "войти со старым и новым паролем."
+    ],
+    "expected": "Изменение 204; старая cookie 401; старый пароль 401; новый пароль 204."
+  },
+  {
+    "id": "TC-008",
+    "requirement": "FR-04",
+    "priority": "High",
+    "module": "Доступ / пароль",
+    "kind": "negative",
+    "title": "Чужой пользователь не меняет пароль",
+    "data": "Пользователь A; старый пароль LearningSecure123, новый ChangedSecure456; для негативного кейса пользователь B.",
+    "steps": [
+      "Войти как B",
+      "PATCH /v1/user/{A}/password",
+      "затем проверить вход A со старым паролем."
+    ],
+    "expected": "403; пароль A не изменён, вход A со старым паролем 204."
+  },
+  {
+    "id": "TC-009",
+    "requirement": "FR-05",
+    "priority": "High",
+    "module": "Конфигурации / создание",
+    "kind": "positive",
+    "title": "Сохранение всех параметров конфигурации",
+    "data": "Набор M (описан ниже); для негативной проверки очищенная cookie и новый owner_id.",
+    "steps": [
+      "Создать конфигурацию из M через POST /v1/deck-config/",
+      "GET /v1/deck-config/{id}."
+    ],
+    "expected": "201 и UUID; GET 200; совпадают owner_id, name, daily_limits, new_cards, lapses и advanced."
+  },
+  {
+    "id": "TC-010",
+    "requirement": "FR-05",
+    "priority": "High",
+    "module": "Конфигурации / создание",
+    "kind": "negative",
+    "title": "Создание конфигурации без сессии",
+    "data": "Набор M (описан ниже); для негативной проверки очищенная cookie и новый owner_id.",
+    "steps": [
+      "Очистить cookie",
+      "POST /v1/deck-config/ с корректными параметрами M."
+    ],
+    "expected": "401; конфигурация не создана."
+  },
+  {
+    "id": "TC-011",
+    "requirement": "FR-06",
+    "priority": "Medium",
+    "module": "Конфигурации / изменение",
+    "kind": "positive",
+    "title": "Изменение имени и дневных лимитов",
+    "data": "Собственная конфигурация M; новое имя Updated config; лимиты 2/10; неверный лимит 0/10.",
+    "steps": [
+      "PATCH /v1/deck-config/{id}/name",
+      "PATCH /v1/deck-config/{id}/daily-limits",
+      "GET конфигурации."
+    ],
+    "expected": "Оба PATCH 204; GET содержит Updated config и лимиты 2/10."
+  },
+  {
+    "id": "TC-012",
+    "requirement": "FR-06",
+    "priority": "Medium",
+    "module": "Конфигурации / изменение",
+    "kind": "negative",
+    "title": "Нулевой дневной лимит отклонён",
+    "data": "Собственная конфигурация M; новое имя Updated config; лимиты 2/10; неверный лимит 0/10.",
+    "steps": [
+      "PATCH /v1/deck-config/{id}/daily-limits с new_cards_per_day=0",
+      "GET конфигурации."
+    ],
+    "expected": "400 (доменная валидация); сохранённые лимиты остаются 1/20."
+  },
+  {
+    "id": "TC-013",
+    "requirement": "FR-07",
+    "priority": "High",
+    "module": "Колоды / создание",
+    "kind": "positive",
+    "title": "Создание своей колоды",
+    "data": "Собственная конфигурация M; title=Traffic rules; случайный UUID отсутствующей конфигурации.",
+    "steps": [
+      "POST /v1/deck/ с owner_id и конфигурацией",
+      "GET /v1/deck/{id}."
+    ],
+    "expected": "201 и UUID; GET 200 с title, owner_id и deck_config_id."
+  },
+  {
+    "id": "TC-014",
+    "requirement": "FR-07",
+    "priority": "High",
+    "module": "Колоды / создание",
+    "kind": "negative",
+    "title": "Несуществующая конфигурация",
+    "data": "Собственная конфигурация M; title=Traffic rules; случайный UUID отсутствующей конфигурации.",
+    "steps": [
+      "POST /v1/deck/ со случайным deck_config_id",
+      "проверить список собственных колод."
+    ],
+    "expected": "404; колода с ошибочной конфигурацией не создана."
+  },
+  {
+    "id": "TC-015",
+    "requirement": "FR-08",
+    "priority": "Medium",
+    "module": "Колоды / изменение",
+    "kind": "positive",
+    "title": "Изменение названия и публичности",
+    "data": "Приватная колода A из M; новое название Updated title; B — другой пользователь.",
+    "steps": [
+      "PATCH /v1/deck/{id}/title",
+      "PATCH /v1/deck/{id}/privacy с true",
+      "GET колоды."
+    ],
+    "expected": "204 на изменения; GET возвращает Updated title и is_public=true."
+  },
+  {
+    "id": "TC-016",
+    "requirement": "FR-08",
+    "priority": "Medium",
+    "module": "Колоды / изменение",
+    "kind": "negative",
+    "title": "Чужой пользователь не меняет колоду",
+    "data": "Приватная колода A из M; новое название Updated title; B — другой пользователь.",
+    "steps": [
+      "Войти как B",
+      "PATCH названия и публичности колоды A",
+      "войти как A и перечитать."
+    ],
+    "expected": "Оба PATCH 403; исходные title и is_public не изменились."
+  },
+  {
+    "id": "TC-017",
+    "requirement": "FR-09",
+    "priority": "High",
+    "module": "Колоды / каталог",
+    "kind": "positive",
+    "title": "Публичность и пагинация каталога",
+    "data": "Одна приватная и две публичные колоды с уникальными ID; limit=1, offset=0/1; неверные limit=0, offset=-1.",
+    "steps": [
+      "Прочитать каталог с limit=100",
+      "затем с limit=1 и offset=0/1."
+    ],
+    "expected": "Обе публичные колоды присутствуют, приватная отсутствует; страницы содержат по одному различному ID."
+  },
+  {
+    "id": "TC-018",
+    "requirement": "FR-09",
+    "priority": "High",
+    "module": "Колоды / каталог",
+    "kind": "negative",
+    "title": "Неверные параметры пагинации",
+    "data": "Одна приватная и две публичные колоды с уникальными ID; limit=1, offset=0/1; неверные limit=0, offset=-1.",
+    "steps": [
+      "GET /v1/deck/public с limit=0",
+      "повторить с offset=-1."
+    ],
+    "expected": "422 для обоих запросов."
+  },
+  {
+    "id": "TC-019",
+    "requirement": "FR-10",
+    "priority": "High",
+    "module": "Колоды / копирование",
+    "kind": "positive",
+    "title": "Независимая копия публичной колоды",
+    "data": "Публичная колода A из M с карточкой и прогрессом REVIEW; пользователь B. Негативный вариант: приватная колода A.",
+    "steps": [
+      "Войти как B",
+      "POST /v1/deck/{id}/copy",
+      "прочитать копию, конфигурацию, карточки и прогресс скопированной карточки."
+    ],
+    "expected": "201; владелец B; приватность false; новые ID колоды/конфигурации/карточки; содержимое совпадает; прогресс 404."
+  },
+  {
+    "id": "TC-020",
+    "requirement": "FR-10",
+    "priority": "High",
+    "module": "Колоды / копирование",
+    "kind": "negative",
+    "title": "Копирование чужой приватной колоды запрещено",
+    "data": "Публичная колода A из M с карточкой и прогрессом REVIEW; пользователь B. Негативный вариант: приватная колода A.",
+    "steps": [
+      "Войти как B",
+      "POST /v1/deck/{private_id}/copy."
+    ],
+    "expected": "403; копия не создана."
+  },
+  {
+    "id": "TC-021",
+    "requirement": "FR-11",
+    "priority": "High",
+    "module": "Карточки / создание",
+    "kind": "positive",
+    "title": "Сохранение содержимого карточки",
+    "data": "Своя колода M; question=What does a red traffic light mean?; вариант Stop/true/Red prohibits movement; hint=Think about safety; tags=[signals].",
+    "steps": [
+      "POST /v1/card/ с содержимым",
+      "GET /v1/card/{id}."
+    ],
+    "expected": "201 и UUID; GET 200 с вопросом, вариантами, isCorrect, rationale, hint и tags."
+  },
+  {
+    "id": "TC-022",
+    "requirement": "FR-11",
+    "priority": "High",
+    "module": "Карточки / создание",
+    "kind": "negative",
+    "title": "Пустой вопрос отклонён",
+    "data": "Своя колода M; question=What does a red traffic light mean?; вариант Stop/true/Red prohibits movement; hint=Think about safety; tags=[signals].",
+    "steps": [
+      "POST /v1/card/ с question=\"\"",
+      "перечитать список карточек колоды."
+    ],
+    "expected": "422; число карточек не увеличилось."
+  },
+  {
+    "id": "TC-023",
+    "requirement": "FR-12",
+    "priority": "Medium",
+    "module": "Карточки / изменение",
+    "kind": "positive",
+    "title": "Вопрос, тег и установка/очистка image_path",
+    "data": "Карточка A из M; question=Updated question; tag=lab; image_path=images/signal.png; пользователь B.",
+    "steps": [
+      "PATCH вопроса",
+      "POST тега",
+      "PATCH image",
+      "GET",
+      "PATCH image с null",
+      "GET."
+    ],
+    "expected": "204 на изменения; вопрос, тег и путь совпадают; после очистки image_path=null."
+  },
+  {
+    "id": "TC-024",
+    "requirement": "FR-12",
+    "priority": "Medium",
+    "module": "Карточки / изменение",
+    "kind": "negative",
+    "title": "Чужой пользователь не меняет карточку",
+    "data": "Карточка A из M; question=Updated question; tag=lab; image_path=images/signal.png; пользователь B.",
+    "steps": [
+      "Войти как B",
+      "PATCH /v1/card/{id}/question",
+      "войти как A",
+      "GET карточки."
+    ],
+    "expected": "403; исходный вопрос сохранён."
+  },
+  {
+    "id": "TC-025",
+    "requirement": "FR-13",
+    "priority": "High",
+    "module": "Обучение / очередь",
+    "kind": "positive",
+    "title": "Порядок категорий и limit очереди",
+    "data": "Колода M с тремя карточками: LEARNING с наступившим сроком, REVIEW с наступившим сроком, новая. Тестовая БД: next_review_at=now−1 minute; история первой оценки перенесена на вчера UTC. Лимиты 10/20.",
+    "steps": [
+      "GET /v1/review/queue?deck_id={id}&limit=10",
+      "повторить с limit=1."
+    ],
+    "expected": "200; порядок reason: learning, review, new; ID совпадают с подготовленными; limit=1 возвращает только первую."
+  },
+  {
+    "id": "TC-026",
+    "requirement": "FR-13",
+    "priority": "High",
+    "module": "Обучение / очередь",
+    "kind": "negative",
+    "title": "Очередь чужой приватной колоды недоступна",
+    "data": "Колода M с тремя карточками: LEARNING с наступившим сроком, REVIEW с наступившим сроком, новая. Тестовая БД: next_review_at=now−1 minute; история первой оценки перенесена на вчера UTC. Лимиты 10/20.",
+    "steps": [
+      "Войти как B",
+      "GET /v1/review/queue для приватной колоды A."
+    ],
+    "expected": "403; карточки не раскрыты."
+  },
+  {
+    "id": "TC-027",
+    "requirement": "FR-14",
+    "priority": "High",
+    "module": "Обучение / лимиты",
+    "kind": "positive",
+    "title": "Дневные лимиты новых и review и граница UTC",
+    "data": "M; для положительного варианта лимиты 1/1, две REVIEW due и одна NEW; первая оценка в истории до начала суток UTC. LEARNING due добавляется отдельно. Для отрицательного: две новые карточки при лимите 1.",
+    "steps": [
+      "Выполнить review первой REVIEW",
+      "проверить, что вторая REVIEW не выдана сегодня",
+      "перенести запись review на 1 микросекунду до начала UTC-суток",
+      "повторить очередь",
+      "проверить LEARNING при израсходованных лимитах."
+    ],
+    "expected": "200; сегодняшняя review расходует лимит; вчерашняя — нет; learning выдаётся при исчерпании обоих лимитов."
+  },
+  {
+    "id": "TC-028",
+    "requirement": "FR-14",
+    "priority": "High",
+    "module": "Обучение / лимиты",
+    "kind": "negative",
+    "title": "Нельзя превысить лимит новой выдачи",
+    "data": "M; для положительного варианта лимиты 1/1, две REVIEW due и одна NEW; первая оценка в истории до начала суток UTC. LEARNING due добавляется отдельно. Для отрицательного: две новые карточки при лимите 1.",
+    "steps": [
+      "Получить одну новую карточку",
+      "оценить EASY",
+      "повторно запросить очередь."
+    ],
+    "expected": "Первая очередь содержит одну карточку, после оценки новая очередь пуста несмотря на вторую NEW."
+  },
+  {
+    "id": "TC-029",
+    "requirement": "FR-15",
+    "priority": "High",
+    "module": "Обучение / повторение",
+    "kind": "positive",
+    "title": "Полный жизненный цикл прогресса",
+    "data": "Новая карточка M; learning_steps=[1,10], relearning_steps=[10]; оценки 1,3,3,1,3; некорректные оценки 0 и 5.",
+    "steps": [
+      "Последовательно POST /v1/review/card/{id} с 1,3,3,1,3",
+      "читать progress и logs",
+      "сравнить ID и next_review_at.",
+      "SELECT card_state из review_logs в тестовой БД по card_id, ORDER BY reviewed_at: проверить исходные состояния (публичный HTTP-ответ логов не содержит этого поля)."
+    ],
+    "expected": "Все ответы 200; состояния learning,learning,review,relearning,review; один ID прогресса; ровно 5 логов с исходными состояниями new,learning,learning,review,relearning; будущие даты."
+  },
+  {
+    "id": "TC-030",
+    "requirement": "FR-15",
+    "priority": "High",
+    "module": "Обучение / повторение",
+    "kind": "negative",
+    "title": "Некорректная оценка не создаёт записи",
+    "data": "Новая карточка M; learning_steps=[1,10], relearning_steps=[10]; оценки 1,3,3,1,3; некорректные оценки 0 и 5.",
+    "steps": [
+      "POST оценки 0 и 5",
+      "GET progress и logs."
+    ],
+    "expected": "Оба POST 422; прогресс 404; история пуста."
+  },
+  {
+    "id": "TC-031",
+    "requirement": "FR-16",
+    "priority": "High",
+    "module": "Обучение / preview",
+    "kind": "positive",
+    "title": "Четыре preview без записи данных",
+    "data": "Новая карточка M без прогресса; другой пользователь B.",
+    "steps": [
+      "GET /v1/review/card/{id}/preview",
+      "GET progress и logs."
+    ],
+    "expected": "200; четыре оценки 1…4; progress 404, logs пусты."
+  },
+  {
+    "id": "TC-032",
+    "requirement": "FR-16",
+    "priority": "High",
+    "module": "Обучение / preview",
+    "kind": "negative",
+    "title": "Preview чужой приватной карточки запрещён",
+    "data": "Новая карточка M без прогресса; другой пользователь B.",
+    "steps": [
+      "Войти как B",
+      "GET preview приватной карточки A."
+    ],
+    "expected": "403; содержимое и интервалы недоступны."
+  },
+  {
+    "id": "TC-033",
+    "requirement": "FR-17",
+    "priority": "High",
+    "module": "Прогресс / изоляция",
+    "kind": "positive",
+    "title": "Разные пользователи имеют свой прогресс и историю",
+    "data": "Публичная карточка A из M; A оценивает EASY; B — новый пользователь.",
+    "steps": [
+      "Сохранить cookie A",
+      "войти как B и оценить AGAIN",
+      "прочитать прогресс и логи B",
+      "восстановить cookie A и прочитать свои данные."
+    ],
+    "expected": "У A REVIEW, у B LEARNING; ID различаются; у каждого ровно один лог со своим user_id."
+  },
+  {
+    "id": "TC-034",
+    "requirement": "FR-17",
+    "priority": "High",
+    "module": "Прогресс / изоляция",
+    "kind": "negative",
+    "title": "Чужая история не появляется до первого повторения",
+    "data": "Публичная карточка A из M; A оценивает EASY; B — новый пользователь.",
+    "steps": [
+      "После оценки A войти как B",
+      "до оценки B прочитать progress и logs публичной карточки."
+    ],
+    "expected": "Progress 404; logs пусты — данные A не раскрыты."
+  },
+  {
+    "id": "TC-035",
+    "requirement": "FR-18",
+    "priority": "Medium",
+    "module": "Прогресс / статистика",
+    "kind": "positive",
+    "title": "Статистика соответствует состояниям пользователя",
+    "data": "Две карточки M: одна NEW, другая после EASY в REVIEW; пользователь B.",
+    "steps": [
+      "GET /v1/review/deck/{id}/stats."
+    ],
+    "expected": "200; total_cards=2, new_count=1, review_count=1, learning_count=0, new_done_today=1."
+  },
+  {
+    "id": "TC-036",
+    "requirement": "FR-18",
+    "priority": "Medium",
+    "module": "Прогресс / статистика",
+    "kind": "negative",
+    "title": "Статистика чужой приватной колоды запрещена",
+    "data": "Две карточки M: одна NEW, другая после EASY в REVIEW; пользователь B.",
+    "steps": [
+      "Войти как B",
+      "GET stats приватной колоды A."
+    ],
+    "expected": "403; агрегаты недоступны."
+  },
+  {
+    "id": "TC-037",
+    "requirement": "FR-19",
+    "priority": "High",
+    "module": "Прогресс / сброс",
+    "kind": "positive",
+    "title": "Сброс сохраняет историю и создаёт новый ID",
+    "data": "Карточка M с одним повторением EASY и сохранённым ID прогресса; B — другой пользователь.",
+    "steps": [
+      "POST /v1/review/card/{id}/reset",
+      "GET progress и logs",
+      "повторить EASY."
+    ],
+    "expected": "204; progress 404; прежний лог сохранён; новое повторение 200 с новым ID."
+  },
+  {
+    "id": "TC-038",
+    "requirement": "FR-19",
+    "priority": "High",
+    "module": "Прогресс / сброс",
+    "kind": "negative",
+    "title": "Сброс чужой приватной карточки запрещён",
+    "data": "Карточка M с одним повторением EASY и сохранённым ID прогресса; B — другой пользователь.",
+    "steps": [
+      "Войти как B",
+      "POST reset приватной карточки A",
+      "войти как A и прочитать progress."
+    ],
+    "expected": "403; ID и состояние прогресса A не изменились."
+  },
+  {
+    "id": "TC-039",
+    "requirement": "FR-20",
+    "priority": "High",
+    "module": "Материалы / удаление",
+    "kind": "positive",
+    "title": "Удаление карточки, колоды и свободной конфигурации",
+    "data": "Собственные карточка, колода, конфигурация M; для отрицательного случая пользователь B.",
+    "steps": [
+      "DELETE /v1/card/{id}",
+      "GET карточки",
+      "DELETE /v1/deck/{id}",
+      "GET колоды",
+      "DELETE /v1/deck-config/{id}",
+      "GET конфигурации."
+    ],
+    "expected": "Каждый DELETE 204; последующий GET 404."
+  },
+  {
+    "id": "TC-040",
+    "requirement": "FR-20",
+    "priority": "High",
+    "module": "Материалы / удаление",
+    "kind": "negative",
+    "title": "Чужое удаление запрещено",
+    "data": "Собственные карточка, колода, конфигурация M; для отрицательного случая пользователь B.",
+    "steps": [
+      "Войти как B",
+      "DELETE карточки, колоды и конфигурации A",
+      "войти как A и прочитать каждый объект."
+    ],
+    "expected": "Все DELETE 403; все объекты доступны владельцу с 200."
+  },
+  {
+    "id": "TC-041",
+    "requirement": "FR-01",
+    "priority": "High",
+    "module": "Доступ / регистрация",
+    "kind": "boundary",
+    "title": "Регистрация с допустимым длинным email",
+    "data": "Гость, уникальные данные; email=valid-address-longer-than-fifty-characters-123@example.com; name=Valid-Name; password=LearningSecure123",
+    "steps": [
+      "Очистить cookie",
+      "POST /v1/auth/signup с указанными данными"
+    ],
+    "expected": "201 и UUID нового пользователя.",
+    "known_issue": "APP-01"
+  },
+  {
+    "id": "TC-042",
+    "requirement": "FR-01",
+    "priority": "High",
+    "module": "Доступ / регистрация",
+    "kind": "boundary",
+    "title": "Регистрация с допустимым именем длиной 24",
+    "data": "Гость, уникальные данные; email=lab3_<uuid>@example.com; name=ValidUsernameLongerThan20; password=LearningSecure123",
+    "steps": [
+      "Очистить cookie",
+      "POST /v1/auth/signup с указанными данными"
+    ],
+    "expected": "201 и UUID нового пользователя.",
+    "known_issue": "APP-02"
+  }
+]

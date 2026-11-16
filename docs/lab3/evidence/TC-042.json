@@ -1,0 +1,39 @@
+{
+  "id": "TC-042",
+  "requirement": "FR-01",
+  "started": "2026-11-16T16:35:24.579797+03:00",
+  "status": "Failed",
+  "defect": "APP-02",
+  "error": "POST /v1/auth/signup: HTTP 201; actual={'status': 401, 'body': '{\"description\":\"Authentication failed\"}'}\nassert False",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\", line 684, in test_documented_acceptance_case\n    await execute(case, scenario)\n  File \"/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\", line 261, in execute\n    response = await s.http(\n               ^^^^^^^^^^^^^\n        \"POST\", \"/v1/auth/signup\", 201, json={\"email\": email, \"name\": name, \"password\": PASSWORD}\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\", line 151, in http\n    self.status(response, expected)\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\", line 126, in status\n    self.check(\n    ~~~~~~~~~~^\n        response.status_code == expected,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        f\"{response.request.method} {response.request.url.path}: HTTP {expected}\",\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        {\"status\": response.status_code, \"body\": response.text},\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\", line 123, in check\n    assert condition, f\"{expectation}; actual={actual!r}\"\nAssertionError: POST /v1/auth/signup: HTTP 201; actual={'status': 401, 'body': '{\"description\":\"Authentication failed\"}'}\nassert False\n",
+  "finished": "2026-11-16T16:35:25.171749+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_140650680eb5@example.com",
+        "name": "ValidUsernameLongerThan20",
+        "password": "<test-password-redacted>"
+      },
+      "status": 401,
+      "response": {
+        "description": "Authentication failed"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": false,
+      "actual": {
+        "status": 401,
+        "body": "{\"description\":\"Authentication failed\"}"
+      }
+    }
+  ]
+}

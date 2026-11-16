@@ -1,0 +1,527 @@
+{
+  "id": "TC-029",
+  "requirement": "FR-15",
+  "started": "2026-11-16T16:34:57.354690+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:58.778917+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_0b41b1c833d5@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "c834a283-c51b-4bda-a750-ba6a763cefa9"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_0b41b1c833d5@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "f701443d-e3a9-42fd-8beb-bac3aea04c8a"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+        "deck_config_id": "f701443d-e3a9-42fd-8beb-bac3aea04c8a",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "a9d41cbe-d6e7-47be-b216-0daf9ee26544"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "a9d41cbe-d6e7-47be-b216-0daf9ee26544",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+      "params": null,
+      "request": {
+        "rating": 1
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "d4caf6ae-cc80-4666-a7e6-fc07f5d16927",
+        "state": "learning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:35:58.573775Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+      "params": null,
+      "request": {
+        "rating": 3
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "72c4da1f-99b0-488f-8b98-f7eb4cabd27c",
+        "state": "learning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:44:58.598574Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+      "params": null,
+      "request": {
+        "rating": 3
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "92d4ba1b-b660-4c35-8a12-d814cecda7e8",
+        "state": "review",
+        "interval": 1,
+        "next_review_at": "2026-11-17T13:34:58.624018Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+      "params": null,
+      "request": {
+        "rating": 1
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "85b403a4-71f6-4670-94fc-b4ea04379254",
+        "state": "relearning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:44:58.649646Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+      "params": null,
+      "request": {
+        "rating": 3
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "34255234-55dd-409d-8b34-4c0aa7871ffe",
+        "state": "review",
+        "interval": 1,
+        "next_review_at": "2026-11-17T13:34:58.674660Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26/progress",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+        "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+        "state": "review",
+        "ease_factor": 2.3,
+        "interval": 1,
+        "repetitions": 1,
+        "next_review_at": "2026-11-17T13:34:58.674660Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26/logs",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "logs": [
+          {
+            "id": "34255234-55dd-409d-8b34-4c0aa7871ffe",
+            "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+            "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+            "rating": 3,
+            "reviewed_at": "2026-11-16T13:34:58.674660Z"
+          },
+          {
+            "id": "85b403a4-71f6-4670-94fc-b4ea04379254",
+            "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+            "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+            "rating": 1,
+            "reviewed_at": "2026-11-16T13:34:58.649646Z"
+          },
+          {
+            "id": "92d4ba1b-b660-4c35-8a12-d814cecda7e8",
+            "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+            "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+            "rating": 3,
+            "reviewed_at": "2026-11-16T13:34:58.624018Z"
+          },
+          {
+            "id": "72c4da1f-99b0-488f-8b98-f7eb4cabd27c",
+            "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+            "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+            "rating": 3,
+            "reviewed_at": "2026-11-16T13:34:58.598574Z"
+          },
+          {
+            "id": "d4caf6ae-cc80-4666-a7e6-fc07f5d16927",
+            "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+            "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+            "rating": 1,
+            "reviewed_at": "2026-11-16T13:34:58.573775Z"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "SQL verification",
+      "statement": "SELECT card_state::text FROM review_logs WHERE card_id=$1 ORDER BY reviewed_at",
+      "arguments": [
+        "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26"
+      ],
+      "result": [
+        "NEW",
+        "LEARNING",
+        "LEARNING",
+        "REVIEW",
+        "RELEARNING"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f701443d-e3a9-42fd-8beb-bac3aea04c8a\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"a9d41cbe-d6e7-47be-b216-0daf9ee26544\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"review_log_id\":\"d4caf6ae-cc80-4666-a7e6-fc07f5d16927\",\"state\":\"learning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:35:58.573775Z\"}"
+      }
+    },
+    {
+      "expectation": "Transition to learning with stable ID and future due date",
+      "passed": true,
+      "actual": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "d4caf6ae-cc80-4666-a7e6-fc07f5d16927",
+        "state": "learning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:35:58.573775Z"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"review_log_id\":\"72c4da1f-99b0-488f-8b98-f7eb4cabd27c\",\"state\":\"learning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:44:58.598574Z\"}"
+      }
+    },
+    {
+      "expectation": "Transition to learning with stable ID and future due date",
+      "passed": true,
+      "actual": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "72c4da1f-99b0-488f-8b98-f7eb4cabd27c",
+        "state": "learning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:44:58.598574Z"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"review_log_id\":\"92d4ba1b-b660-4c35-8a12-d814cecda7e8\",\"state\":\"review\",\"interval\":1,\"next_review_at\":\"2026-11-17T13:34:58.624018Z\"}"
+      }
+    },
+    {
+      "expectation": "Transition to review with stable ID and future due date",
+      "passed": true,
+      "actual": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "92d4ba1b-b660-4c35-8a12-d814cecda7e8",
+        "state": "review",
+        "interval": 1,
+        "next_review_at": "2026-11-17T13:34:58.624018Z"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"review_log_id\":\"85b403a4-71f6-4670-94fc-b4ea04379254\",\"state\":\"relearning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:44:58.649646Z\"}"
+      }
+    },
+    {
+      "expectation": "Transition to relearning with stable ID and future due date",
+      "passed": true,
+      "actual": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "85b403a4-71f6-4670-94fc-b4ea04379254",
+        "state": "relearning",
+        "interval": 1,
+        "next_review_at": "2026-11-16T13:44:58.649646Z"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"review_log_id\":\"34255234-55dd-409d-8b34-4c0aa7871ffe\",\"state\":\"review\",\"interval\":1,\"next_review_at\":\"2026-11-17T13:34:58.674660Z\"}"
+      }
+    },
+    {
+      "expectation": "Transition to review with stable ID and future due date",
+      "passed": true,
+      "actual": {
+        "card_progress_id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "review_log_id": "34255234-55dd-409d-8b34-4c0aa7871ffe",
+        "state": "review",
+        "interval": 1,
+        "next_review_at": "2026-11-17T13:34:58.674660Z"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26/progress: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"e90496b3-35b5-429d-a743-02011bbf8ae3\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"state\":\"review\",\"ease_factor\":2.3,\"interval\":1,\"repetitions\":1,\"next_review_at\":\"2026-11-17T13:34:58.674660Z\"}"
+      }
+    },
+    {
+      "expectation": "Final persisted state REVIEW",
+      "passed": true,
+      "actual": {
+        "id": "e90496b3-35b5-429d-a743-02011bbf8ae3",
+        "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+        "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+        "state": "review",
+        "ease_factor": 2.3,
+        "interval": 1,
+        "repetitions": 1,
+        "next_review_at": "2026-11-17T13:34:58.674660Z"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/card/82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26/logs: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"logs\":[{\"id\":\"34255234-55dd-409d-8b34-4c0aa7871ffe\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"rating\":3,\"reviewed_at\":\"2026-11-16T13:34:58.674660Z\"},{\"id\":\"85b403a4-71f6-4670-94fc-b4ea04379254\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"rating\":1,\"reviewed_at\":\"2026-11-16T13:34:58.649646Z\"},{\"id\":\"92d4ba1b-b660-4c35-8a12-d814cecda7e8\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"rating\":3,\"reviewed_at\":\"2026-11-16T13:34:58.624018Z\"},{\"id\":\"72c4da1f-99b0-488f-8b98-f7eb4cabd27c\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"rating\":3,\"reviewed_at\":\"2026-11-16T13:34:58.598574Z\"},{\"id\":\"d4caf6ae-cc80-4666-a7e6-fc07f5d16927\",\"user_id\":\"c834a283-c51b-4bda-a750-ba6a763cefa9\",\"card_id\":\"82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26\",\"rating\":1,\"reviewed_at\":\"2026-11-16T13:34:58.573775Z\"}]}"
+      }
+    },
+    {
+      "expectation": "One history row per transition",
+      "passed": true,
+      "actual": [
+        {
+          "id": "34255234-55dd-409d-8b34-4c0aa7871ffe",
+          "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+          "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+          "rating": 3,
+          "reviewed_at": "2026-11-16T13:34:58.674660Z"
+        },
+        {
+          "id": "85b403a4-71f6-4670-94fc-b4ea04379254",
+          "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+          "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+          "rating": 1,
+          "reviewed_at": "2026-11-16T13:34:58.649646Z"
+        },
+        {
+          "id": "92d4ba1b-b660-4c35-8a12-d814cecda7e8",
+          "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+          "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+          "rating": 3,
+          "reviewed_at": "2026-11-16T13:34:58.624018Z"
+        },
+        {
+          "id": "72c4da1f-99b0-488f-8b98-f7eb4cabd27c",
+          "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+          "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+          "rating": 3,
+          "reviewed_at": "2026-11-16T13:34:58.598574Z"
+        },
+        {
+          "id": "d4caf6ae-cc80-4666-a7e6-fc07f5d16927",
+          "user_id": "c834a283-c51b-4bda-a750-ba6a763cefa9",
+          "card_id": "82a3ba61-dc52-4f7b-9dd1-f62c06ad2b26",
+          "rating": 1,
+          "reviewed_at": "2026-11-16T13:34:58.573775Z"
+        }
+      ]
+    },
+    {
+      "expectation": "Persisted source states follow the transition sequence",
+      "passed": true,
+      "actual": [
+        "NEW",
+        "LEARNING",
+        "LEARNING",
+        "REVIEW",
+        "RELEARNING"
+      ]
+    }
+  ]
+}

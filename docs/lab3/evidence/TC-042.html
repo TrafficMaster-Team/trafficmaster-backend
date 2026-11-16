@@ -1,0 +1,45 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>TC-042 — результат выполнения</title><style>body{font:16px system-ui;margin:28px auto;max-width:1100px;background:#f4f6fa;color:#142039;padding:0 20px}h1{font-size:27px;margin-bottom:8px}h2{font-size:18px}header{border-left:7px solid #224cd8;padding-left:18px;margin:22px 0}section{background:white;padding:16px 22px;margin:15px 0;border:1px solid #dce2ee;border-radius:12px}pre{font:13px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;margin:10px 0}.Passed{color:#087448}.Failed{color:#b42136}small{color:#526079}a{color:#214cc7}td,th{padding:9px 14px;text-align:left;border-bottom:1px solid #dde3ee}table{border-collapse:collapse;width:100%}.badge{font-size:21px;font-weight:bold}details{margin-top:15px}</style>
+    <header><small>TrafficMaster · ЛР3 · реальный HTTP / PostgreSQL / Redis</small><h1>TC-042 — Регистрация с допустимым именем длиной 24</h1><b>FR-01 · High · Доступ / регистрация</b></header>
+    <section><span class="badge Failed">Failed</span> · 1 проверок · APP-02<br><small>2026-11-16T16:35:24.579797+03:00 — 2026-11-16T16:35:25.171749+03:00 · Europe/Minsk</small><p><b>Ожидание:</b> 201 и UUID нового пользователя.</p><p><b>Факт:</b> POST /v1/auth/signup: HTTP 201; actual={&#x27;status&#x27;: 401, &#x27;body&#x27;: &#x27;{&quot;description&quot;:&quot;Authentication failed&quot;}&#x27;}
+assert False</p></section>
+    <section><b>POST /v1/auth/signup → HTTP 401</b><pre>{
+  &quot;description&quot;: &quot;Authentication failed&quot;
+}</pre></section><details><summary>Полная трасса и проверки</summary><pre>{
+  &quot;id&quot;: &quot;TC-042&quot;,
+  &quot;requirement&quot;: &quot;FR-01&quot;,
+  &quot;started&quot;: &quot;2026-11-16T16:35:24.579797+03:00&quot;,
+  &quot;status&quot;: &quot;Failed&quot;,
+  &quot;defect&quot;: &quot;APP-02&quot;,
+  &quot;error&quot;: &quot;POST /v1/auth/signup: HTTP 201; actual={&#x27;status&#x27;: 401, &#x27;body&#x27;: &#x27;{\&quot;description\&quot;:\&quot;Authentication failed\&quot;}&#x27;}\nassert False&quot;,
+  &quot;traceback&quot;: &quot;Traceback (most recent call last):\n  File \&quot;/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\&quot;, line 684, in test_documented_acceptance_case\n    await execute(case, scenario)\n  File \&quot;/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\&quot;, line 261, in execute\n    response = await s.http(\n               ^^^^^^^^^^^^^\n        \&quot;POST\&quot;, \&quot;/v1/auth/signup\&quot;, 201, json={\&quot;email\&quot;: email, \&quot;name\&quot;: name, \&quot;password\&quot;: PASSWORD}\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \&quot;/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\&quot;, line 151, in http\n    self.status(response, expected)\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \&quot;/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\&quot;, line 126, in status\n    self.check(\n    ~~~~~~~~~~^\n        response.status_code == expected,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        f\&quot;{response.request.method} {response.request.url.path}: HTTP {expected}\&quot;,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        {\&quot;status\&quot;: response.status_code, \&quot;body\&quot;: response.text},\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \&quot;/home/denchik/trafficmaster/tests/integration/lab3/test_acceptance.py\&quot;, line 123, in check\n    assert condition, f\&quot;{expectation}; actual={actual!r}\&quot;\nAssertionError: POST /v1/auth/signup: HTTP 201; actual={&#x27;status&#x27;: 401, &#x27;body&#x27;: &#x27;{\&quot;description\&quot;:\&quot;Authentication failed\&quot;}&#x27;}\nassert False\n&quot;,
+  &quot;finished&quot;: &quot;2026-11-16T16:35:25.171749+03:00&quot;,
+  &quot;events&quot;: [
+    {
+      &quot;type&quot;: &quot;HTTP&quot;,
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/v1/auth/signup&quot;,
+      &quot;params&quot;: null,
+      &quot;request&quot;: {
+        &quot;email&quot;: &quot;lab3_140650680eb5@example.com&quot;,
+        &quot;name&quot;: &quot;ValidUsernameLongerThan20&quot;,
+        &quot;password&quot;: &quot;&lt;test-password-redacted&gt;&quot;
+      },
+      &quot;status&quot;: 401,
+      &quot;response&quot;: {
+        &quot;description&quot;: &quot;Authentication failed&quot;
+      },
+      &quot;cookie_set&quot;: false,
+      &quot;httponly&quot;: false
+    }
+  ],
+  &quot;checks&quot;: [
+    {
+      &quot;expectation&quot;: &quot;POST /v1/auth/signup: HTTP 201&quot;,
+      &quot;passed&quot;: false,
+      &quot;actual&quot;: {
+        &quot;status&quot;: 401,
+        &quot;body&quot;: &quot;{\&quot;description\&quot;:\&quot;Authentication failed\&quot;}&quot;
+      }
+    }
+  ]
+}</pre></details><p><a href="TC-042.json">Первичные данные JSON</a> · <a href="index.html">Все результаты</a></p></html>

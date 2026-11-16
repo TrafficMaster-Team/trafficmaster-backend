@@ -1,0 +1,210 @@
+{
+  "id": "TC-013",
+  "requirement": "FR-07",
+  "started": "2026-11-16T16:34:23.830400+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:25.267023+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_970c694fc8c2@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "622cf339-afd8-4344-a0e0-1b6523f3c1cd"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_970c694fc8c2@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "622cf339-afd8-4344-a0e0-1b6523f3c1cd",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "59b287e3-280f-4fef-bf7a-1da33b127f1a"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "622cf339-afd8-4344-a0e0-1b6523f3c1cd",
+        "deck_config_id": "59b287e3-280f-4fef-bf7a-1da33b127f1a",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "eb746c47-1898-4f44-a278-824d98a7d06d"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218",
+        "owner_id": "622cf339-afd8-4344-a0e0-1b6523f3c1cd",
+        "deck_config_id": "59b287e3-280f-4fef-bf7a-1da33b127f1a",
+        "title": "Traffic rules",
+        "description": null,
+        "is_public": false
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"622cf339-afd8-4344-a0e0-1b6523f3c1cd\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"59b287e3-280f-4fef-bf7a-1da33b127f1a\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"eb746c47-1898-4f44-a278-824d98a7d06d\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218\",\"owner_id\":\"622cf339-afd8-4344-a0e0-1b6523f3c1cd\",\"deck_config_id\":\"59b287e3-280f-4fef-bf7a-1da33b127f1a\",\"title\":\"Traffic rules\",\"description\":null,\"is_public\":false}"
+      }
+    },
+    {
+      "expectation": "Deck identity and contents persisted",
+      "passed": true,
+      "actual": {
+        "id": "1ef2e0ba-9ab9-474e-a820-c8e7ae6e0218",
+        "owner_id": "622cf339-afd8-4344-a0e0-1b6523f3c1cd",
+        "deck_config_id": "59b287e3-280f-4fef-bf7a-1da33b127f1a",
+        "title": "Traffic rules",
+        "description": null,
+        "is_public": false
+      }
+    }
+  ]
+}

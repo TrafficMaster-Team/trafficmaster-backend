@@ -1,0 +1,26 @@
+{
+  "totals": {
+    "covered_lines": 5765,
+    "num_statements": 6314,
+    "percent_covered": 90.0799314872966,
+    "percent_covered_display": "90",
+    "missing_lines": 549,
+    "excluded_lines": 426,
+    "percent_statements_covered": 91.30503642698764,
+    "percent_statements_covered_display": "91",
+    "num_branches": 692,
+    "num_partial_branches": 136,
+    "covered_branches": 546,
+    "missing_branches": 146,
+    "percent_branches_covered": 78.90173410404624,
+    "percent_branches_covered_display": "79"
+  },
+  "branch_coverage": true,
+  "scope": "src/trafficmaster",
+  "excluded": [
+    "src/trafficmaster/setup/config/*",
+    "src/trafficmaster/infrastructure/persistence/migrations/*"
+  ],
+  "run": "pytest tests/ --ignore=tests/integration/lab3 -q",
+  "result": "483 passed, 2 xfailed"
+}

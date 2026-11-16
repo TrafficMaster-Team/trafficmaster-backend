@@ -1,0 +1,240 @@
+{
+  "id": "TC-021",
+  "requirement": "FR-11",
+  "started": "2026-11-16T16:34:40.808039+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:42.143001+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_ccb35e76bd7a@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "ac93a7c4-1baa-4c23-92f7-6bf18cc27c21"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_ccb35e76bd7a@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "ac93a7c4-1baa-4c23-92f7-6bf18cc27c21",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "f3810044-b10a-48f0-ba6d-d071b6e7e148"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "ac93a7c4-1baa-4c23-92f7-6bf18cc27c21",
+        "deck_config_id": "f3810044-b10a-48f0-ba6d-d071b6e7e148",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "284ac92a-ead7-4ba1-b3ae-908028ba29e6"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "284ac92a-ead7-4ba1-b3ae-908028ba29e6",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "e95707bd-40fd-4a6f-a4be-e70389d9a1f8"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/card/e95707bd-40fd-4a6f-a4be-e70389d9a1f8",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "e95707bd-40fd-4a6f-a4be-e70389d9a1f8",
+        "deck_id": "284ac92a-ead7-4ba1-b3ae-908028ba29e6",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement",
+            "id": "ceafc40c-c339-4883-8350-d944e70043c5"
+          }
+        ],
+        "hint": "Think about safety",
+        "image_path": null,
+        "tags": [
+          "signals"
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"ac93a7c4-1baa-4c23-92f7-6bf18cc27c21\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f3810044-b10a-48f0-ba6d-d071b6e7e148\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"284ac92a-ead7-4ba1-b3ae-908028ba29e6\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"e95707bd-40fd-4a6f-a4be-e70389d9a1f8\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/card/e95707bd-40fd-4a6f-a4be-e70389d9a1f8: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"e95707bd-40fd-4a6f-a4be-e70389d9a1f8\",\"deck_id\":\"284ac92a-ead7-4ba1-b3ae-908028ba29e6\",\"question\":\"What does a red traffic light mean?\",\"answerOptions\":[{\"text\":\"Stop\",\"isCorrect\":true,\"rationale\":\"Red prohibits movement\",\"id\":\"ceafc40c-c339-4883-8350-d944e70043c5\"}],\"hint\":\"Think about safety\",\"image_path\":null,\"tags\":[\"signals\"]}"
+      }
+    },
+    {
+      "expectation": "Card content persisted",
+      "passed": true,
+      "actual": {
+        "id": "e95707bd-40fd-4a6f-a4be-e70389d9a1f8",
+        "deck_id": "284ac92a-ead7-4ba1-b3ae-908028ba29e6",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement",
+            "id": "ceafc40c-c339-4883-8350-d944e70043c5"
+          }
+        ],
+        "hint": "Think about safety",
+        "image_path": null,
+        "tags": [
+          "signals"
+        ]
+      }
+    },
+    {
+      "expectation": "Answer options persisted",
+      "passed": true,
+      "actual": {
+        "text": "Stop",
+        "isCorrect": true,
+        "rationale": "Red prohibits movement",
+        "id": "ceafc40c-c339-4883-8350-d944e70043c5"
+      }
+    }
+  ]
+}

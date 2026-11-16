@@ -1,0 +1,94 @@
+{
+  "id": "TC-001",
+  "requirement": "FR-01",
+  "started": "2026-11-16T16:33:58.568690+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:00.176656+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_f2d161876555@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "5985323c-4378-49cc-8b47-aaa09836a860"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_f2d161876555@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/auth/me",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "5985323c-4378-49cc-8b47-aaa09836a860",
+        "email": "lab3_f2d161876555@example.com",
+        "name": "Lab-User",
+        "role": "user"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"5985323c-4378-49cc-8b47-aaa09836a860\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/auth/me: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"5985323c-4378-49cc-8b47-aaa09836a860\",\"email\":\"lab3_f2d161876555@example.com\",\"name\":\"Lab-User\",\"role\":\"user\"}"
+      }
+    },
+    {
+      "expectation": "Saved identity matches",
+      "passed": true,
+      "actual": {
+        "id": "5985323c-4378-49cc-8b47-aaa09836a860",
+        "email": "lab3_f2d161876555@example.com",
+        "name": "Lab-User",
+        "role": "user"
+      }
+    }
+  ]
+}

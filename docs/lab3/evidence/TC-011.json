@@ -1,0 +1,301 @@
+{
+  "id": "TC-011",
+  "requirement": "FR-06",
+  "started": "2026-11-16T16:34:20.690506+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:22.215018+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_b3c6c2981ef5@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "d53b2ab3-2a66-446e-89aa-a3d6a3e86e30"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_b3c6c2981ef5@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "d53b2ab3-2a66-446e-89aa-a3d6a3e86e30",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "7d44e376-f5c7-4585-9730-f0e2e66048b7"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "d53b2ab3-2a66-446e-89aa-a3d6a3e86e30",
+        "deck_config_id": "7d44e376-f5c7-4585-9730-f0e2e66048b7",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "16e7c37d-f008-44a1-97cf-dfbf97426883"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "16e7c37d-f008-44a1-97cf-dfbf97426883",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "f6d1d210-6eb0-4f37-a826-4ed924dfee46"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7/name",
+      "params": null,
+      "request": {
+        "name": "Updated config"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7/daily-limits",
+      "params": null,
+      "request": {
+        "new_cards_per_day": 2,
+        "max_reviews_per_day": 10
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "7d44e376-f5c7-4585-9730-f0e2e66048b7",
+        "owner_id": "d53b2ab3-2a66-446e-89aa-a3d6a3e86e30",
+        "name": "Updated config",
+        "daily_limits": {
+          "new_cards_per_day": 2,
+          "max_reviews_per_day": 10
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"d53b2ab3-2a66-446e-89aa-a3d6a3e86e30\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"7d44e376-f5c7-4585-9730-f0e2e66048b7\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"16e7c37d-f008-44a1-97cf-dfbf97426883\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f6d1d210-6eb0-4f37-a826-4ed924dfee46\"}"
+      }
+    },
+    {
+      "expectation": "PATCH /v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7/name: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "PATCH /v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7/daily-limits: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/deck-config/7d44e376-f5c7-4585-9730-f0e2e66048b7: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"7d44e376-f5c7-4585-9730-f0e2e66048b7\",\"owner_id\":\"d53b2ab3-2a66-446e-89aa-a3d6a3e86e30\",\"name\":\"Updated config\",\"daily_limits\":{\"new_cards_per_day\":2,\"max_reviews_per_day\":10},\"new_cards\":{\"learning_steps\":[1,10],\"graduating_interval\":1,\"easy_interval\":4,\"new_card_order\":\"sequential\"},\"lapses\":{\"relearning_steps\":[10],\"min_interval\":1},\"advanced\":{\"max_interval\":36500,\"ease_factor\":2.5,\"easy_factor\":1.3,\"interval_modifier\":1.0,\"hard_interval\":1.2,\"new_interval\":0.0}}"
+      }
+    },
+    {
+      "expectation": "Changed configuration persisted",
+      "passed": true,
+      "actual": {
+        "id": "7d44e376-f5c7-4585-9730-f0e2e66048b7",
+        "owner_id": "d53b2ab3-2a66-446e-89aa-a3d6a3e86e30",
+        "name": "Updated config",
+        "daily_limits": {
+          "new_cards_per_day": 2,
+          "max_reviews_per_day": 10
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      }
+    }
+  ]
+}

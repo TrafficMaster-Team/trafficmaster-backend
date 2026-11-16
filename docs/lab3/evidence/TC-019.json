@@ -1,0 +1,479 @@
+{
+  "id": "TC-019",
+  "requirement": "FR-10",
+  "started": "2026-11-16T16:34:35.088606+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:38.078288+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_bbfb8b1fecc3@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "74b6ac74-7943-4ba7-937c-67dd0704c28d"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_bbfb8b1fecc3@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "74b6ac74-7943-4ba7-937c-67dd0704c28d",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "223a1460-4faf-4ada-b464-21d46b432b5a"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "74b6ac74-7943-4ba7-937c-67dd0704c28d",
+        "deck_config_id": "223a1460-4faf-4ada-b464-21d46b432b5a",
+        "title": "Traffic rules",
+        "is_public": true
+      },
+      "status": 201,
+      "response": {
+        "id": "01307202-b1bb-4e23-8bb5-3db72ce2c183"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "01307202-b1bb-4e23-8bb5-3db72ce2c183",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "16f7ba19-2f3a-4c99-b594-a2faba19c5dc"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/16f7ba19-2f3a-4c99-b594-a2faba19c5dc",
+      "params": null,
+      "request": {
+        "rating": 4
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "01a7de10-4072-404c-b2a7-05a6a4bb705a",
+        "review_log_id": "ffd55cab-466c-4c09-81ee-dd5cb252774d",
+        "state": "review",
+        "interval": 4,
+        "next_review_at": "2026-11-20T13:34:36.683326Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_5d619336121c@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "f2c955db-426f-4c18-ac3c-1365edce7fea"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_5d619336121c@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/01307202-b1bb-4e23-8bb5-3db72ce2c183/copy",
+      "params": null,
+      "request": {},
+      "status": 201,
+      "response": {
+        "deck_id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+        "deck_config_id": "26d73125-bd6e-4232-a061-36d7fb380426"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+        "owner_id": "f2c955db-426f-4c18-ac3c-1365edce7fea",
+        "deck_config_id": "26d73125-bd6e-4232-a061-36d7fb380426",
+        "title": "Traffic rules",
+        "description": null,
+        "is_public": false
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck-config/26d73125-bd6e-4232-a061-36d7fb380426",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "26d73125-bd6e-4232-a061-36d7fb380426",
+        "owner_id": "f2c955db-426f-4c18-ac3c-1365edce7fea",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/card/",
+      "params": {
+        "deck_id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175"
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "cards": [
+          {
+            "id": "3b758600-57da-42de-8a72-392a5d98ca1d",
+            "deck_id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+            "question": "What does a red traffic light mean?",
+            "answerOptions": [
+              {
+                "text": "Stop",
+                "isCorrect": true,
+                "rationale": "Red prohibits movement",
+                "id": "aaa5f46d-3338-4366-b971-084a94a12cf9"
+              }
+            ],
+            "hint": "Think about safety",
+            "image_path": null,
+            "tags": [
+              "signals"
+            ]
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/3b758600-57da-42de-8a72-392a5d98ca1d/progress",
+      "params": null,
+      "request": {},
+      "status": 404,
+      "response": {
+        "description": "Card progress not found"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"74b6ac74-7943-4ba7-937c-67dd0704c28d\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"223a1460-4faf-4ada-b464-21d46b432b5a\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"01307202-b1bb-4e23-8bb5-3db72ce2c183\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"16f7ba19-2f3a-4c99-b594-a2faba19c5dc\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/16f7ba19-2f3a-4c99-b594-a2faba19c5dc: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"01a7de10-4072-404c-b2a7-05a6a4bb705a\",\"review_log_id\":\"ffd55cab-466c-4c09-81ee-dd5cb252774d\",\"state\":\"review\",\"interval\":4,\"next_review_at\":\"2026-11-20T13:34:36.683326Z\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f2c955db-426f-4c18-ac3c-1365edce7fea\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/01307202-b1bb-4e23-8bb5-3db72ce2c183/copy: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"deck_id\":\"bca948a8-7a26-4e40-8a3d-cce1d1a1b175\",\"deck_config_id\":\"26d73125-bd6e-4232-a061-36d7fb380426\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/bca948a8-7a26-4e40-8a3d-cce1d1a1b175: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"bca948a8-7a26-4e40-8a3d-cce1d1a1b175\",\"owner_id\":\"f2c955db-426f-4c18-ac3c-1365edce7fea\",\"deck_config_id\":\"26d73125-bd6e-4232-a061-36d7fb380426\",\"title\":\"Traffic rules\",\"description\":null,\"is_public\":false}"
+      }
+    },
+    {
+      "expectation": "Independent private copy",
+      "passed": true,
+      "actual": {
+        "id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+        "owner_id": "f2c955db-426f-4c18-ac3c-1365edce7fea",
+        "deck_config_id": "26d73125-bd6e-4232-a061-36d7fb380426",
+        "title": "Traffic rules",
+        "description": null,
+        "is_public": false
+      }
+    },
+    {
+      "expectation": "GET /v1/deck-config/26d73125-bd6e-4232-a061-36d7fb380426: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"26d73125-bd6e-4232-a061-36d7fb380426\",\"owner_id\":\"f2c955db-426f-4c18-ac3c-1365edce7fea\",\"name\":\"Lab config\",\"daily_limits\":{\"new_cards_per_day\":1,\"max_reviews_per_day\":20},\"new_cards\":{\"learning_steps\":[1,10],\"graduating_interval\":1,\"easy_interval\":4,\"new_card_order\":\"sequential\"},\"lapses\":{\"relearning_steps\":[10],\"min_interval\":1},\"advanced\":{\"max_interval\":36500,\"ease_factor\":2.5,\"easy_factor\":1.3,\"interval_modifier\":1.0,\"hard_interval\":1.2,\"new_interval\":0.0}}"
+      }
+    },
+    {
+      "expectation": "Copied configuration owned by recipient",
+      "passed": true,
+      "actual": {
+        "id": "26d73125-bd6e-4232-a061-36d7fb380426",
+        "owner_id": "f2c955db-426f-4c18-ac3c-1365edce7fea",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      }
+    },
+    {
+      "expectation": "GET /v1/card/: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"cards\":[{\"id\":\"3b758600-57da-42de-8a72-392a5d98ca1d\",\"deck_id\":\"bca948a8-7a26-4e40-8a3d-cce1d1a1b175\",\"question\":\"What does a red traffic light mean?\",\"answerOptions\":[{\"text\":\"Stop\",\"isCorrect\":true,\"rationale\":\"Red prohibits movement\",\"id\":\"aaa5f46d-3338-4366-b971-084a94a12cf9\"}],\"hint\":\"Think about safety\",\"image_path\":null,\"tags\":[\"signals\"]}]}"
+      }
+    },
+    {
+      "expectation": "Copied card has new ID and same question",
+      "passed": true,
+      "actual": [
+        {
+          "id": "3b758600-57da-42de-8a72-392a5d98ca1d",
+          "deck_id": "bca948a8-7a26-4e40-8a3d-cce1d1a1b175",
+          "question": "What does a red traffic light mean?",
+          "answerOptions": [
+            {
+              "text": "Stop",
+              "isCorrect": true,
+              "rationale": "Red prohibits movement",
+              "id": "aaa5f46d-3338-4366-b971-084a94a12cf9"
+            }
+          ],
+          "hint": "Think about safety",
+          "image_path": null,
+          "tags": [
+            "signals"
+          ]
+        }
+      ]
+    },
+    {
+      "expectation": "GET /v1/review/card/3b758600-57da-42de-8a72-392a5d98ca1d/progress: HTTP 404",
+      "passed": true,
+      "actual": {
+        "status": 404,
+        "body": "{\"description\":\"Card progress not found\"}"
+      }
+    }
+  ]
+}

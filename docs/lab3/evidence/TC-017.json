@@ -1,0 +1,373 @@
+{
+  "id": "TC-017",
+  "requirement": "FR-09",
+  "started": "2026-11-16T16:34:31.410619+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:33.119869+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_b2e1400004ff@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "d5792925-4558-423f-8859-988c3cf7a1c1"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_b2e1400004ff@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "d2c03fb2-6aeb-4936-aae2-031b840fb94c"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+        "deck_config_id": "d2c03fb2-6aeb-4936-aae2-031b840fb94c",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "c54d12cc-19f7-44c4-82cd-c9e0893c48c2"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "c54d12cc-19f7-44c4-82cd-c9e0893c48c2",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "9d68ff9d-94a8-4c56-b48c-b9d9582fae4f"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+        "deck_config_id": "d2c03fb2-6aeb-4936-aae2-031b840fb94c",
+        "title": "Public 0",
+        "is_public": true
+      },
+      "status": 201,
+      "response": {
+        "id": "3181c2c1-d650-46ce-a37c-011130ab2c94"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+        "deck_config_id": "d2c03fb2-6aeb-4936-aae2-031b840fb94c",
+        "title": "Public 1",
+        "is_public": true
+      },
+      "status": 201,
+      "response": {
+        "id": "772317d0-13f6-4fcd-9208-554cb9d1ce95"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/public",
+      "params": {
+        "limit": 100
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "decks": [
+          {
+            "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+            "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+            "title": "Updated title",
+            "description": null,
+            "created_at": "2026-11-16T13:34:28.185022Z",
+            "updated_at": "2026-11-16T13:34:28.240131Z"
+          },
+          {
+            "id": "3181c2c1-d650-46ce-a37c-011130ab2c94",
+            "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+            "title": "Public 0",
+            "description": null,
+            "created_at": "2026-11-16T13:34:33.043835Z",
+            "updated_at": "2026-11-16T13:34:33.043849Z"
+          },
+          {
+            "id": "772317d0-13f6-4fcd-9208-554cb9d1ce95",
+            "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+            "title": "Public 1",
+            "description": null,
+            "created_at": "2026-11-16T13:34:33.066696Z",
+            "updated_at": "2026-11-16T13:34:33.066710Z"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/public",
+      "params": {
+        "limit": 1,
+        "offset": 0
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "decks": [
+          {
+            "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+            "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+            "title": "Updated title",
+            "description": null,
+            "created_at": "2026-11-16T13:34:28.185022Z",
+            "updated_at": "2026-11-16T13:34:28.240131Z"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/public",
+      "params": {
+        "limit": 1,
+        "offset": 1
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "decks": [
+          {
+            "id": "3181c2c1-d650-46ce-a37c-011130ab2c94",
+            "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+            "title": "Public 0",
+            "description": null,
+            "created_at": "2026-11-16T13:34:33.043835Z",
+            "updated_at": "2026-11-16T13:34:33.043849Z"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"d5792925-4558-423f-8859-988c3cf7a1c1\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"d2c03fb2-6aeb-4936-aae2-031b840fb94c\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"c54d12cc-19f7-44c4-82cd-c9e0893c48c2\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"9d68ff9d-94a8-4c56-b48c-b9d9582fae4f\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"3181c2c1-d650-46ce-a37c-011130ab2c94\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"772317d0-13f6-4fcd-9208-554cb9d1ce95\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/public: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"decks\":[{\"id\":\"c5cd81c0-5290-43d9-b647-ca19a99d0ef3\",\"owner_id\":\"5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87\",\"title\":\"Updated title\",\"description\":null,\"created_at\":\"2026-11-16T13:34:28.185022Z\",\"updated_at\":\"2026-11-16T13:34:28.240131Z\"},{\"id\":\"3181c2c1-d650-46ce-a37c-011130ab2c94\",\"owner_id\":\"d5792925-4558-423f-8859-988c3cf7a1c1\",\"title\":\"Public 0\",\"description\":null,\"created_at\":\"2026-11-16T13:34:33.043835Z\",\"updated_at\":\"2026-11-16T13:34:33.043849Z\"},{\"id\":\"772317d0-13f6-4fcd-9208-554cb9d1ce95\",\"owner_id\":\"d5792925-4558-423f-8859-988c3cf7a1c1\",\"title\":\"Public 1\",\"description\":null,\"created_at\":\"2026-11-16T13:34:33.066696Z\",\"updated_at\":\"2026-11-16T13:34:33.066710Z\"}]}"
+      }
+    },
+    {
+      "expectation": "Public included; private excluded",
+      "passed": true,
+      "actual": [
+        "3181c2c1-d650-46ce-a37c-011130ab2c94",
+        "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+        "772317d0-13f6-4fcd-9208-554cb9d1ce95"
+      ]
+    },
+    {
+      "expectation": "GET /v1/deck/public: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"decks\":[{\"id\":\"c5cd81c0-5290-43d9-b647-ca19a99d0ef3\",\"owner_id\":\"5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87\",\"title\":\"Updated title\",\"description\":null,\"created_at\":\"2026-11-16T13:34:28.185022Z\",\"updated_at\":\"2026-11-16T13:34:28.240131Z\"}]}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/public: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"decks\":[{\"id\":\"3181c2c1-d650-46ce-a37c-011130ab2c94\",\"owner_id\":\"d5792925-4558-423f-8859-988c3cf7a1c1\",\"title\":\"Public 0\",\"description\":null,\"created_at\":\"2026-11-16T13:34:33.043835Z\",\"updated_at\":\"2026-11-16T13:34:33.043849Z\"}]}"
+      }
+    },
+    {
+      "expectation": "Pagination applies limit and offset",
+      "passed": true,
+      "actual": [
+        [
+          {
+            "id": "c5cd81c0-5290-43d9-b647-ca19a99d0ef3",
+            "owner_id": "5d3bc1ca-77e7-4567-9f41-1cc15a4c0e87",
+            "title": "Updated title",
+            "description": null,
+            "created_at": "2026-11-16T13:34:28.185022Z",
+            "updated_at": "2026-11-16T13:34:28.240131Z"
+          }
+        ],
+        [
+          {
+            "id": "3181c2c1-d650-46ce-a37c-011130ab2c94",
+            "owner_id": "d5792925-4558-423f-8859-988c3cf7a1c1",
+            "title": "Public 0",
+            "description": null,
+            "created_at": "2026-11-16T13:34:33.043835Z",
+            "updated_at": "2026-11-16T13:34:33.043849Z"
+          }
+        ]
+      ]
+    }
+  ]
+}

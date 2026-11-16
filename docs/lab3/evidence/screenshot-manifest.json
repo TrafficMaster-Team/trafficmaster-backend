@@ -1,0 +1,338 @@
+{
+  "TC-001": {
+    "image": "TC-001.jpg",
+    "image_sha256": "31b95d493a2c8d7f66265a0a54364cae5de7d218dd06d431473e52ae997b007f",
+    "trace_sha256": "a4713baf22c547e77223b3a4a03b660ee731634bb29a8d8bc38a007aba07a735",
+    "html_sha256": "ffc8c71b9ac3beca51f8d1a3b30b694b1465cf4970df150e14c9aac2d026b1f2",
+    "captured_at": "2026-11-16T16:46:37.491344+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-002": {
+    "image": "TC-002.jpg",
+    "image_sha256": "ec899fe8c1ea6fc2013754d4d2ad01337e42cf101d1c190d0449605ae62edc5d",
+    "trace_sha256": "44282640b8619420cf45c90010cb64ab871840418949584ddaf3ee2e70d04ea3",
+    "html_sha256": "4576400da99fded1c9401beddf061491e9ef81ee6436315438eaeba431457493",
+    "captured_at": "2026-11-16T16:46:37.817309+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-003": {
+    "image": "TC-003.jpg",
+    "image_sha256": "7751fc98ad0921fb81271dbf56696d6597d45ec5eb6cc7a1fa8a3f418abe9f5c",
+    "trace_sha256": "56026ba7b7df43b0b27d146165e98ffe291b982a339e4bf7619afda2eb6a6c6a",
+    "html_sha256": "0e315a02edf8347f3167c90f6b34d4eb98dcf5ef6a282c6150b2081010c5906e",
+    "captured_at": "2026-11-16T16:46:38.182270+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-004": {
+    "image": "TC-004.jpg",
+    "image_sha256": "500b6d396faa367abd14f0af392449f7524711c819af4ba15660a95f8d8b0b9e",
+    "trace_sha256": "990eb5dca095ea36ab2fa3603b8786273bbdd04e0a155b59d0f7cedd7728ca62",
+    "html_sha256": "79f155820f219728bcd65a50a037c9f5ced11979c2bd86aa0433db750f73c432",
+    "captured_at": "2026-11-16T16:46:38.498235+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-005": {
+    "image": "TC-005.jpg",
+    "image_sha256": "0ee65f656d6645ccb6e03db13a289408c373db17f19fedce6c9546b5712b090b",
+    "trace_sha256": "e675392c90c886552cef81313cb5abad9e5ff9ac48a0835eba334f4b5438638f",
+    "html_sha256": "c74a680b525630da56369f4facc060b29f806a232c2a466e07e2a2fdd978dbe9",
+    "captured_at": "2026-11-16T16:46:38.839199+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-006": {
+    "image": "TC-006.jpg",
+    "image_sha256": "b192ef003cc08c182ae0a7d7423cdfd90bf5ec3e76bbc1dfe43fd0c3a465dd81",
+    "trace_sha256": "2c06901068c45b3140cb557425247796d66ab8b402f7ad0043e7055cb080d7c5",
+    "html_sha256": "fd297faecdd16a87849d2a9a8641ba47af5409cf28044538550c9816dbac7267",
+    "captured_at": "2026-11-16T16:46:39.341145+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-007": {
+    "image": "TC-007.jpg",
+    "image_sha256": "0693d821dd4b332e3d2b31d8a74c52cae8d6e3a8b4daf29e04139bc29ba9852d",
+    "trace_sha256": "4ce9ce90f28ba0af20aabf29b0446a5e542741b77c962dbbf19669305a44f30a",
+    "html_sha256": "eaab5ff0f6c916d1b4f0ecc7d459002f9c50e06daeb1714c8074c67600902580",
+    "captured_at": "2026-11-16T16:46:39.700106+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-008": {
+    "image": "TC-008.jpg",
+    "image_sha256": "60e66f67e2af82e044bbaf9f19a14eaea7e6a139c40bf40271d0eb167d44eb19",
+    "trace_sha256": "94e3148d2228ee201993ca70ec44cbedee1438675335c8b6cb8b42d078a31eb6",
+    "html_sha256": "fb5a6ca8acc2fb2e7fa34906180f6d23f8d8435e46906e1c516c82ce9642c445",
+    "captured_at": "2026-11-16T16:46:40.011072+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-009": {
+    "image": "TC-009.jpg",
+    "image_sha256": "4ec13c57d748cf8bdd0f5179916c270d71b96f493799ebfce749b6cf9daa53c0",
+    "trace_sha256": "df25116c1162cae9c836afb9ecd6f1029c183dfe4c80539a0967a03fe44139d4",
+    "html_sha256": "60bb1bd6338fd19705145cbf267a0e6fab739a37b6dcbb0bf51a3d88f5f49500",
+    "captured_at": "2026-11-16T16:46:40.376033+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-010": {
+    "image": "TC-010.jpg",
+    "image_sha256": "c494680a8ae2502400651955e3771809c62242a0458ea0d938f4ada3b67bae3d",
+    "trace_sha256": "e71d155ab34062c2577440f1a219d07936c153c9f974067ee6568195139f4bf5",
+    "html_sha256": "c3541147b34d2b132dc64d621296ff40204ce9c792993c0136e9c0795328cd2a",
+    "captured_at": "2026-11-16T16:46:40.771990+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-011": {
+    "image": "TC-011.jpg",
+    "image_sha256": "226ddd0b357cb76d68159964548b6e910b1de1450c6611df75c2c197f4f2d96c",
+    "trace_sha256": "f3ccef2bd102fc03d1a907b42f421d095430a1f0c3cf39e5faa10a3da28ca502",
+    "html_sha256": "9554c46868e369729c3b87bd4d005517e52ab2469baff75a3380efaa8a92dc12",
+    "captured_at": "2026-11-16T16:46:41.155948+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-012": {
+    "image": "TC-012.jpg",
+    "image_sha256": "a83df818b014ad7d54ba7b41151bcaf0179e8b76b91eec330fb40a267faae9fc",
+    "trace_sha256": "496343cd65f6d69fd8cbe7d31e070db2ffd0fe4d1d3f3f9b0e4edcc35d5b83fe",
+    "html_sha256": "42ff23fd905ed01f5d092bb8aa00eb2d37367356cdba304063434271f031480c",
+    "captured_at": "2026-11-16T16:46:41.618898+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-013": {
+    "image": "TC-013.jpg",
+    "image_sha256": "026894d2a80c8923e38ed88b7da59e2d06d73049c0a9d89838888178d9cb1c65",
+    "trace_sha256": "2a4e4f6af5a11002a571f88ef80810f5cf186a60c9d12461a9ba9d866fdbc3f6",
+    "html_sha256": "3da7c6e7032fd6605febbec14ae15c27c60fa614f4b1da7da85dd42b6af63362",
+    "captured_at": "2026-11-16T16:46:41.936863+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-014": {
+    "image": "TC-014.jpg",
+    "image_sha256": "86398e9b40079225942bc86508c29cc2cd482f1971374930c05592665e100fca",
+    "trace_sha256": "53e283a68a5556591bc751acaea823403d6c6f1613c66034f92e75bc2bd43b23",
+    "html_sha256": "f62f0f37b3cee094e998d3d18c170e966c58d21c76f995d7b02ac7e1ebf0042d",
+    "captured_at": "2026-11-16T16:46:42.278826+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-015": {
+    "image": "TC-015.jpg",
+    "image_sha256": "13fa858933adf81c349f3d15b4977fa0db1292ac8faecf464082a4b49d3fdc3f",
+    "trace_sha256": "9fcdf04de8ea8d2c7fe8fd7f67d5c31dc5c9bb66e9345bc2f3c164cdb60a949a",
+    "html_sha256": "49516472f6521117223353c7021b2af05ac43bb3b9b6391d9e1b29495cf662eb",
+    "captured_at": "2026-11-16T16:46:42.716779+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-016": {
+    "image": "TC-016.jpg",
+    "image_sha256": "5d4971f269b8813fb88f29a91e2b5b45af346b3f9794e00e2b24695b08e8e768",
+    "trace_sha256": "bddef06243137346d5d91fb876c0808170e50076c37b9ca578f690c677264cfc",
+    "html_sha256": "9073bbe7a92c21d6e03d0228569412dd999a98e4bc1b325010055795f865c19c",
+    "captured_at": "2026-11-16T16:46:43.087738+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-017": {
+    "image": "TC-017.jpg",
+    "image_sha256": "8259fe932270f2cc7a3917eddadcce1e1bda987afebb2ef76927b0a14b5561fa",
+    "trace_sha256": "140b287dbbaa8bec8ec18ef220ab2ef23f825fbf2e6deacb4883afbd5b5a7161",
+    "html_sha256": "75973c63482b175ff036d65c177549dad718a3807f426eee8623969d61a419b7",
+    "captured_at": "2026-11-16T16:46:43.454698+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-018": {
+    "image": "TC-018.jpg",
+    "image_sha256": "e825732d94421155615fbb4b6bd11903d2cf02759f0915d6e8da00df5081e9fa",
+    "trace_sha256": "a0b0a71b9a667fe84a5339ca03d34210fa8437a74c9b6b92d526e18b82a8b65d",
+    "html_sha256": "20f275c828ec7eb2e69c0ea50b9fcc08815a78a34ac79531a1ecc76cec3976d9",
+    "captured_at": "2026-11-16T16:46:43.778663+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-019": {
+    "image": "TC-019.jpg",
+    "image_sha256": "7b8813f874d65a1bbe26ca599c570a67186742e253350088ab2b8044fd58e44e",
+    "trace_sha256": "4a5d414b2a401616fa3c7583abdd4841d793ca53c02ed62f55bd8da3c9dc447b",
+    "html_sha256": "93d58657b3337df84650b1f316cc9c16113229a23920acb7f521bbd9b4636ac3",
+    "captured_at": "2026-11-16T16:46:44.090629+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-020": {
+    "image": "TC-020.jpg",
+    "image_sha256": "ccbc658af701b52238fb1234b45a1f3dc39ae03f368726c304c6933d2de52136",
+    "trace_sha256": "70bf9f289ee063453f958b8854e2e75fb9edfd3979e822636f6eba35521027e9",
+    "html_sha256": "a2f9d592b3ac34dfa590d24421a23566823733ea97156ef9553ffa8e1eb4aed7",
+    "captured_at": "2026-11-16T16:46:44.379598+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-021": {
+    "image": "TC-021.jpg",
+    "image_sha256": "102d71b10bbec9d814978a77039b35d9fd2241a6a9f70e15d3d7dd12462e2732",
+    "trace_sha256": "6e7fc6711433163bce04207cc3907af1387d4d1ced6287e2e010eae655e56c4f",
+    "html_sha256": "3ea3f32ca6e122bd1d4553d39d628eb9b2fadab8e2b5f7a7c2c59027d1063e8a",
+    "captured_at": "2026-11-16T16:46:44.679565+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-022": {
+    "image": "TC-022.jpg",
+    "image_sha256": "cac1e014a4d115b1f3f69b617a0eabdbd7cb6c64d8b8003f02ea84334b7c4d42",
+    "trace_sha256": "81b70ff88bd9acef02e41679b14d2d229bc1e029bce1da478a46179b256fc3bd",
+    "html_sha256": "bf0e0999c6346481e001eea5146bb3174c2e2fe3d4f6cec9219c88b19ce99874",
+    "captured_at": "2026-11-16T16:46:44.993531+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-023": {
+    "image": "TC-023.jpg",
+    "image_sha256": "222f554bfaa85264254395482e1efff11dd6ac2ec494af1e2ab05f1fd2340559",
+    "trace_sha256": "680efc40454304a0383f3c8ad2eaf4711adc4a605ab0cc7a789b8088eec9569e",
+    "html_sha256": "ff9a7fc50214fd4a8250799483e7ff271cfa059cc663ba93ed1242ca7868d10c",
+    "captured_at": "2026-11-16T16:46:45.288498+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-024": {
+    "image": "TC-024.jpg",
+    "image_sha256": "ba6159128a76d757b17858d67bdfc8e2cc2e9d5b4bee089dcd391be2d166c554",
+    "trace_sha256": "0024631c6b46b661d50df3a47581481b7dedc6a0c7f89cd47545e264fe38ac1f",
+    "html_sha256": "1751663e2bba5614c5a47cd1bee18db2ef2e4a47da247bd6f573e3ac1a12876b",
+    "captured_at": "2026-11-16T16:46:45.591465+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-025": {
+    "image": "TC-025.jpg",
+    "image_sha256": "71101cc459754eb7e156a0e9280e207491de5f81da0844a0e92cc2b2c3c54a5e",
+    "trace_sha256": "1ffdca36e83f1c3f9616f6b2ba3c7b47915ae28c9af4e626b236e4f1f4fb1510",
+    "html_sha256": "36de2483e3adb63fcda37d5f06ecdf2d21d7a0b41f2f0922a8dbe7722b668afe",
+    "captured_at": "2026-11-16T16:46:45.946427+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-026": {
+    "image": "TC-026.jpg",
+    "image_sha256": "8f0acd3ea653856c4c4bf3077e313663269556371aecab13b575c69a4c0a4ebd",
+    "trace_sha256": "39bd9b6448e31cd74734211ac60c2a4778af240543ca45e9f443beacba20abb0",
+    "html_sha256": "360e56257fe2f6ceed51e42b4f3726ae969dabf013d7b675f40dd05d9927a5df",
+    "captured_at": "2026-11-16T16:46:46.285389+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-027": {
+    "image": "TC-027.jpg",
+    "image_sha256": "33e0d7af3e7bf674e55892965701436330129f96c57c11cf1d0bfdff6ed4e0e4",
+    "trace_sha256": "346558d3951113a3218544bf1b5682e95b4de85c8981079bbf547c8270ab12df",
+    "html_sha256": "9d2e7e6bfd6921069b017817e94b3bc2a77708327538bacbcf7c1580d45a341e",
+    "captured_at": "2026-11-16T16:46:46.641351+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-028": {
+    "image": "TC-028.jpg",
+    "image_sha256": "8baae2a0e81b72f619f9b7099a138c9a3182b255cc1ebb1413dd972db2b09378",
+    "trace_sha256": "4fe71efe7682b4b21904f7e9ad4958a0835ab21a925aa9cad2a25da35baba104",
+    "html_sha256": "341cf93477a29c48e30044d5cd9a69894a106f23a2239167811314117534a737",
+    "captured_at": "2026-11-16T16:46:46.969315+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-029": {
+    "image": "TC-029.jpg",
+    "image_sha256": "960a3fc53ac48f45ecb89c7dada8ffbfe4a6076170c07a50e22d7eb63a4a1dab",
+    "trace_sha256": "708d00a5efa782807e8b719aab519c52d378ebab31903997b997486967037148",
+    "html_sha256": "cb8eff304596a9838a847f2ae2fd9a14b3a91be6c1f0712462e808fbbbc4d311",
+    "captured_at": "2026-11-16T16:46:47.362272+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-030": {
+    "image": "TC-030.jpg",
+    "image_sha256": "3cbe29dec034d17a86a934d30820e4bdf9506815d3bff17a6f48666057e91f69",
+    "trace_sha256": "c683d0f5190be6b6e492c0e6c4b5cebc934a98a353fbd2260fba78b6b3b35af2",
+    "html_sha256": "094cde7492bd3e6f287058a0d4a66fdddaaa8c29926685eac1e371809aec6eb6",
+    "captured_at": "2026-11-16T16:46:47.774226+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-031": {
+    "image": "TC-031.jpg",
+    "image_sha256": "7343c1862ae67bd4c506b40f962c2db00be0c730b7b0f542f818e338f403a690",
+    "trace_sha256": "cf25f598bcf43813c45c249d4c7f9f475b69f07e47837468ac1cedfea5219926",
+    "html_sha256": "5251dee070d79847ae0283e57d4d5534f3ed6d1455bd16caae5d5842af99e0be",
+    "captured_at": "2026-11-16T16:46:48.115189+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-032": {
+    "image": "TC-032.jpg",
+    "image_sha256": "124de45b8c022418b7b315436a0d2cb85408cec5833629cd525667344cccaebf",
+    "trace_sha256": "6e3ee48a75e42b6c52e1d4012618845c600d07b7fa4ea45a783a71ff2fa1bd88",
+    "html_sha256": "89b3f5d6b875f477633c1c7cc50d673e4f6d78a27569ba04276dc2daee872bef",
+    "captured_at": "2026-11-16T16:46:48.416156+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-033": {
+    "image": "TC-033.jpg",
+    "image_sha256": "f5277af6daa1d8abe04a5969c7f301baf08d2f31b88c859fbaf4c0db2257e723",
+    "trace_sha256": "2d10a0b2e8f957b0dda2ef4a215f1d2a3dff5a54ea366565303233338c383b62",
+    "html_sha256": "9944c245ff41cc9c63dfcc183d0b0dce9bb54a6a4e2274680ace38754f4aca25",
+    "captured_at": "2026-11-16T16:46:48.751119+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-034": {
+    "image": "TC-034.jpg",
+    "image_sha256": "500ac902e2b637a31e6115db93d23f89191035e37ebc09102c47027090e1619f",
+    "trace_sha256": "d89cd62c0a35e23f3ce11106266cee6291f2920b1922aa21dea83af0a9ab6280",
+    "html_sha256": "e79b22ccd59667fd6984cc877073d5419e826a3cc3b4ec20e05672e9e381b61e",
+    "captured_at": "2026-11-16T16:46:49.081083+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-035": {
+    "image": "TC-035.jpg",
+    "image_sha256": "80217920d583f53f63556fb949dfa1d85896465bd5df1772bbf4a4d0404b68bf",
+    "trace_sha256": "5e23546ae568a09cf9523052a4cb4737ad5516c2b3e003f3355d6220146a172e",
+    "html_sha256": "b1c776523b1edad2f14ad12d20668b81988ddef834bc163656d335520e939ceb",
+    "captured_at": "2026-11-16T16:46:49.430045+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-036": {
+    "image": "TC-036.jpg",
+    "image_sha256": "e9bccd01fe188255379ace3fcf2c45566bb979c32fb52ab46661b9bdda153a70",
+    "trace_sha256": "e200b53a4ed216b9606c502834f82126e5b0126d445d7868ed0ab22885298296",
+    "html_sha256": "8cf11f9d0addd1e2c124286da7e259ad38b0035a4d8d439e5ebfc6f47e782e78",
+    "captured_at": "2026-11-16T16:46:49.758009+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-037": {
+    "image": "TC-037.jpg",
+    "image_sha256": "2c4b0ceef92b9dbedc37c72e0099c4624a35f7bef2085d2acba15993ab3bf954",
+    "trace_sha256": "9dd63b6ddef3b4166f9759bcc7b67525b8a9eeeadc2868f8281b520b237a6c2a",
+    "html_sha256": "881715a00a770349acad9f13c86a41508aa1b2871e18ad17e38f2534c85238d1",
+    "captured_at": "2026-11-16T16:46:50.096972+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-038": {
+    "image": "TC-038.jpg",
+    "image_sha256": "a3044d93228c2973d63b511fbc86075a596c60943dab5670e6990efb4b190c44",
+    "trace_sha256": "c9d441d9f8ecc9ba7453f12a90caeb82aaf2d6c2208269e958c181fa81266efc",
+    "html_sha256": "0762093c94937311248269c6ebdc7fea7c1e505119794600c9e01d83fa41dffb",
+    "captured_at": "2026-11-16T16:46:50.450933+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-039": {
+    "image": "TC-039.jpg",
+    "image_sha256": "ffd9886e8bc96ae952825bb16efcb40561ee724790d3b9a8118121bf5dab7595",
+    "trace_sha256": "a3c24ffc0a32a44bafaae439520697b50f47825a6ddaa845ce975979892a347a",
+    "html_sha256": "c11da0233a88a961175d6795003c78cca81c1709b019dc6b8ccfc80b9c2af263",
+    "captured_at": "2026-11-16T16:46:50.781896+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-040": {
+    "image": "TC-040.jpg",
+    "image_sha256": "23d287b67bb85607674335313f359e036d46fa0bd1079dde568a3fa647663269",
+    "trace_sha256": "82423aec30ca3ee7c20ace5362c618df563fc729a1eb46861b4adf04e149cec8",
+    "html_sha256": "bbd8c29c0205abe2d6cfcdb339a14fe2033c1b971e6f1fcedc3a15e277b331da",
+    "captured_at": "2026-11-16T16:46:51.154855+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-041": {
+    "image": "TC-041.jpg",
+    "image_sha256": "18c50295582f2ae8f45f5d799d4e5e10f785aba69e4d95a1e4f7c359497b8660",
+    "trace_sha256": "234cc54929af08e1d824e0bee79d2bd27666763f0abcce0d189f9aff707bad3b",
+    "html_sha256": "c31994a9d9fe566ca7a8156b708c55eb4651349a60e16b88728a12d36e8970d0",
+    "captured_at": "2026-11-16T16:46:13.783754+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  },
+  "TC-042": {
+    "image": "TC-042.jpg",
+    "image_sha256": "e5b534a713020def12aa726073ae5dbc434f51c2d282ce71310eea03021e2ac3",
+    "trace_sha256": "ac65951bbc970f558e14f6959c24c1da05d6d07e8ab26532cb913eb8e36dccf3",
+    "html_sha256": "b5d7d3d600063efa2067664d01e0e994d97828faa0b62d3237cd27c9d557b7a3",
+    "captured_at": "2026-11-16T16:46:13.464783+03:00",
+    "method": "CUA screenshot of the visible browser viewport showing the executed HTTP case report"
+  }
+}

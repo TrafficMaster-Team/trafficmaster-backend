@@ -1,0 +1,105 @@
+{
+  "id": "TC-004",
+  "requirement": "FR-02",
+  "started": "2026-11-16T16:34:04.665272+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:06.739097+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_5a19e3409a47@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "378991d5-9be3-4f25-bc85-d0bbe234cefa"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_5a19e3409a47@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_5a19e3409a47@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 401,
+      "response": {
+        "description": "User with email lab3_5a19e3409a47@example.com has incorrect password"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/auth/me",
+      "params": null,
+      "request": {},
+      "status": 401,
+      "response": {
+        "detail": "Not authenticated"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"378991d5-9be3-4f25-bc85-d0bbe234cefa\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 401",
+      "passed": true,
+      "actual": {
+        "status": 401,
+        "body": "{\"description\":\"User with email lab3_5a19e3409a47@example.com has incorrect password\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/auth/me: HTTP 401",
+      "passed": true,
+      "actual": {
+        "status": 401,
+        "body": "{\"detail\":\"Not authenticated\"}"
+      }
+    }
+  ]
+}

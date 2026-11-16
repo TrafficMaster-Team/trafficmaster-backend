@@ -45,6 +45,11 @@ nav:
       - Жизненный цикл: card-progress-lifecycle.md
       - Первоначальный аудит: lab1-audit.md
   - Лабораторная работа № 2: lab2-verification.md
+  - Лабораторная работа № 3:
+      - План тестирования: lab3/test-plan.md
+      - Чек-лист: lab3/checklist.md
+      - Тест-кейсы: lab3/test-cases.md
+      - Выполнение и метрики: lab3/execution.md
 plugins:
   - search
 

@@ -1,0 +1,278 @@
+{
+  "id": "TC-035",
+  "requirement": "FR-18",
+  "started": "2026-11-16T16:35:10.943036+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:35:12.365312+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_cc7f612dad22@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "3b98d83e-81aa-4ea0-8605-d2908748be10"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_cc7f612dad22@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "3b98d83e-81aa-4ea0-8605-d2908748be10",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "f3e8119e-d407-46ab-aaea-52ad7b7e69ff"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "3b98d83e-81aa-4ea0-8605-d2908748be10",
+        "deck_config_id": "f3e8119e-d407-46ab-aaea-52ad7b7e69ff",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "e7754418-d96e-4592-be93-c051863b192d"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "e7754418-d96e-4592-be93-c051863b192d",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "0fcdb946-5296-4410-bee6-a797ba28502d"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "e7754418-d96e-4592-be93-c051863b192d",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "590e28df-065b-499b-ac8d-87112a50cc51"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/0fcdb946-5296-4410-bee6-a797ba28502d",
+      "params": null,
+      "request": {
+        "rating": 4
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "bf92a331-38b8-40fc-9165-09fb27370695",
+        "review_log_id": "7124720e-c506-42f0-bcdc-b6517baa2901",
+        "state": "review",
+        "interval": 4,
+        "next_review_at": "2026-11-20T13:35:12.317601Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/deck/e7754418-d96e-4592-be93-c051863b192d/stats",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "total_cards": 2,
+        "new_count": 1,
+        "learning_count": 0,
+        "review_count": 1,
+        "due_learning": 0,
+        "due_review": 0,
+        "new_available": 0,
+        "new_done_today": 1,
+        "reviews_done_today": 0
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"3b98d83e-81aa-4ea0-8605-d2908748be10\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f3e8119e-d407-46ab-aaea-52ad7b7e69ff\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"e7754418-d96e-4592-be93-c051863b192d\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"0fcdb946-5296-4410-bee6-a797ba28502d\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"590e28df-065b-499b-ac8d-87112a50cc51\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/review/card/0fcdb946-5296-4410-bee6-a797ba28502d: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"bf92a331-38b8-40fc-9165-09fb27370695\",\"review_log_id\":\"7124720e-c506-42f0-bcdc-b6517baa2901\",\"state\":\"review\",\"interval\":4,\"next_review_at\":\"2026-11-20T13:35:12.317601Z\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/deck/e7754418-d96e-4592-be93-c051863b192d/stats: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"total_cards\":2,\"new_count\":1,\"learning_count\":0,\"review_count\":1,\"due_learning\":0,\"due_review\":0,\"new_available\":0,\"new_done_today\":1,\"reviews_done_today\":0}"
+      }
+    },
+    {
+      "expectation": "Counts match this user's card states",
+      "passed": true,
+      "actual": {
+        "total_cards": 2,
+        "new_count": 1,
+        "learning_count": 0,
+        "review_count": 1,
+        "due_learning": 0,
+        "due_review": 0,
+        "new_available": 0,
+        "new_done_today": 1,
+        "reviews_done_today": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "id": "TC-039",
+  "requirement": "FR-20",
+  "started": "2026-11-16T16:35:19.322200+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:35:20.879156+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_6b71d3b30fcd@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "9546dce6-a4df-4381-8c8b-d034ba2b2aec"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_6b71d3b30fcd@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "9546dce6-a4df-4381-8c8b-d034ba2b2aec",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "a33d283e-2159-46bd-bfb0-7afc9f63bbb7"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "9546dce6-a4df-4381-8c8b-d034ba2b2aec",
+        "deck_config_id": "a33d283e-2159-46bd-bfb0-7afc9f63bbb7",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "b4aad8bf-4e15-4622-9d77-a9bb0214c249"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "b4aad8bf-4e15-4622-9d77-a9bb0214c249",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "380056a9-3975-48b3-a272-52dd8eb2d9d3"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "DELETE",
+      "path": "/v1/card/380056a9-3975-48b3-a272-52dd8eb2d9d3",
+      "params": null,
+      "request": {},
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/card/380056a9-3975-48b3-a272-52dd8eb2d9d3",
+      "params": null,
+      "request": {},
+      "status": 404,
+      "response": {
+        "description": "Card not found"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "DELETE",
+      "path": "/v1/deck/b4aad8bf-4e15-4622-9d77-a9bb0214c249",
+      "params": null,
+      "request": {},
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/b4aad8bf-4e15-4622-9d77-a9bb0214c249",
+      "params": null,
+      "request": {},
+      "status": 404,
+      "response": {
+        "description": "Deck not found"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "DELETE",
+      "path": "/v1/deck-config/a33d283e-2159-46bd-bfb0-7afc9f63bbb7",
+      "params": null,
+      "request": {},
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck-config/a33d283e-2159-46bd-bfb0-7afc9f63bbb7",
+      "params": null,
+      "request": {},
+      "status": 404,
+      "response": {
+        "description": "Deck config not found"
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"9546dce6-a4df-4381-8c8b-d034ba2b2aec\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"a33d283e-2159-46bd-bfb0-7afc9f63bbb7\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"b4aad8bf-4e15-4622-9d77-a9bb0214c249\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"380056a9-3975-48b3-a272-52dd8eb2d9d3\"}"
+      }
+    },
+    {
+      "expectation": "DELETE /v1/card/380056a9-3975-48b3-a272-52dd8eb2d9d3: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/card/380056a9-3975-48b3-a272-52dd8eb2d9d3: HTTP 404",
+      "passed": true,
+      "actual": {
+        "status": 404,
+        "body": "{\"description\":\"Card not found\"}"
+      }
+    },
+    {
+      "expectation": "DELETE /v1/deck/b4aad8bf-4e15-4622-9d77-a9bb0214c249: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/b4aad8bf-4e15-4622-9d77-a9bb0214c249: HTTP 404",
+      "passed": true,
+      "actual": {
+        "status": 404,
+        "body": "{\"description\":\"Deck not found\"}"
+      }
+    },
+    {
+      "expectation": "DELETE /v1/deck-config/a33d283e-2159-46bd-bfb0-7afc9f63bbb7: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/deck-config/a33d283e-2159-46bd-bfb0-7afc9f63bbb7: HTTP 404",
+      "passed": true,
+      "actual": {
+        "status": 404,
+        "body": "{\"description\":\"Deck config not found\"}"
+      }
+    }
+  ]
+}

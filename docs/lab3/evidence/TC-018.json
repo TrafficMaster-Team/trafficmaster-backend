@@ -1,0 +1,244 @@
+{
+  "id": "TC-018",
+  "requirement": "FR-09",
+  "started": "2026-11-16T16:34:33.180635+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:35.021682+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_d2cf70f8e478@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "ae1da8df-bd6c-454b-bb56-f18ebacbcb4c"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_d2cf70f8e478@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "ae1da8df-bd6c-454b-bb56-f18ebacbcb4c",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "3c85649c-da2c-455b-8662-47d308b494a7"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "ae1da8df-bd6c-454b-bb56-f18ebacbcb4c",
+        "deck_config_id": "3c85649c-da2c-455b-8662-47d308b494a7",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "e6300646-007f-4ca6-94e7-84691a61c6cf"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "e6300646-007f-4ca6-94e7-84691a61c6cf",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "4c616b2b-7db5-4bb2-9382-bc8461be7262"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/public",
+      "params": {
+        "limit": 0
+      },
+      "request": {},
+      "status": 422,
+      "response": {
+        "detail": [
+          {
+            "type": "greater_than_equal",
+            "loc": [
+              "query",
+              "limit"
+            ],
+            "msg": "Input should be greater than or equal to 1",
+            "input": "0",
+            "ctx": {
+              "ge": 1
+            }
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/deck/public",
+      "params": {
+        "offset": -1
+      },
+      "request": {},
+      "status": 422,
+      "response": {
+        "detail": [
+          {
+            "type": "greater_than_equal",
+            "loc": [
+              "query",
+              "offset"
+            ],
+            "msg": "Input should be greater than or equal to 0",
+            "input": "-1",
+            "ctx": {
+              "ge": 0
+            }
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"ae1da8df-bd6c-454b-bb56-f18ebacbcb4c\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"3c85649c-da2c-455b-8662-47d308b494a7\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"e6300646-007f-4ca6-94e7-84691a61c6cf\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"4c616b2b-7db5-4bb2-9382-bc8461be7262\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/public: HTTP 422",
+      "passed": true,
+      "actual": {
+        "status": 422,
+        "body": "{\"detail\":[{\"type\":\"greater_than_equal\",\"loc\":[\"query\",\"limit\"],\"msg\":\"Input should be greater than or equal to 1\",\"input\":\"0\",\"ctx\":{\"ge\":1}}]}"
+      }
+    },
+    {
+      "expectation": "GET /v1/deck/public: HTTP 422",
+      "passed": true,
+      "actual": {
+        "status": 422,
+        "body": "{\"detail\":[{\"type\":\"greater_than_equal\",\"loc\":[\"query\",\"offset\"],\"msg\":\"Input should be greater than or equal to 0\",\"input\":\"-1\",\"ctx\":{\"ge\":0}}]}"
+      }
+    }
+  ]
+}

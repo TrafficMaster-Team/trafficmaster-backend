@@ -137,3 +137,11 @@ docker run --rm --env-file /secure/path/trafficmaster.env trafficmaster alembic 
 - [Жизненный цикл прогресса карточки](docs/card-progress-lifecycle.md).
 - [Реестр дефектов](ISSUES.md).
 - [Первоначальный аудит и выполненные доработки](docs/lab1-audit.md).
+
+## Лабораторная работа № 3
+
+- [План тестирования: объём, стратегия, критерии и формулы метрик](docs/lab3/test-plan.md).
+- [Чек-лист всех функциональных требований](docs/lab3/checklist.md).
+- [42 тест-кейса с данными, шагами и результатами](docs/lab3/test-cases.md).
+- [Протокол выполнения, метрики, трассы и скриншоты](docs/lab3/execution.md).
+- [Реестр дефектов с важностью, срочностью и обходами](ISSUES.md).

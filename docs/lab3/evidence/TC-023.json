@@ -1,0 +1,358 @@
+{
+  "id": "TC-023",
+  "requirement": "FR-12",
+  "started": "2026-11-16T16:34:43.854641+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:45.522495+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_e8fcacdd2108@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "84a98e4b-0cde-4d3a-b3fe-332536511fa8"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_e8fcacdd2108@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "84a98e4b-0cde-4d3a-b3fe-332536511fa8",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "4a8b0742-d485-4f1a-844d-bbc4d0cf5d76"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "84a98e4b-0cde-4d3a-b3fe-332536511fa8",
+        "deck_config_id": "4a8b0742-d485-4f1a-844d-bbc4d0cf5d76",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "7b798d57-db1c-4e22-b212-7d4a664c3bb0"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "7b798d57-db1c-4e22-b212-7d4a664c3bb0",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "22bbcedc-86c5-470e-a518-731d8971a986"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986/question",
+      "params": null,
+      "request": {
+        "question": "Updated question"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986/tags",
+      "params": null,
+      "request": {
+        "tag": "lab"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986/image",
+      "params": null,
+      "request": {
+        "image_path": "images/signal.png"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "22bbcedc-86c5-470e-a518-731d8971a986",
+        "deck_id": "7b798d57-db1c-4e22-b212-7d4a664c3bb0",
+        "question": "Updated question",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement",
+            "id": "6b1c3bff-39f0-43ff-9549-15d5184ac9ef"
+          }
+        ],
+        "hint": "Think about safety",
+        "image_path": "images/signal.png",
+        "tags": [
+          "signals",
+          "lab"
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "PATCH",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986/image",
+      "params": null,
+      "request": {
+        "image_path": null
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/card/22bbcedc-86c5-470e-a518-731d8971a986",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "id": "22bbcedc-86c5-470e-a518-731d8971a986",
+        "deck_id": "7b798d57-db1c-4e22-b212-7d4a664c3bb0",
+        "question": "Updated question",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement",
+            "id": "6b1c3bff-39f0-43ff-9549-15d5184ac9ef"
+          }
+        ],
+        "hint": "Think about safety",
+        "image_path": null,
+        "tags": [
+          "signals",
+          "lab"
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"84a98e4b-0cde-4d3a-b3fe-332536511fa8\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"4a8b0742-d485-4f1a-844d-bbc4d0cf5d76\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"7b798d57-db1c-4e22-b212-7d4a664c3bb0\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"22bbcedc-86c5-470e-a518-731d8971a986\"}"
+      }
+    },
+    {
+      "expectation": "PATCH /v1/card/22bbcedc-86c5-470e-a518-731d8971a986/question: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/card/22bbcedc-86c5-470e-a518-731d8971a986/tags: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "PATCH /v1/card/22bbcedc-86c5-470e-a518-731d8971a986/image: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/card/22bbcedc-86c5-470e-a518-731d8971a986: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"22bbcedc-86c5-470e-a518-731d8971a986\",\"deck_id\":\"7b798d57-db1c-4e22-b212-7d4a664c3bb0\",\"question\":\"Updated question\",\"answerOptions\":[{\"text\":\"Stop\",\"isCorrect\":true,\"rationale\":\"Red prohibits movement\",\"id\":\"6b1c3bff-39f0-43ff-9549-15d5184ac9ef\"}],\"hint\":\"Think about safety\",\"image_path\":\"images/signal.png\",\"tags\":[\"signals\",\"lab\"]}"
+      }
+    },
+    {
+      "expectation": "All card changes persisted",
+      "passed": true,
+      "actual": {
+        "id": "22bbcedc-86c5-470e-a518-731d8971a986",
+        "deck_id": "7b798d57-db1c-4e22-b212-7d4a664c3bb0",
+        "question": "Updated question",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement",
+            "id": "6b1c3bff-39f0-43ff-9549-15d5184ac9ef"
+          }
+        ],
+        "hint": "Think about safety",
+        "image_path": "images/signal.png",
+        "tags": [
+          "signals",
+          "lab"
+        ]
+      }
+    },
+    {
+      "expectation": "PATCH /v1/card/22bbcedc-86c5-470e-a518-731d8971a986/image: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "GET /v1/card/22bbcedc-86c5-470e-a518-731d8971a986: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"id\":\"22bbcedc-86c5-470e-a518-731d8971a986\",\"deck_id\":\"7b798d57-db1c-4e22-b212-7d4a664c3bb0\",\"question\":\"Updated question\",\"answerOptions\":[{\"text\":\"Stop\",\"isCorrect\":true,\"rationale\":\"Red prohibits movement\",\"id\":\"6b1c3bff-39f0-43ff-9549-15d5184ac9ef\"}],\"hint\":\"Think about safety\",\"image_path\":null,\"tags\":[\"signals\",\"lab\"]}"
+      }
+    },
+    {
+      "expectation": "Image path cleared",
+      "passed": true,
+      "actual": null
+    }
+  ]
+}

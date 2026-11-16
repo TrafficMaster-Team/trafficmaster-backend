@@ -1,0 +1,25 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "dependencies": {
+    "pytest": "9.0.2",
+    "pytest-asyncio": "1.4.0",
+    "pytest-cov": "7.1.0",
+    "httpx": "0.28.1",
+    "asyncpg": "0.31.0",
+    "fastapi": "0.135.2",
+    "sqlalchemy": "2.0.48",
+    "testcontainers": "4.14.2",
+    "redis": "7.4.0",
+    "uvicorn": "0.42.0"
+  },
+  "git_base_commit": "b3dd08902e2e60fafbe8ab2e6df213b82075ff0a",
+  "worktree": "uncommitted working tree; hashes identify catalogue and runner",
+  "sha256": {
+    "docs/lab3/cases.json": "e771f202d6a9a7837c33e0dea00d413598c864a379e92c94756a2e87215b6094",
+    "tests/integration/lab3/test_acceptance.py": "ef018d0903eccd08f9c46bc158e88b5926c8d0df28d1cd1e1cddffdcbea3ea70",
+    "pyproject.toml": "c496ac81e5bb7ede9f99b9fe0066dfe015ac7d10dfd2e9964a2a944206792569"
+  },
+  "postgres_image": "postgres:16-alpine",
+  "redis_image": "redis:7-alpine"
+}

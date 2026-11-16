@@ -1,0 +1,338 @@
+{
+  "id": "TC-028",
+  "requirement": "FR-14",
+  "started": "2026-11-16T16:34:55.564021+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:34:57.309527+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_b6de820c30a2@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "78ffc7bc-2ca0-4edf-a4f4-cb7e29bac552"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_b6de820c30a2@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "78ffc7bc-2ca0-4edf-a4f4-cb7e29bac552",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "199b674c-2470-4e73-b7ce-fa037360454e"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "78ffc7bc-2ca0-4edf-a4f4-cb7e29bac552",
+        "deck_config_id": "199b674c-2470-4e73-b7ce-fa037360454e",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "8416a2bc-083a-4233-b934-a8316075d2b5"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "8416a2bc-083a-4233-b934-a8316075d2b5",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "f0e926b6-d205-4540-9bb9-4a5282d17796"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "8416a2bc-083a-4233-b934-a8316075d2b5",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "0c9ad2ab-9a7c-419a-9f75-ada7835693f1"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/queue",
+      "params": {
+        "deck_id": "8416a2bc-083a-4233-b934-a8316075d2b5",
+        "limit": 10
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "items": [
+          {
+            "card_id": "f0e926b6-d205-4540-9bb9-4a5282d17796",
+            "question": "What does a red traffic light mean?",
+            "answerOptions": [
+              {
+                "text": "Stop",
+                "isCorrect": true,
+                "rationale": "Red prohibits movement",
+                "id": "bc6fe5a8-f6b1-4121-9dee-c1ae2e3b724a"
+              }
+            ],
+            "hint": "Think about safety",
+            "image_path": null,
+            "tags": [
+              "signals"
+            ],
+            "state": null,
+            "interval": null,
+            "repetitions": null,
+            "next_review_at": null,
+            "reason": "new"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/review/card/f0e926b6-d205-4540-9bb9-4a5282d17796",
+      "params": null,
+      "request": {
+        "rating": 4
+      },
+      "status": 200,
+      "response": {
+        "card_progress_id": "bfb62941-f6bb-4468-b230-dc45dda897b0",
+        "review_log_id": "f5089887-8770-4be2-aaf8-a4e00245d7b2",
+        "state": "review",
+        "interval": 4,
+        "next_review_at": "2026-11-20T13:34:57.272699Z"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/queue",
+      "params": {
+        "deck_id": "8416a2bc-083a-4233-b934-a8316075d2b5",
+        "limit": 10
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "items": []
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"78ffc7bc-2ca0-4edf-a4f4-cb7e29bac552\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"199b674c-2470-4e73-b7ce-fa037360454e\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"8416a2bc-083a-4233-b934-a8316075d2b5\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f0e926b6-d205-4540-9bb9-4a5282d17796\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"0c9ad2ab-9a7c-419a-9f75-ada7835693f1\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/queue: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"items\":[{\"card_id\":\"f0e926b6-d205-4540-9bb9-4a5282d17796\",\"question\":\"What does a red traffic light mean?\",\"answerOptions\":[{\"text\":\"Stop\",\"isCorrect\":true,\"rationale\":\"Red prohibits movement\",\"id\":\"bc6fe5a8-f6b1-4121-9dee-c1ae2e3b724a\"}],\"hint\":\"Think about safety\",\"image_path\":null,\"tags\":[\"signals\"],\"state\":null,\"interval\":null,\"repetitions\":null,\"next_review_at\":null,\"reason\":\"new\"}]}"
+      }
+    },
+    {
+      "expectation": "Only one new card issued",
+      "passed": true,
+      "actual": [
+        {
+          "card_id": "f0e926b6-d205-4540-9bb9-4a5282d17796",
+          "question": "What does a red traffic light mean?",
+          "answerOptions": [
+            {
+              "text": "Stop",
+              "isCorrect": true,
+              "rationale": "Red prohibits movement",
+              "id": "bc6fe5a8-f6b1-4121-9dee-c1ae2e3b724a"
+            }
+          ],
+          "hint": "Think about safety",
+          "image_path": null,
+          "tags": [
+            "signals"
+          ],
+          "state": null,
+          "interval": null,
+          "repetitions": null,
+          "next_review_at": null,
+          "reason": "new"
+        }
+      ]
+    },
+    {
+      "expectation": "POST /v1/review/card/f0e926b6-d205-4540-9bb9-4a5282d17796: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"card_progress_id\":\"bfb62941-f6bb-4468-b230-dc45dda897b0\",\"review_log_id\":\"f5089887-8770-4be2-aaf8-a4e00245d7b2\",\"state\":\"review\",\"interval\":4,\"next_review_at\":\"2026-11-20T13:34:57.272699Z\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/queue: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"items\":[]}"
+      }
+    },
+    {
+      "expectation": "No second new card after daily quota consumed",
+      "passed": true,
+      "actual": []
+    }
+  ]
+}

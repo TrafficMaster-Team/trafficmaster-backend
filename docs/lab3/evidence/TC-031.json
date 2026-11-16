@@ -1,0 +1,295 @@
+{
+  "id": "TC-031",
+  "requirement": "FR-16",
+  "started": "2026-11-16T16:35:00.179425+03:00",
+  "status": "Passed",
+  "defect": null,
+  "error": null,
+  "finished": "2026-11-16T16:35:01.792857+03:00",
+  "events": [
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/signup",
+      "params": null,
+      "request": {
+        "email": "lab3_1c3565ad6392@example.com",
+        "name": "Lab-User",
+        "password": "<test-password-redacted>"
+      },
+      "status": 201,
+      "response": {
+        "id": "ec5425f6-0290-4259-9e73-f7c46f42255f"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "params": null,
+      "request": {
+        "email": "lab3_1c3565ad6392@example.com",
+        "password": "<test-password-redacted>"
+      },
+      "status": 204,
+      "response": null,
+      "cookie_set": true,
+      "httponly": true
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck-config/",
+      "params": null,
+      "request": {
+        "owner_id": "ec5425f6-0290-4259-9e73-f7c46f42255f",
+        "name": "Lab config",
+        "daily_limits": {
+          "new_cards_per_day": 1,
+          "max_reviews_per_day": 20
+        },
+        "new_cards": {
+          "learning_steps": [
+            1,
+            10
+          ],
+          "graduating_interval": 1,
+          "easy_interval": 4,
+          "new_card_order": "sequential"
+        },
+        "lapses": {
+          "relearning_steps": [
+            10
+          ],
+          "min_interval": 1
+        },
+        "advanced": {
+          "max_interval": 36500,
+          "ease_factor": 2.5,
+          "easy_factor": 1.3,
+          "interval_modifier": 1.0,
+          "hard_interval": 1.2,
+          "new_interval": 0.0
+        }
+      },
+      "status": 201,
+      "response": {
+        "id": "8f06c9e6-ce26-4e85-bfdc-9a807be69911"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/deck/",
+      "params": null,
+      "request": {
+        "owner_id": "ec5425f6-0290-4259-9e73-f7c46f42255f",
+        "deck_config_id": "8f06c9e6-ce26-4e85-bfdc-9a807be69911",
+        "title": "Traffic rules",
+        "is_public": false
+      },
+      "status": 201,
+      "response": {
+        "id": "f4c6aaaf-c8d1-4384-8316-2ca7bdc24f69"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "POST",
+      "path": "/v1/card/",
+      "params": null,
+      "request": {
+        "deck_id": "f4c6aaaf-c8d1-4384-8316-2ca7bdc24f69",
+        "question": "What does a red traffic light mean?",
+        "answerOptions": [
+          {
+            "text": "Stop",
+            "isCorrect": true,
+            "rationale": "Red prohibits movement"
+          }
+        ],
+        "hint": "Think about safety",
+        "tags": [
+          "signals"
+        ]
+      },
+      "status": 201,
+      "response": {
+        "id": "b054f333-125e-49d2-a5a1-b4531f7e6f30"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/preview",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "items": [
+          {
+            "rating": 1,
+            "state": "learning",
+            "interval": 1,
+            "next_review_at": "2026-11-16T13:36:01.750013Z"
+          },
+          {
+            "rating": 2,
+            "state": "learning",
+            "interval": 1,
+            "next_review_at": "2026-11-16T13:36:01.750013Z"
+          },
+          {
+            "rating": 3,
+            "state": "learning",
+            "interval": 1,
+            "next_review_at": "2026-11-16T13:45:01.750013Z"
+          },
+          {
+            "rating": 4,
+            "state": "review",
+            "interval": 4,
+            "next_review_at": "2026-11-20T13:35:01.750013Z"
+          }
+        ]
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/progress",
+      "params": null,
+      "request": {},
+      "status": 404,
+      "response": {
+        "description": "Card progress not found"
+      },
+      "cookie_set": false,
+      "httponly": false
+    },
+    {
+      "type": "HTTP",
+      "method": "GET",
+      "path": "/v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/logs",
+      "params": null,
+      "request": {},
+      "status": 200,
+      "response": {
+        "logs": []
+      },
+      "cookie_set": false,
+      "httponly": false
+    }
+  ],
+  "checks": [
+    {
+      "expectation": "POST /v1/auth/signup: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"ec5425f6-0290-4259-9e73-f7c46f42255f\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/auth/login: HTTP 204",
+      "passed": true,
+      "actual": {
+        "status": 204,
+        "body": ""
+      }
+    },
+    {
+      "expectation": "POST /v1/deck-config/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"8f06c9e6-ce26-4e85-bfdc-9a807be69911\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/deck/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"f4c6aaaf-c8d1-4384-8316-2ca7bdc24f69\"}"
+      }
+    },
+    {
+      "expectation": "POST /v1/card/: HTTP 201",
+      "passed": true,
+      "actual": {
+        "status": 201,
+        "body": "{\"id\":\"b054f333-125e-49d2-a5a1-b4531f7e6f30\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/preview: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"items\":[{\"rating\":1,\"state\":\"learning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:36:01.750013Z\"},{\"rating\":2,\"state\":\"learning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:36:01.750013Z\"},{\"rating\":3,\"state\":\"learning\",\"interval\":1,\"next_review_at\":\"2026-11-16T13:45:01.750013Z\"},{\"rating\":4,\"state\":\"review\",\"interval\":4,\"next_review_at\":\"2026-11-20T13:35:01.750013Z\"}]}"
+      }
+    },
+    {
+      "expectation": "Preview includes all ratings",
+      "passed": true,
+      "actual": [
+        {
+          "rating": 1,
+          "state": "learning",
+          "interval": 1,
+          "next_review_at": "2026-11-16T13:36:01.750013Z"
+        },
+        {
+          "rating": 2,
+          "state": "learning",
+          "interval": 1,
+          "next_review_at": "2026-11-16T13:36:01.750013Z"
+        },
+        {
+          "rating": 3,
+          "state": "learning",
+          "interval": 1,
+          "next_review_at": "2026-11-16T13:45:01.750013Z"
+        },
+        {
+          "rating": 4,
+          "state": "review",
+          "interval": 4,
+          "next_review_at": "2026-11-20T13:35:01.750013Z"
+        }
+      ]
+    },
+    {
+      "expectation": "GET /v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/progress: HTTP 404",
+      "passed": true,
+      "actual": {
+        "status": 404,
+        "body": "{\"description\":\"Card progress not found\"}"
+      }
+    },
+    {
+      "expectation": "GET /v1/review/card/b054f333-125e-49d2-a5a1-b4531f7e6f30/logs: HTTP 200",
+      "passed": true,
+      "actual": {
+        "status": 200,
+        "body": "{\"logs\":[]}"
+      }
+    },
+    {
+      "expectation": "Preview does not write history",
+      "passed": true,
+      "actual": []
+    }
+  ]
+}
