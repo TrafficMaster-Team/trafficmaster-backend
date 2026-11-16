@@ -1,0 +1,49 @@
+{
+  "id": "stress-50",
+  "users": 50,
+  "locust_exit": 0,
+  "requests": 433,
+  "errors": 0,
+  "error_percent": 0.0,
+  "rps": 17.32,
+  "mean_ms": 1786.9004555265585,
+  "p50_ms": 1602.5910199998634,
+  "p95_ms": 3908.721200999935,
+  "p99_ms": 4380.691885000033,
+  "duration_s": 25,
+  "operations": {
+    "GET card": {
+      "requests": 73,
+      "p95_ms": 3769.273177000059
+    },
+    "GET history": {
+      "requests": 53,
+      "p95_ms": 3569.6455389997936
+    },
+    "GET queue": {
+      "requests": 131,
+      "p95_ms": 3851.3415929999155
+    },
+    "GET stats": {
+      "requests": 61,
+      "p95_ms": 3948.2962330000646
+    },
+    "POST login": {
+      "requests": 21,
+      "p95_ms": 4327.864376999969
+    },
+    "POST review": {
+      "requests": 94,
+      "p95_ms": 4105.138994000072
+    }
+  },
+  "slo_passed": false,
+  "resource_summary": {
+    "api_cpu_mean": 97.33043478260869,
+    "api_cpu_max": 101.4,
+    "generator_cpu_max": 16.6,
+    "db_connections_max": 20,
+    "db_active_max": 4,
+    "db_lock_waits_max": 0
+  }
+}

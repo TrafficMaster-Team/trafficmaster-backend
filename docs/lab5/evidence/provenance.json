@@ -1,0 +1,7 @@
+{
+  "loadtests/locustfile.py": "fd50a122f96b53658c698384328b1c65ffb0a7d3ed53d6d8c0909e10e4132cc9",
+  "loadtests/metrics.py": "f8056f9ca91e17ee051b796797c9e1d37035b2ca523a573b5423812f95e3f2e8",
+  "scripts/run_lab5.py": "4f2dbdb8978355e076c8b7acfd62593a2aee94a66914f875a648b1ffa3050592",
+  "pyproject.toml": "7c70a8678b3fe77dd5719a25c9ea14d029ece65c6e1599047d0840d2010c759b",
+  "docs/lab5/evidence/run.json": "1df24e7aac67cda68bda291adf0a946ed131a3f7bce96fa2634cb183a6097063"
+}

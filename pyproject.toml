@@ -39,6 +39,8 @@ dev = [
     "pytest-asyncio>=1.4.0",
     "testcontainers[postgres,redis]>=4.14.2",
     "pytest-playwright>=0.10.0",
+    "locust>=2.47.0",
+    "matplotlib>=3.11.2",
 ]
 docs = [
     "mkdocs-material>=9.7.7",
@@ -98,7 +100,7 @@ ignore_missing_imports = true
 
 [tool.ruff]
 src = ["src"]
-include = ["src/**.py", "tests/**.py"]
+include = ["src/**.py", "tests/**.py", "loadtests/**.py"]
 exclude = ["src/trafficmaster/setup/config/**.py"]
 target-version = "py312"
 line-length = 120
@@ -111,6 +113,8 @@ ignore = ["D", "CPY001", "A005", "TRY003", "COM812", "FBT001", "FBT003", "PLR091
 [tool.ruff.lint.per-file-ignores]
 "src/trafficmaster/infrastructure/persistence/migrations/**" = ["ERA001", "INP001", "E501", "PLC0415"]
 "tests/**" = ["S101", "PLR2004", "S106"]
+"loadtests/**" = ["PLR2004", "S106"]
+"scripts/run_lab5.py" = ["S101", "PLR2004", "T201", "S106"]
 
 [tool.ruff.format]
 docstring-code-format = true

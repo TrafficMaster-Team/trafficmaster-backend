@@ -1,0 +1,301 @@
+{
+  "started": "2026-11-16T19:44:52.144787+03:00",
+  "phases": [
+    {
+      "id": "baseline",
+      "users": 1,
+      "locust_exit": 0,
+      "requests": 43,
+      "errors": 0,
+      "error_percent": 0.0,
+      "rps": 0.9555555555555556,
+      "mean_ms": 82.63789176747429,
+      "p50_ms": 53.29603300015151,
+      "p95_ms": 96.26929699970788,
+      "p99_ms": 1257.2981759999493,
+      "duration_s": 45,
+      "operations": {
+        "GET card": {
+          "requests": 9,
+          "p95_ms": 36.39076699982979
+        },
+        "GET history": {
+          "requests": 4,
+          "p95_ms": 64.10136400018018
+        },
+        "GET queue": {
+          "requests": 14,
+          "p95_ms": 91.66477400003714
+        },
+        "GET stats": {
+          "requests": 9,
+          "p95_ms": 116.14727500000299
+        },
+        "POST login": {
+          "requests": 1,
+          "p95_ms": 1257.2981759999493
+        },
+        "POST review": {
+          "requests": 6,
+          "p95_ms": 64.43637699976534
+        }
+      },
+      "slo_passed": true,
+      "resource_summary": {
+        "api_cpu_mean": 6.1225000000000005,
+        "api_cpu_max": 98.9,
+        "generator_cpu_max": 2.7,
+        "db_connections_max": 4,
+        "db_active_max": 1,
+        "db_lock_waits_max": 0
+      }
+    },
+    {
+      "id": "target",
+      "users": 10,
+      "locust_exit": 0,
+      "requests": 218,
+      "errors": 0,
+      "error_percent": 0.0,
+      "rps": 7.266666666666667,
+      "mean_ms": 323.2045563532152,
+      "p50_ms": 61.22319299993251,
+      "p95_ms": 1501.1545739998837,
+      "p99_ms": 1902.3681799999395,
+      "duration_s": 30,
+      "operations": {
+        "GET card": {
+          "requests": 36,
+          "p95_ms": 655.0617570001123
+        },
+        "GET history": {
+          "requests": 24,
+          "p95_ms": 1846.3143640001363
+        },
+        "GET queue": {
+          "requests": 67,
+          "p95_ms": 1337.1932210002342
+        },
+        "GET stats": {
+          "requests": 36,
+          "p95_ms": 1744.074750999971
+        },
+        "POST login": {
+          "requests": 8,
+          "p95_ms": 1711.0306700001274
+        },
+        "POST review": {
+          "requests": 47,
+          "p95_ms": 1082.313890000023
+        }
+      },
+      "slo_passed": false,
+      "resource_summary": {
+        "api_cpu_mean": 45.411111111111104,
+        "api_cpu_max": 100.2,
+        "generator_cpu_max": 7.3,
+        "db_connections_max": 10,
+        "db_active_max": 1,
+        "db_lock_waits_max": 0
+      }
+    },
+    {
+      "id": "stress-25",
+      "users": 25,
+      "locust_exit": 0,
+      "requests": 340,
+      "errors": 0,
+      "error_percent": 0.0,
+      "rps": 13.6,
+      "mean_ms": 700.8675480029297,
+      "p50_ms": 439.49915799976225,
+      "p95_ms": 2262.9328140001235,
+      "p99_ms": 2882.8161240003283,
+      "duration_s": 25,
+      "operations": {
+        "GET card": {
+          "requests": 71,
+          "p95_ms": 2066.557272999944
+        },
+        "GET history": {
+          "requests": 30,
+          "p95_ms": 1286.5881830002763
+        },
+        "GET queue": {
+          "requests": 102,
+          "p95_ms": 2148.7240150004254
+        },
+        "GET stats": {
+          "requests": 58,
+          "p95_ms": 2178.723866999917
+        },
+        "POST login": {
+          "requests": 14,
+          "p95_ms": 2700.871693999943
+        },
+        "POST review": {
+          "requests": 65,
+          "p95_ms": 2525.397107999652
+        }
+      },
+      "slo_passed": false,
+      "resource_summary": {
+        "api_cpu_mean": 78.49565217391304,
+        "api_cpu_max": 101.3,
+        "generator_cpu_max": 9.3,
+        "db_connections_max": 20,
+        "db_active_max": 11,
+        "db_lock_waits_max": 0
+      }
+    },
+    {
+      "id": "stress-50",
+      "users": 50,
+      "locust_exit": 0,
+      "requests": 428,
+      "errors": 0,
+      "error_percent": 0.0,
+      "rps": 17.12,
+      "mean_ms": 1426.8806745514132,
+      "p50_ms": 1321.390624000287,
+      "p95_ms": 3074.2895349999344,
+      "p99_ms": 4206.375763000324,
+      "duration_s": 25,
+      "operations": {
+        "GET card": {
+          "requests": 71,
+          "p95_ms": 2435.8443180003633
+        },
+        "GET history": {
+          "requests": 38,
+          "p95_ms": 3804.3592109997917
+        },
+        "GET queue": {
+          "requests": 129,
+          "p95_ms": 3026.2487310001234
+        },
+        "GET stats": {
+          "requests": 72,
+          "p95_ms": 3013.4622509999645
+        },
+        "POST login": {
+          "requests": 14,
+          "p95_ms": 3793.2678649999616
+        },
+        "POST review": {
+          "requests": 104,
+          "p95_ms": 3496.8326420002995
+        }
+      },
+      "slo_passed": false,
+      "resource_summary": {
+        "api_cpu_mean": 93.68695652173913,
+        "api_cpu_max": 100.8,
+        "generator_cpu_max": 14.8,
+        "db_connections_max": 20,
+        "db_active_max": 10,
+        "db_lock_waits_max": 0
+      }
+    },
+    {
+      "id": "recovery",
+      "users": 10,
+      "locust_exit": 0,
+      "requests": 239,
+      "errors": 0,
+      "error_percent": 0.0,
+      "rps": 7.966666666666667,
+      "mean_ms": 231.24621873639776,
+      "p50_ms": 42.028255999866815,
+      "p95_ms": 928.3479810001154,
+      "p99_ms": 1334.6826659999351,
+      "duration_s": 30,
+      "operations": {
+        "GET card": {
+          "requests": 41,
+          "p95_ms": 760.1116169998932
+        },
+        "GET history": {
+          "requests": 19,
+          "p95_ms": 761.679476000154
+        },
+        "GET queue": {
+          "requests": 71,
+          "p95_ms": 926.9698680000147
+        },
+        "GET stats": {
+          "requests": 45,
+          "p95_ms": 957.7098140002818
+        },
+        "POST login": {
+          "requests": 10,
+          "p95_ms": 1295.3261939996992
+        },
+        "POST review": {
+          "requests": 53,
+          "p95_ms": 932.5780310000482
+        }
+      },
+      "slo_passed": true,
+      "resource_summary": {
+        "api_cpu_mean": 41.417857142857144,
+        "api_cpu_max": 99.4,
+        "generator_cpu_max": 6.5,
+        "db_connections_max": 10,
+        "db_active_max": 3,
+        "db_lock_waits_max": 0
+      }
+    }
+  ],
+  "data": {
+    "users": 200,
+    "cards_per_user": 20,
+    "initial_cards": 4000,
+    "preparation": "one seed, SQL clones, individual HTTP logins; excluded from load measurements"
+  },
+  "stress_stop": "bounded stop: >5% errors, p95>5s, or two consecutive SLO violations",
+  "recovery_probes": {
+    "elapsed_s": 2.1063266819996898,
+    "healthy": true,
+    "pid_unchanged": true,
+    "probes": [
+      {
+        "elapsed_s": 0.07106207599963454,
+        "pair_latency_ms": 17.604818000108935,
+        "live_status": 200,
+        "ready_status": 200
+      },
+      {
+        "elapsed_s": 1.0883806990000267,
+        "pair_latency_ms": 17.09733600000618,
+        "live_status": 200,
+        "ready_status": 200
+      },
+      {
+        "elapsed_s": 2.106229902999985,
+        "pair_latency_ms": 17.715085999952862,
+        "live_status": 200,
+        "ready_status": 200
+      }
+    ]
+  },
+  "finished": "2026-11-16T19:51:36.718870+03:00",
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "logical_cpus": 16,
+    "uvicorn_workers": 1,
+    "db_pool_size": 10,
+    "db_max_overflow": 10,
+    "request_timeout_s": 5,
+    "versions": {
+      "locust": "2.47.0",
+      "gevent": "26.9.0",
+      "psutil": "7.2.2",
+      "fastapi": "0.135.2",
+      "bcrypt": "5.0.0",
+      "sqlalchemy": "2.0.48",
+      "asyncpg": "0.31.0"
+    }
+  }
+}

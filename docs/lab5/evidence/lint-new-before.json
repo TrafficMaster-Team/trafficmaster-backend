@@ -1,0 +1,1158 @@
+[
+  {
+    "cell": null,
+    "code": "INP001",
+    "end_location": {
+      "column": 1,
+      "row": 1
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 1
+    },
+    "message": "File `scripts/run_lab5.py` is part of an implicit namespace package. Add an `__init__.py`.",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/implicit-namespace-package"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 14
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from datetime import datetime",
+          "end_location": {
+            "column": 35,
+            "row": 14
+          },
+          "location": {
+            "column": 1,
+            "row": 14
+          }
+        }
+      ],
+      "message": "Remove unused import: `datetime.UTC`"
+    },
+    "location": {
+      "column": 22,
+      "row": 14
+    },
+    "message": "`datetime.UTC` imported but unused",
+    "noqa_row": 14,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 15,
+      "row": 22
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 22
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 22,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "I001",
+    "end_location": {
+      "column": 74,
+      "row": 32
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import asyncpg\nimport httpx\nimport psutil\nfrom alembic import command\nfrom alembic.config import Config\nfrom loadtests.metrics import phase_metrics\nfrom testcontainers.postgres import PostgresContainer\nfrom testcontainers.redis import RedisContainer\n\nfrom tests.integration.conftest import _apply_env\nfrom tests.integration.lab3.test_acceptance import card_body, config_body\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 34
+          },
+          "location": {
+            "column": 1,
+            "row": 22
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 22
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "noqa_row": 22,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 13,
+      "row": 23
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 23
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 23,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 14,
+      "row": 24
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 24
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 24,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 28,
+      "row": 25
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 25
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 25,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 34,
+      "row": 26
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 26
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 26,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 54,
+      "row": 27
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 27
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 27,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 48,
+      "row": 28
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 28
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 28,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 44,
+      "row": 30
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 30
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 30,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 50,
+      "row": 31
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 31
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 31,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 74,
+      "row": 32
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 32
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 32,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "S608",
+    "end_location": {
+      "column": 95,
+      "row": 54
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 57,
+      "row": 54
+    },
+    "message": "Possible SQL injection vector through string-based query construction",
+    "noqa_row": 54,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-sql-expression"
+  },
+  {
+    "cell": null,
+    "code": "S608",
+    "end_location": {
+      "column": 75,
+      "row": 81
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 17,
+      "row": 81
+    },
+    "message": "Possible SQL injection vector through string-based query construction",
+    "noqa_row": 81,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-sql-expression"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 15,
+      "row": 108
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 108
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 108,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 43,
+      "row": 108
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 40,
+      "row": 108
+    },
+    "message": "Magic value used in comparison, consider replacing `201` with a constant variable",
+    "noqa_row": 108,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLC0415",
+    "end_location": {
+      "column": 30,
+      "row": 109
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 109
+    },
+    "message": "`import` should be at the top-level of a file",
+    "noqa_row": 109,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/import-outside-top-level"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 15,
+      "row": 112
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 112
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 112,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 117,
+      "row": 112
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 114,
+      "row": 112
+    },
+    "message": "Magic value used in comparison, consider replacing `204` with a constant variable",
+    "noqa_row": 112,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 15,
+      "row": 116
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 116
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 116,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 43,
+      "row": 116
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 40,
+      "row": 116
+    },
+    "message": "Magic value used in comparison, consider replacing `201` with a constant variable",
+    "noqa_row": 116,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 15,
+      "row": 121
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 121
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 121,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 43,
+      "row": 121
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 40,
+      "row": 121
+    },
+    "message": "Magic value used in comparison, consider replacing `201` with a constant variable",
+    "noqa_row": 121,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 19,
+      "row": 125
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 125
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 125,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 47,
+      "row": 125
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 44,
+      "row": 125
+    },
+    "message": "Magic value used in comparison, consider replacing `201` with a constant variable",
+    "noqa_row": 125,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "ANN202",
+    "end_location": {
+      "column": 15,
+      "row": 128
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 128
+    },
+    "message": "Missing return type annotation for private function `log_in`",
+    "noqa_row": 128,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/missing-return-type-private-function"
+  },
+  {
+    "cell": null,
+    "code": "ANN001",
+    "end_location": {
+      "column": 23,
+      "row": 128
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 16,
+      "row": 128
+    },
+    "message": "Missing type annotation for function argument `account`",
+    "noqa_row": 128,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/missing-type-function-argument"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 19,
+      "row": 131
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 131
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 131,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 47,
+      "row": 131
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 44,
+      "row": 131
+    },
+    "message": "Magic value used in comparison, consider replacing `204` with a constant variable",
+    "noqa_row": 131,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "T201",
+    "end_location": {
+      "column": 22,
+      "row": 139
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "pass",
+          "end_location": {
+            "column": 90,
+            "row": 139
+          },
+          "location": {
+            "column": 17,
+            "row": 139
+          }
+        }
+      ],
+      "message": "Remove `print`"
+    },
+    "location": {
+      "column": 17,
+      "row": 139
+    },
+    "message": "`print` found",
+    "noqa_row": 139,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/print"
+  },
+  {
+    "cell": null,
+    "code": "T201",
+    "end_location": {
+      "column": 10,
+      "row": 181
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 182
+          },
+          "location": {
+            "column": 1,
+            "row": 181
+          }
+        }
+      ],
+      "message": "Remove `print`"
+    },
+    "location": {
+      "column": 5,
+      "row": 181
+    },
+    "message": "`print` found",
+    "noqa_row": 181,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/print"
+  },
+  {
+    "cell": null,
+    "code": "S603",
+    "end_location": {
+      "column": 25,
+      "row": 184
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 184
+    },
+    "message": "`subprocess` call: check for execution of untrusted input",
+    "noqa_row": 184,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/subprocess-without-shell-equals-true"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 55,
+      "row": 199
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 53,
+      "row": 199
+    },
+    "message": "Magic value used in comparison, consider replacing `10` with a constant variable",
+    "noqa_row": 199,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "T201",
+    "end_location": {
+      "column": 22,
+      "row": 200
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 201
+          },
+          "location": {
+            "column": 1,
+            "row": 200
+          }
+        }
+      ],
+      "message": "Remove `print`"
+    },
+    "location": {
+      "column": 17,
+      "row": 200
+    },
+    "message": "`print` found",
+    "noqa_row": 200,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/print"
+  },
+  {
+    "cell": null,
+    "code": "EM101",
+    "end_location": {
+      "column": 68,
+      "row": 204
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "msg = \"Locust phase deadline exceeded\"\n                ",
+          "end_location": {
+            "column": 17,
+            "row": 204
+          },
+          "location": {
+            "column": 17,
+            "row": 204
+          }
+        },
+        {
+          "content": "msg",
+          "end_location": {
+            "column": 68,
+            "row": 204
+          },
+          "location": {
+            "column": 36,
+            "row": 204
+          }
+        }
+      ],
+      "message": "Assign to variable; remove string literal"
+    },
+    "location": {
+      "column": 36,
+      "row": 204
+    },
+    "message": "Exception must not use a string literal, assign to variable first",
+    "noqa_row": 204,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/raw-string-in-exception"
+  },
+  {
+    "cell": null,
+    "code": "EM102",
+    "end_location": {
+      "column": 83,
+      "row": 209
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "msg = f\"Locust did not start; see {directory / 'locust.log'}\"\n        ",
+          "end_location": {
+            "column": 9,
+            "row": 209
+          },
+          "location": {
+            "column": 9,
+            "row": 209
+          }
+        },
+        {
+          "content": "msg",
+          "end_location": {
+            "column": 83,
+            "row": 209
+          },
+          "location": {
+            "column": 28,
+            "row": 209
+          }
+        }
+      ],
+      "message": "Assign to variable; remove f-string literal"
+    },
+    "location": {
+      "column": 28,
+      "row": 209
+    },
+    "message": "Exception must not use an f-string literal, assign to variable first",
+    "noqa_row": 209,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/f-string-in-exception"
+  },
+  {
+    "cell": null,
+    "code": "T201",
+    "end_location": {
+      "column": 10,
+      "row": 221
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 225
+          },
+          "location": {
+            "column": 1,
+            "row": 221
+          }
+        }
+      ],
+      "message": "Remove `print`"
+    },
+    "location": {
+      "column": 5,
+      "row": 221
+    },
+    "message": "`print` found",
+    "noqa_row": 221,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/print"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 44,
+      "row": 233
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 42,
+      "row": 233
+    },
+    "message": "Magic value used in comparison, consider replacing `30` with a constant variable",
+    "noqa_row": 233,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 68,
+      "row": 239
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 65,
+      "row": 239
+    },
+    "message": "Magic value used in comparison, consider replacing `200` with a constant variable",
+    "noqa_row": 239,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 88,
+      "row": 239
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 84,
+      "row": 239
+    },
+    "message": "Magic value used in comparison, consider replacing `1000` with a constant variable",
+    "noqa_row": 239,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 32,
+      "row": 252
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 31,
+      "row": 252
+    },
+    "message": "Magic value used in comparison, consider replacing `3` with a constant variable",
+    "noqa_row": 252,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 36,
+      "row": 257
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 35,
+      "row": 257
+    },
+    "message": "Magic value used in comparison, consider replacing `3` with a constant variable",
+    "noqa_row": 257,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR0915",
+    "end_location": {
+      "column": 9,
+      "row": 263
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 263
+    },
+    "message": "Too many statements (53 > 50)",
+    "noqa_row": 263,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/too-many-statements"
+  },
+  {
+    "cell": null,
+    "code": "S106",
+    "end_location": {
+      "column": 96,
+      "row": 266
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 77,
+      "row": 266
+    },
+    "message": "Possible hardcoded password assigned to argument: \"password\"",
+    "noqa_row": 266,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-password-func-arg"
+  },
+  {
+    "cell": null,
+    "code": "S106",
+    "end_location": {
+      "column": 63,
+      "row": 267
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 46,
+      "row": 267
+    },
+    "message": "Possible hardcoded password assigned to argument: \"password\"",
+    "noqa_row": 267,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-password-func-arg"
+  },
+  {
+    "cell": null,
+    "code": "S603",
+    "end_location": {
+      "column": 29,
+      "row": 279
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 279
+    },
+    "message": "`subprocess` call: check for execution of untrusted input",
+    "noqa_row": 279,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/subprocess-without-shell-equals-true"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 80,
+      "row": 301
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 77,
+      "row": 301
+    },
+    "message": "Magic value used in comparison, consider replacing `200` with a constant variable",
+    "noqa_row": 301,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "S101",
+    "end_location": {
+      "column": 31,
+      "row": 305
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 25,
+      "row": 305
+    },
+    "message": "Use of `assert` detected",
+    "noqa_row": 305,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/assert"
+  },
+  {
+    "cell": null,
+    "code": "PT018",
+    "end_location": {
+      "column": 107,
+      "row": 305
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 25,
+      "row": 305
+    },
+    "message": "Assertion should be broken down into multiple parts",
+    "noqa_row": 305,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/pytest-composite-assertion"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 126,
+      "row": 315
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 121,
+      "row": 315
+    },
+    "message": "Line too long (125 > 120)",
+    "noqa_row": 315,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 52,
+      "row": 324
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 51,
+      "row": 324
+    },
+    "message": "Magic value used in comparison, consider replacing `5` with a constant variable",
+    "noqa_row": 324,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 80,
+      "row": 324
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 76,
+      "row": 324
+    },
+    "message": "Magic value used in comparison, consider replacing `5000` with a constant variable",
+    "noqa_row": 324,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "PLR2004",
+    "end_location": {
+      "column": 99,
+      "row": 324
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 98,
+      "row": 324
+    },
+    "message": "Magic value used in comparison, consider replacing `2` with a constant variable",
+    "noqa_row": 324,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/magic-value-comparison"
+  },
+  {
+    "cell": null,
+    "code": "T201",
+    "end_location": {
+      "column": 10,
+      "row": 351
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 352
+          },
+          "location": {
+            "column": 1,
+            "row": 351
+          }
+        }
+      ],
+      "message": "Remove `print`"
+    },
+    "location": {
+      "column": 5,
+      "row": 351
+    },
+    "message": "`print` found",
+    "noqa_row": 351,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/print"
+  }
+]

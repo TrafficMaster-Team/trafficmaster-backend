@@ -1,0 +1,72 @@
+{
+  "requirements": 38,
+  "covered": 38,
+  "coverage_percent": 100.0,
+  "srs_sha256": "833a181d8ed68bba6525e01d4cd030a023817ea5ac1442ca26fe06b6b13cb4eb",
+  "uncovered": [],
+  "test_inventory_size": 667,
+  "by_kind": {
+    "pytest": 533,
+    "Postman": 129,
+    "Locust": 5
+  },
+  "unlinked_tests": 165,
+  "unlinked_categories": {
+    "Infrastructure": 3,
+    "SRS gap": 77,
+    "Technical": 55,
+    "Technical configuration regression": 30
+  },
+  "formal_FR_coverage": "20/20 (42 documented cases)",
+  "defect_associations": {
+    "APP-01": [
+      "FR-01",
+      "UR-01"
+    ],
+    "APP-02": [
+      "FR-01",
+      "UR-01"
+    ],
+    "APP-03": [
+      "FR-11",
+      "FR-13",
+      "UR-05"
+    ],
+    "APP-04": [
+      "BR-03",
+      "UR-04",
+      "FR-10"
+    ],
+    "DOC-01": [
+      "NFR-06"
+    ],
+    "DOC-02": [
+      "NFR-06"
+    ],
+    "DOC-03": [
+      "FR-17",
+      "FR-19",
+      "NFR-06"
+    ],
+    "DOC-04": [
+      "NFR-04"
+    ],
+    "APP-05": [
+      "NFR-02"
+    ],
+    "APP-06": [
+      "FR-01",
+      "FR-07",
+      "FR-11",
+      "FR-15",
+      "NFR-02"
+    ],
+    "APP-07": [
+      "NFR-02",
+      "UR-03"
+    ],
+    "PERF-01": [
+      "NFR-07"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "artifact_integrity": "Passed",
+  "concurrency_windows": [
+    {
+      "phase": "baseline",
+      "users": 1,
+      "history_rows_checked": 297
+    },
+    {
+      "phase": "target",
+      "users": 10,
+      "history_rows_checked": 210
+    },
+    {
+      "phase": "stress-25",
+      "users": 25,
+      "history_rows_checked": 175
+    },
+    {
+      "phase": "stress-50",
+      "users": 50,
+      "history_rows_checked": 168
+    },
+    {
+      "phase": "recovery",
+      "users": 10,
+      "history_rows_checked": 210
+    }
+  ],
+  "target_slo_passed": false,
+  "recovery_slo_passed": true,
+  "requirements_covered": "38/38",
+  "unlinked_tests": 165
+}

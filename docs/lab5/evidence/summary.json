@@ -1,0 +1,68 @@
+{
+  "target_passed": false,
+  "recovery_passed": true,
+  "first_degraded_users": 10,
+  "last_non_degraded_users": 1,
+  "recovery_rps_ratio": 1.0963302752293578,
+  "recovery_seconds": 2.1063266819996898,
+  "max_users_tested": 50,
+  "total_measured_requests": 1268,
+  "errors": 0,
+  "per_phase": [
+    {
+      "id": "baseline",
+      "users": 1,
+      "requests": 43,
+      "rps": 0.9555555555555556,
+      "error_percent": 0.0,
+      "mean_ms": 82.63789176747429,
+      "p50_ms": 53.29603300015151,
+      "p95_ms": 96.26929699970788,
+      "p99_ms": 1257.2981759999493
+    },
+    {
+      "id": "target",
+      "users": 10,
+      "requests": 218,
+      "rps": 7.266666666666667,
+      "error_percent": 0.0,
+      "mean_ms": 323.2045563532152,
+      "p50_ms": 61.22319299993251,
+      "p95_ms": 1501.1545739998837,
+      "p99_ms": 1902.3681799999395
+    },
+    {
+      "id": "stress-25",
+      "users": 25,
+      "requests": 340,
+      "rps": 13.6,
+      "error_percent": 0.0,
+      "mean_ms": 700.8675480029297,
+      "p50_ms": 439.49915799976225,
+      "p95_ms": 2262.9328140001235,
+      "p99_ms": 2882.8161240003283
+    },
+    {
+      "id": "stress-50",
+      "users": 50,
+      "requests": 428,
+      "rps": 17.12,
+      "error_percent": 0.0,
+      "mean_ms": 1426.8806745514132,
+      "p50_ms": 1321.390624000287,
+      "p95_ms": 3074.2895349999344,
+      "p99_ms": 4206.375763000324
+    },
+    {
+      "id": "recovery",
+      "users": 10,
+      "requests": 239,
+      "rps": 7.966666666666667,
+      "error_percent": 0.0,
+      "mean_ms": 231.24621873639776,
+      "p50_ms": 42.028255999866815,
+      "p95_ms": 928.3479810001154,
+      "p99_ms": 1334.6826659999351
+    }
+  ]
+}

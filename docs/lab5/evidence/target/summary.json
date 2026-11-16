@@ -1,0 +1,49 @@
+{
+  "id": "target",
+  "users": 10,
+  "locust_exit": 0,
+  "requests": 218,
+  "errors": 0,
+  "error_percent": 0.0,
+  "rps": 7.266666666666667,
+  "mean_ms": 323.2045563532152,
+  "p50_ms": 61.22319299993251,
+  "p95_ms": 1501.1545739998837,
+  "p99_ms": 1902.3681799999395,
+  "duration_s": 30,
+  "operations": {
+    "GET card": {
+      "requests": 36,
+      "p95_ms": 655.0617570001123
+    },
+    "GET history": {
+      "requests": 24,
+      "p95_ms": 1846.3143640001363
+    },
+    "GET queue": {
+      "requests": 67,
+      "p95_ms": 1337.1932210002342
+    },
+    "GET stats": {
+      "requests": 36,
+      "p95_ms": 1744.074750999971
+    },
+    "POST login": {
+      "requests": 8,
+      "p95_ms": 1711.0306700001274
+    },
+    "POST review": {
+      "requests": 47,
+      "p95_ms": 1082.313890000023
+    }
+  },
+  "slo_passed": false,
+  "resource_summary": {
+    "api_cpu_mean": 45.411111111111104,
+    "api_cpu_max": 100.2,
+    "generator_cpu_max": 7.3,
+    "db_connections_max": 10,
+    "db_active_max": 1,
+    "db_lock_waits_max": 0
+  }
+}

@@ -56,6 +56,15 @@ nav:
       - Безопасность: lab4/security.md
       - Swagger UI и Playwright: lab4/swagger-ui.md
       - Итоговый протокол: lab4/results.md
+  - Лабораторная работа № 5:
+      - Обзор: lab5/README.md
+      - План нагрузки: lab5/test-plan.md
+      - Измерения и графики: lab5/results.md
+      - Статическая проверка: lab5/static-analysis.md
+      - Матрица трассируемости: lab5/traceability.md
+      - Несвязанные тесты: lab5/orphan-tests.md
+      - Отладка измерительного окна: lab5/evidence/preliminary/README.md
+
 plugins:
   - search
 

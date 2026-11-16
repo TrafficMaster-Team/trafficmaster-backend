@@ -1,0 +1,270 @@
+[
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 125,
+      "row": 32
+    },
+    "filename": "/home/denchik/trafficmaster/loadtests/locustfile.py",
+    "fix": null,
+    "location": {
+      "column": 121,
+      "row": 32
+    },
+    "message": "Line too long (124 > 120)",
+    "noqa_row": 32,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "I001",
+    "end_location": {
+      "column": 74,
+      "row": 29
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import asyncio\nimport concurrent.futures\nimport importlib.metadata\nimport json\nimport os\nimport platform\nimport socket\nimport subprocess\nimport sys\nimport tempfile\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom uuid import UUID, uuid4\nfrom zoneinfo import ZoneInfo\n\nimport asyncpg\nimport httpx\nimport psutil\nfrom alembic import command\nfrom alembic.config import Config\nfrom loadtests.metrics import phase_metrics\nfrom testcontainers.postgres import PostgresContainer\nfrom testcontainers.redis import RedisContainer\n\nfrom tests.integration.conftest import _apply_env\nfrom tests.integration.lab3.test_acceptance import card_body, config_body\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 31
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 3
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "noqa_row": 3,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "S608",
+    "end_location": {
+      "column": 95,
+      "row": 52
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 57,
+      "row": 52
+    },
+    "message": "Possible SQL injection vector through string-based query construction",
+    "noqa_row": 52,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-sql-expression"
+  },
+  {
+    "cell": null,
+    "code": "S608",
+    "end_location": {
+      "column": 75,
+      "row": 79
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 17,
+      "row": 79
+    },
+    "message": "Possible SQL injection vector through string-based query construction",
+    "noqa_row": 79,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/hardcoded-sql-expression"
+  },
+  {
+    "cell": null,
+    "code": "S603",
+    "end_location": {
+      "column": 25,
+      "row": 181
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 181
+    },
+    "message": "`subprocess` call: check for execution of untrusted input",
+    "noqa_row": 181,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/subprocess-without-shell-equals-true"
+  },
+  {
+    "cell": null,
+    "code": "EM101",
+    "end_location": {
+      "column": 68,
+      "row": 201
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "msg = \"Locust phase deadline exceeded\"\n                ",
+          "end_location": {
+            "column": 17,
+            "row": 201
+          },
+          "location": {
+            "column": 17,
+            "row": 201
+          }
+        },
+        {
+          "content": "msg",
+          "end_location": {
+            "column": 68,
+            "row": 201
+          },
+          "location": {
+            "column": 36,
+            "row": 201
+          }
+        }
+      ],
+      "message": "Assign to variable; remove string literal"
+    },
+    "location": {
+      "column": 36,
+      "row": 201
+    },
+    "message": "Exception must not use a string literal, assign to variable first",
+    "noqa_row": 201,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/raw-string-in-exception"
+  },
+  {
+    "cell": null,
+    "code": "EM102",
+    "end_location": {
+      "column": 83,
+      "row": 206
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "msg = f\"Locust did not start; see {directory / 'locust.log'}\"\n        ",
+          "end_location": {
+            "column": 9,
+            "row": 206
+          },
+          "location": {
+            "column": 9,
+            "row": 206
+          }
+        },
+        {
+          "content": "msg",
+          "end_location": {
+            "column": 83,
+            "row": 206
+          },
+          "location": {
+            "column": 28,
+            "row": 206
+          }
+        }
+      ],
+      "message": "Assign to variable; remove f-string literal"
+    },
+    "location": {
+      "column": 28,
+      "row": 206
+    },
+    "message": "Exception must not use an f-string literal, assign to variable first",
+    "noqa_row": 206,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/f-string-in-exception"
+  },
+  {
+    "cell": null,
+    "code": "PLR0915",
+    "end_location": {
+      "column": 9,
+      "row": 260
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 260
+    },
+    "message": "Too many statements (53 > 50)",
+    "noqa_row": 260,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/too-many-statements"
+  },
+  {
+    "cell": null,
+    "code": "S603",
+    "end_location": {
+      "column": 29,
+      "row": 276
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 276
+    },
+    "message": "`subprocess` call: check for execution of untrusted input",
+    "noqa_row": 276,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/subprocess-without-shell-equals-true"
+  },
+  {
+    "cell": null,
+    "code": "PT018",
+    "end_location": {
+      "column": 107,
+      "row": 302
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 25,
+      "row": 302
+    },
+    "message": "Assertion should be broken down into multiple parts",
+    "noqa_row": 302,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/pytest-composite-assertion"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 126,
+      "row": 312
+    },
+    "filename": "/home/denchik/trafficmaster/scripts/run_lab5.py",
+    "fix": null,
+    "location": {
+      "column": 121,
+      "row": 312
+    },
+    "message": "Line too long (125 > 120)",
+    "noqa_row": 312,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  }
+]

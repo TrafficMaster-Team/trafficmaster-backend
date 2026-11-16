@@ -1,0 +1,482 @@
+[
+  {
+    "elapsed_s": 1.1843000038425089e-05,
+    "api_cpu_percent": 0.0,
+    "api_rss_mb": 106.93359375,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 1.0744112919999225,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 106.93359375,
+    "generator_cpu_percent": 98.6,
+    "connections": 4,
+    "active": 1,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 2.174460093000107,
+    "api_cpu_percent": 8.2,
+    "api_rss_mb": 107.140625,
+    "generator_cpu_percent": 1.8,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 3.2455193690000215,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.1640625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 1
+  },
+  {
+    "elapsed_s": 4.325359745000014,
+    "api_cpu_percent": 3.7,
+    "api_rss_mb": 107.328125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 5.398216988000058,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.3359375,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 6.475680373999921,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.37109375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 7.553861754000081,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.390625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 8.629081772000063,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.48828125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 9.695863183000029,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.48828125,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 10.76510990099996,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.48828125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 1
+  },
+  {
+    "elapsed_s": 11.839461532000087,
+    "api_cpu_percent": 5.6,
+    "api_rss_mb": 107.578125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 12.92074162400013,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.58203125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 13.995079709000038,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 15.061227515999917,
+    "api_cpu_percent": 4.7,
+    "api_rss_mb": 107.63671875,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 16.133100943000045,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.640625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 17.22059037400004,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.640625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 18.293726173000096,
+    "api_cpu_percent": 40.1,
+    "api_rss_mb": 107.640625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 1
+  },
+  {
+    "elapsed_s": 19.36019740100005,
+    "api_cpu_percent": 29.1,
+    "api_rss_mb": 107.640625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 20.428020886000013,
+    "api_cpu_percent": 3.7,
+    "api_rss_mb": 107.67578125,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 1
+  },
+  {
+    "elapsed_s": 21.525624416000028,
+    "api_cpu_percent": 5.5,
+    "api_rss_mb": 107.69140625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 22.602339678000135,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.69140625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 23.67234597400011,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.69140625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 24.744983306999984,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.69140625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 1
+  },
+  {
+    "elapsed_s": 25.823642246999952,
+    "api_cpu_percent": 3.7,
+    "api_rss_mb": 107.69140625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 26.91000050899993,
+    "api_cpu_percent": 1.8,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 27.99655153499998,
+    "api_cpu_percent": 1.8,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 29.081110481999985,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 30.17714570599992,
+    "api_cpu_percent": 1.8,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 31.256911962999993,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 32.340754251000135,
+    "api_cpu_percent": 1.8,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 33.40773696800011,
+    "api_cpu_percent": 4.7,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 34.477879046,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 35.54622727900005,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.73828125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 36.61753026800011,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.734375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 37.69205143599993,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.75390625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 38.766448486999934,
+    "api_cpu_percent": 0.9,
+    "api_rss_mb": 107.75390625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 39.83945437700004,
+    "api_cpu_percent": 0.0,
+    "api_rss_mb": 107.75390625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 40.91344069399997,
+    "api_cpu_percent": 3.7,
+    "api_rss_mb": 107.75390625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 41.98693960100013,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.75390625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 43.064991084999974,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.7890625,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 44.14185868599998,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.80859375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 45.21539252100001,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.80859375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 46.29078642500008,
+    "api_cpu_percent": 1.9,
+    "api_rss_mb": 107.80859375,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 47.36592415399991,
+    "api_cpu_percent": 4.7,
+    "api_rss_mb": 107.81640625,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 48.4499191540001,
+    "api_cpu_percent": 1.8,
+    "api_rss_mb": 107.8203125,
+    "generator_cpu_percent": 0.0,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 49.51779540300004,
+    "api_cpu_percent": 2.8,
+    "api_rss_mb": 107.8203125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  },
+  {
+    "elapsed_s": 50.589483913000095,
+    "api_cpu_percent": 0.0,
+    "api_rss_mb": 107.8203125,
+    "generator_cpu_percent": 0.9,
+    "connections": 4,
+    "active": 0,
+    "lock_waits": 0,
+    "idle_transactions": 0
+  }
+]

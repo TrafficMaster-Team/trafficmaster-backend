@@ -153,3 +153,11 @@ docker run --rm --env-file /secure/path/trafficmaster.env trafficmaster alembic 
 - [Базовая безопасность и найденные дефекты](docs/lab4/security.md).
 - [Playwright через Swagger UI](docs/lab4/swagger-ui.md).
 - [Результаты и доказательства](docs/lab4/results.md).
+
+## Лабораторная работа № 5
+
+- [План нагрузки](docs/lab5/test-plan.md): профиль API, базовый/целевой/стрессовый прогоны и восстановление.
+- [Результаты Locust и графики](docs/lab5/results.md).
+- [Статическая проверка и исправления](docs/lab5/static-analysis.md).
+- [Матрица трассируемости всех требований](docs/lab5/traceability.md).
+- [Тесты без точной связи с SRS](docs/lab5/orphan-tests.md).

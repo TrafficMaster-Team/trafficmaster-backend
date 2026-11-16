@@ -1,0 +1,7 @@
+{
+  "started_epoch": 1794847692.7995439,
+  "warmup_s": 5.0,
+  "measured_s": 45.0,
+  "shutdown_tail_s": 2,
+  "criterion": "request started after warmup and completed before window end"
+}
