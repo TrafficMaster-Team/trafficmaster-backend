@@ -59,12 +59,12 @@ branch = true
 source = ["src/trafficmaster"]
 omit = [
     "src/trafficmaster/setup/config/*",
-    "tests/unit/domain/factories/*",
-    "tests/unit/factories/*",
+    "src/trafficmaster/infrastructure/persistence/migrations/*",
 ]
 
 [tool.coverage.report]
 show_missing = true
+fail_under = 70
 
 
 [tool.mypy]

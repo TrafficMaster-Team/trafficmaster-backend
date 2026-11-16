@@ -44,6 +44,7 @@ nav:
       - Верификация: verification.md
       - Жизненный цикл: card-progress-lifecycle.md
       - Первоначальный аудит: lab1-audit.md
+  - Лабораторная работа № 2: lab2-verification.md
 plugins:
   - search
 
